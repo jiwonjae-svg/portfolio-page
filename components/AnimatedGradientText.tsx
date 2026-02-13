@@ -1,45 +1,71 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-// Generate a random HSL color string
-function randomHSL(): string {
-  const h = Math.floor(Math.random() * 360);
-  const s = 60 + Math.floor(Math.random() * 30); // 60-90% saturation
-  const l = 55 + Math.floor(Math.random() * 20); // 55-75% lightness
-  return `hsl(${h}, ${s}%, ${l}%)`;
+// Parse HSL string to numeric components
+interface HSL {
+  h: number;
+  s: number;
+  l: number;
 }
 
-// Generate a random angle for gradient direction
-function randomAngle(): number {
-  return Math.floor(Math.random() * 360);
+function randomHSL(): HSL {
+  return {
+    h: Math.random() * 360,
+    s: 60 + Math.random() * 30,  // 60-90% saturation
+    l: 55 + Math.random() * 20,  // 55-75% lightness
+  };
 }
 
-// Generate random gradient stop positions
-function randomStops(): [number, number] {
-  const a = Math.floor(Math.random() * 30);
-  const b = 70 + Math.floor(Math.random() * 30);
-  return [a, b];
+function hslToString(c: HSL): string {
+  return `hsl(${c.h.toFixed(1)}, ${c.s.toFixed(1)}%, ${c.l.toFixed(1)}%)`;
 }
 
-interface GradientState {
-  color1: string;
-  color2: string;
-  color3: string;
+// Interpolate hue via shortest arc
+function lerpHue(a: number, b: number, t: number): number {
+  let diff = b - a;
+  if (diff > 180) diff -= 360;
+  if (diff < -180) diff += 360;
+  let result = a + diff * t;
+  if (result < 0) result += 360;
+  if (result >= 360) result -= 360;
+  return result;
+}
+
+function lerpHSL(a: HSL, b: HSL, t: number): HSL {
+  return {
+    h: lerpHue(a.h, b.h, t),
+    s: a.s + (b.s - a.s) * t,
+    l: a.l + (b.l - a.l) * t,
+  };
+}
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+// Smoothstep easing
+function smoothstep(t: number): number {
+  return t * t * (3 - 2 * t);
+}
+
+interface GradientTarget {
+  color1: HSL;
+  color2: HSL;
+  color3: HSL;
   angle: number;
   stop1: number;
   stop2: number;
 }
 
-function newGradientState(): GradientState {
-  const [stop1, stop2] = randomStops();
+function randomTarget(): GradientTarget {
   return {
     color1: randomHSL(),
     color2: randomHSL(),
     color3: randomHSL(),
-    angle: randomAngle(),
-    stop1,
-    stop2,
+    angle: Math.random() * 360,
+    stop1: Math.random() * 30,
+    stop2: 70 + Math.random() * 30,
   };
 }
 
@@ -49,55 +75,58 @@ interface AnimatedGradientTextProps {
 }
 
 export default function AnimatedGradientText({ children, className = '' }: AnimatedGradientTextProps) {
-  const [currentState, setCurrentState] = useState<GradientState>(newGradientState);
-  const [nextState, setNextState] = useState<GradientState>(newGradientState);
-  const [progress, setProgress] = useState(0);
-  const animFrameRef = useRef<number>(0);
-  const lastTimeRef = useRef<number>(0);
-
-  // Transition duration in ms
-  const transitionDuration = 4000;
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    lastTimeRef.current = performance.now();
+    const el = spanRef.current;
+    if (!el) return;
 
-    const animate = (time: number) => {
-      const elapsed = time - lastTimeRef.current;
-      const newProgress = Math.min(elapsed / transitionDuration, 1);
-      setProgress(newProgress);
+    // Mutable state tracked outside React to avoid re-renders
+    let current = randomTarget();
+    let next = randomTarget();
+    let startTime = performance.now();
+    const cycleDuration = 5000; // ms per transition
+    let animId = 0;
 
-      if (newProgress >= 1) {
-        // Transition complete, start new one
-        setCurrentState(nextState);
-        setNextState(newGradientState());
-        setProgress(0);
-        lastTimeRef.current = time;
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const rawT = Math.min(elapsed / cycleDuration, 1);
+      const t = smoothstep(rawT);
+
+      // Interpolate all properties
+      const c1 = lerpHSL(current.color1, next.color1, t);
+      const c2 = lerpHSL(current.color2, next.color2, t);
+      const c3 = lerpHSL(current.color3, next.color3, t);
+
+      // Interpolate angle via shortest arc (same as hue)
+      const angle = lerpHue(current.angle, next.angle, t);
+      const s1 = lerp(current.stop1, next.stop1, t);
+      const s2 = lerp(current.stop2, next.stop2, t);
+      const sMid = (s1 + s2) / 2;
+
+      el.style.backgroundImage =
+        `linear-gradient(${angle.toFixed(1)}deg, ${hslToString(c1)} ${s1.toFixed(1)}%, ${hslToString(c2)} ${sMid.toFixed(1)}%, ${hslToString(c3)} ${s2.toFixed(1)}%)`;
+
+      if (rawT >= 1) {
+        // Seamlessly chain: old target becomes current, pick a fresh next
+        current = { ...next };
+        next = randomTarget();
+        startTime = now;
       }
 
-      animFrameRef.current = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(tick);
     };
 
-    animFrameRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animFrameRef.current);
-  }, [nextState]);
-
-  // Interpolate between current and next gradient states
-  const interpolate = (a: number, b: number, t: number) => a + (b - a) * t;
-  const eased = progress * progress * (3 - 2 * progress); // smoothstep
-
-  const angle = interpolate(currentState.angle, nextState.angle, eased);
-  const stop1 = interpolate(currentState.stop1, nextState.stop1, eased);
-  const stop2 = interpolate(currentState.stop2, nextState.stop2, eased);
-
-  // For color interpolation, use CSS transition on the background
-  const gradient = `linear-gradient(${angle}deg, ${currentState.color1} ${stop1}%, ${currentState.color2} ${(stop1 + stop2) / 2}%, ${nextState.color3} ${stop2}%)`;
+    animId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   return (
     <span
+      ref={spanRef}
       className={`bg-clip-text text-transparent ${className}`}
       style={{
-        backgroundImage: gradient,
-        transition: 'background-image 0.3s ease',
+        backgroundImage: 'linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4)',
       }}
     >
       {children}

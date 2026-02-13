@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, ExternalLink } from 'lucide-react';
+import { X, Github, Download, Globe } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useEffect } from 'react';
 
@@ -137,17 +137,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     <span className="font-medium">GitHub</span>
                   </a>
                 )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl transition-all hover:scale-105 group"
-                  >
-                    <ExternalLink className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="font-medium">Live Demo</span>
-                  </a>
-                )}
+                {project.liveUrl && (() => {
+                  const isRelease = project.liveUrl.includes('/releases');
+                  const Icon = isRelease ? Download : Globe;
+                  const label = isRelease ? 'Download' : 'Live Demo';
+                  return (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl transition-all hover:scale-105 group"
+                    >
+                      <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      <span className="font-medium">{label}</span>
+                    </a>
+                  );
+                })()}
               </motion.div>
             </div>
           </motion.div>

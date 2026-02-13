@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Download, Globe } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useState, MouseEvent } from 'react';
 
@@ -131,18 +131,23 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
               <span className="text-sm font-medium">GitHub</span>
             </a>
           )}
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-lg transition-colors group/link"
-            >
-              <ExternalLink className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-              <span className="text-sm font-medium">Live Demo</span>
-            </a>
-          )}
+          {project.liveUrl && (() => {
+            const isRelease = project.liveUrl.includes('/releases');
+            const Icon = isRelease ? Download : Globe;
+            const label = isRelease ? 'Download' : 'Live Demo';
+            return (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-lg transition-colors group/link"
+              >
+                <Icon className="w-4 h-4 group-hover/link:scale-110 transition-transform" />
+                <span className="text-sm font-medium">{label}</span>
+              </a>
+            );
+          })()}
         </div>
       </div>
 

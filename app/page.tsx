@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package } from 'lucide-react';
+import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package, Download, Globe } from 'lucide-react';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import ParticleBackground from '@/components/ParticleBackground';
@@ -174,8 +174,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-zinc-400 mb-12 leading-relaxed"
           >
-            From AI-powered creative tools to immersive 3D worlds — <br className="hidden md:block" />
-            building software that pushes the boundaries of what&apos;s possible.
+            Where algorithms meet artistry — merging AI, 3D graphics,<br className="hidden md:block" />
+            and systems engineering into tools that feel alive.
           </motion.p>
 
           <motion.div
@@ -214,7 +214,7 @@ export default function Home() {
               <Github className="w-6 h-6" />
             </a>
             <a
-              href="mailto:jiwonjae.dev@gmail.com"
+              href="mailto:onehouse0460@outlook.com"
               className="text-zinc-400 hover:text-primary transition-colors"
             >
               <Mail className="w-6 h-6" />
@@ -253,7 +253,7 @@ export default function Home() {
               Projects
             </h2>
             <p className="text-zinc-400 text-lg">
-              A curated selection of things I&apos;ve built
+              Each project solves a real problem — from creative AI to system-level security
             </p>
           </motion.div>
 
@@ -279,7 +279,7 @@ export default function Home() {
               🛠️ Integrated Tech Stack
             </h2>
             <p className="text-zinc-400 text-lg">
-              The tools and technologies powering my projects
+              A full-spectrum toolkit — from GPU shaders to encrypted storage
             </p>
           </motion.div>
 
@@ -361,12 +361,12 @@ export default function Home() {
               Let&apos;s Work Together
             </h2>
             <p className="text-zinc-400 text-lg mb-12">
-              Have a project idea or collaboration opportunity? I&apos;d love to hear from you.
+              Got an interesting challenge or want to build something together? Let&apos;s talk.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
               <a
-                href="mailto:jiwonjae.dev@gmail.com"
+                href="mailto:onehouse0460@outlook.com"
                 className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/80 hover:to-secondary/80 text-white rounded-full font-medium transition-all hover:scale-105"
               >
                 <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -385,7 +385,7 @@ export default function Home() {
 
             <div className="pt-12 border-t border-zinc-800">
               <p className="text-zinc-500">
-                © 2026 Jiwon Jae. Built with Next.js & Framer Motion.
+                © 2026 jiwonjae-svg. Built with Next.js & Framer Motion.
               </p>
             </div>
           </motion.div>
