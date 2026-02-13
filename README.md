@@ -208,7 +208,7 @@ Built with these amazing open-source projects:
 
 **Portfolio Page** — Code Meets Creativity 🎨
 
-Made with ❤️ by Jiwon Jae
+Made with ❤️ by jiwonjae-svg
 
 [⬆ Back to Top](#-portfolio-page)
 
