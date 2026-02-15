@@ -39,14 +39,27 @@ Designed to be:
 
 ### 📂 Project Showcase
 - **Card Grid Layout**: Responsive grid displaying 6 featured projects
+- **Category-Colored Tech Tags**: Tech stack items color-coded by category (language, framework, library, tool, API, infrastructure)
+- **Metrics Preview**: Key project metrics displayed on each card
+- **Deep-Dive Modal**: 3-tab system (Overview / Technical Challenge / System Architecture) with full project details
 - **Truncated Summaries**: Ellipsis-truncated descriptions for clean card presentation
-- **Detail Modal**: Click-to-expand modal with full project description, tech stack, and links
-- **Per-Project Color Accents**: Unique color themes for each project card
 
 ### 🛠️ Integrated Tech Stack Display
-- **Categorized Layout**: Technologies organized into 5 logical categories
+- **5 Categories**: Languages & Core, Frontend & UI, 3D Graphics & AI, Security & System, Infrastructure & DevOps
+- **Detailed Descriptions**: Each technology includes real-world usage context
 - **Interactive Items**: Hover-to-slide animations with color transitions
 - **Category Icons**: Visual identifiers with spring-animated emoji headers
+
+### 📊 Proof of Performance
+- **Quantitative Metrics**: Completed projects, total lines of code, shipped apps, live services
+- **Security Verification Checklist**: AES-128 encryption, XSS/CSRF prevention, Firestore rules, etc.
+- **Performance Optimization Checklist**: GPU shaders, algorithm complexity reduction, adaptive polling, etc.
+- **Unit Test CTA**: Upcoming test coverage integration notice
+
+### 📝 Experience & Retrospective
+- **Timeline Layout**: Chronological retrospectives with color-coded borders
+- **Lessons Learned**: Security architecture redesign, CPU vs GPU parallel processing
+- **Future Direction**: Testing & CI/CD, WebGPU, Rust/WASM goals
 
 ### 📬 Contact Section
 - **Direct Links**: Email and GitHub integration
@@ -124,11 +137,11 @@ Portfolio-Page/
 ├── 📁 components/                       # Reusable UI Components
 │   ├── AnimatedGradientText.tsx         # Real-time animated gradient text
 │   ├── ParticleBackground.tsx           # Canvas-based particle system
-│   ├── ProjectCard.tsx                  # 3D tilt project card
-│   └── ProjectModal.tsx                 # Project detail modal overlay
+│   ├── ProjectCard.tsx                  # 3D tilt project card with category tags
+│   └── ProjectModal.tsx                 # 3-tab deep-dive modal (Overview/Challenge/Architecture)
 │
 └── 📁 data/                             # Static Data
-    └── projects.ts                      # Project definitions and metadata
+    └── projects.ts                      # Project definitions with TechDetail[], challenges, metrics
 ```
 
 ### Component Architecture
@@ -137,12 +150,15 @@ Portfolio-Page/
 ┌─────────────────────────────────────────────┐
 │              App Layout (SSR)               │  ← Metadata, fonts, global styles
 ├─────────────────────────────────────────────┤
-│         Page Component (Client)             │  ← State management, sections
+│         Page Component (Client)             │  ← State, 6 sections
+│  Hero │ Projects │ Tech Stack │ Performance │
+│       │          │ Experience │ Contact     │
 ├──────────┬──────────┬───────────┬───────────┤
 │ Particle │ Gradient │ Project   │ Project   │
 │ BG       │ Text     │ Card      │ Modal     │  ← Interactive components
+│          │          │ (3D tilt) │ (3-tab)   │
 ├──────────┴──────────┴───────────┴───────────┤
-│            Project Data Layer               │  ← Static project definitions
+│      Project Data Layer (TechDetail[])      │  ← Typed project definitions
 └─────────────────────────────────────────────┘
 ```
 

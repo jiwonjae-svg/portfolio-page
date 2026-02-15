@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package, Download, Globe } from 'lucide-react';
+import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package, Download, Globe, CheckCircle2, TrendingUp, AlertTriangle, BookOpen, Target, ChevronRight } from 'lucide-react';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import ParticleBackground from '@/components/ParticleBackground';
@@ -16,74 +16,86 @@ const techCategories = [
     title: 'Languages & Core',
     items: [
       {
-        name: 'Python (3.12+)',
-        desc: 'Complex system logic architecture design and data processing.',
+        name: 'Python 3.10~3.12',
+        desc: 'Used for complex system logic, encryption pipelines, AI API integration, and data processing automation. Proficient in low-level libraries including colorsys, cryptography, and psutil.',
       },
       {
-        name: 'TypeScript (5+) & JavaScript (ES6+)',
-        desc: 'Large-scale web application development with type safety.',
+        name: 'TypeScript 5 & JavaScript (ES6+)',
+        desc: 'Ensuring type safety for large-scale web apps. Preventing runtime errors at compile time with generics, union types, and interface design. Experience modeling complex types for Zustand stores, shader uniforms, and more.',
+      },
+      {
+        name: 'GLSL (Vertex/Fragment Shader)',
+        desc: 'Writing custom shaders that execute directly on the GPU. Achieved 60fps by parallel-processing particle position transforms, color interpolation, and effect computations without CPU involvement.',
       },
     ],
   },
   {
     icon: '💻',
-    title: 'Frontend & Interface',
+    title: 'Frontend & UI Framework',
     items: [
       {
-        name: 'Next.js (14, App Router) & React (18)',
-        desc: 'High-performance web services with SSR/ISR.',
+        name: 'Next.js 14 (App Router) & React 18',
+        desc: 'Building high-performance web services with SSR/ISR. Bundle optimization via Dynamic Import, minimized initial loading by separating Server/Client Components. Applied in ParticleVerse, portfolio, and more.',
       },
       {
         name: 'PyQt6 & CustomTkinter',
-        desc: 'Modern desktop GUI programs and event-driven system design.',
+        desc: 'Python-based desktop GUI frameworks. Experience with signal-slot event architecture, QResource system, and dark-mode theme customization. Built 3 shipped desktop applications.',
       },
       {
         name: 'Tailwind CSS & Framer Motion',
-        desc: 'Declarative animations and responsive UI/UX.',
+        desc: 'Rapidly building responsive UIs with utility-first CSS, and implementing interactive UX such as scroll triggers, spring physics, and page transitions with declarative animation APIs.',
       },
       {
-        name: 'Zustand',
-        desc: 'Lightweight, intuitive global state management and data synchronization.',
+        name: 'Zustand (State Management)',
+        desc: 'Lightweight global state management library. 90% less boilerplate than Redux. Local storage sync with persist middleware, preventing unnecessary re-renders with selector patterns.',
       },
     ],
   },
   {
     icon: '🎨',
-    title: '3D Graphics & AI Interactive',
+    title: '3D Graphics & AI',
     items: [
       {
         name: 'Three.js & React Three Fiber (R3F)',
-        desc: 'Advanced WebGL-based 3D rendering and GLSL shader computation.',
+        desc: 'Designing WebGL-based 3D rendering pipelines. Custom rendering with BufferGeometry and ShaderMaterial. Raycaster-based 3D object interaction and OrbitControls camera control.',
+      },
+      {
+        name: '@react-three/postprocessing',
+        desc: 'Cinematic visual effects with Bloom, Vignette, and other post-processing. Auto-adjusting effect intensity on mobile to balance performance and quality.',
       },
       {
         name: 'MediaPipe Hands',
-        desc: 'Real-time hand tracking and AI gesture recognition interface.',
+        desc: 'Touchless interaction by extracting 21 real-time hand landmarks → Zustand → GLSL uniform delivery. Adaptive camera resolution scaling to minimize mobile latency.',
       },
       {
-        name: 'Google Gemini API Integration',
-        desc: 'Semantic data mapping and AI-powered feature automation via LLM.',
+        name: 'Google Gemini API',
+        desc: 'Natural language → visual data conversion. Stable AI integration with multi-stage regex parsing pipelines and fallback logic for free-form responses.',
       },
       {
-        name: 'Image Processing (OpenCV, Pillow)',
-        desc: 'Image analysis and SVG vector conversion through pixel-based algorithms.',
+        name: 'Canvas API & Image Processing (Pillow)',
+        desc: 'Pixel-level image analysis: getImageData, 2-Pass Grid Sampling, Luminance filtering, K-Means clustering. Image processing experience on both browser and desktop.',
       },
     ],
   },
   {
     icon: '🔒',
-    title: 'Security & System Logic',
+    title: 'Security & System',
     items: [
       {
-        name: 'Data Security (AES-128 Fernet)',
-        desc: 'Robust local data encryption and security protocol design based on device-specific keys.',
+        name: 'Fernet (AES-128) Encryption',
+        desc: 'Symmetric encryption design for local data protection. Device-specific unique key generation, external key file separation, and data re-encryption pipeline on key changes. Applied across 3 projects.',
       },
       {
-        name: 'OS Integration (Win32 API)',
-        desc: 'OS-level control: clipboard hooking, system tray, multi-instance prevention.',
+        name: 'Win32 API (clipboard, gui, process)',
+        desc: 'OS-level system control: clipboard hooking (OpenClipboard/CloseClipboard), system tray residence, process monitoring (psutil), multi-instance prevention (Named Mutex).',
       },
       {
-        name: 'Firebase (Auth, Firestore)',
-        desc: 'Serverless user authentication and real-time database integration.',
+        name: 'Web Security (XSS/CSRF/Clickjacking Prevention)',
+        desc: 'File upload validation, input sanitization, and Content Security Policy enforcement. Designed reusable security utility modules applied across multiple projects.',
+      },
+      {
+        name: 'Firebase (Auth, Firestore, Security Rules)',
+        desc: 'Serverless authentication (anonymous/Google OAuth) + real-time DB. Server-side data validation and anti-cheat logic via Firestore Security Rules.',
       },
     ],
   },
@@ -92,16 +104,20 @@ const techCategories = [
     title: 'Infrastructure & DevOps',
     items: [
       {
-        name: 'CI/CD (GitHub Actions)',
-        desc: 'Automated build and deployment pipelines.',
+        name: 'Vercel (Edge Deployment)',
+        desc: 'Zero-downtime deployment for Next.js/Vite projects. Global low-latency serving via Edge Network, automatic deployment testing per PR with Preview Deployments.',
       },
       {
-        name: 'Distribution (Vercel, PyInstaller)',
-        desc: 'Web-optimized deployment and single executable (.exe) packaging.',
+        name: 'PyInstaller + Inno Setup',
+        desc: 'Packaging Python apps into single .exe files and building Windows installers. Managing resources/hiddenimports in spec files, with data preservation logic for install/upgrade/uninstall scenarios.',
       },
       {
-        name: 'Performance Optimization',
-        desc: 'Dynamic imports and algorithm optimization for peak rendering performance.',
+        name: 'Firebase Hosting',
+        desc: 'SPA deployment and custom domain setup. Global accessibility through CDN-based static asset serving.',
+      },
+      {
+        name: 'i18n (Multilingual Support)',
+        desc: 'Designing systems supporting up to 4 languages (KO/EN/JA/ZH). Experience with CSV-based translation management (Croquis), modular locale files (SVG Converter), and LanguageManager classes (Color Palette).',
       },
     ],
   },
@@ -162,9 +178,9 @@ export default function Home() {
             className="text-5xl md:text-7xl font-bold mb-6"
           >
             <AnimatedGradientText>
-              Crafting Digital
+              Security & Graphics:
               <br />
-              Experiences Through Code
+              A Developer Breaking Technical Boundaries
             </AnimatedGradientText>
           </motion.h1>
 
@@ -174,8 +190,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-zinc-400 mb-12 leading-relaxed"
           >
-            Where algorithms meet artistry — merging AI, 3D graphics,<br className="hidden md:block" />
-            and systems engineering into tools that feel alive.
+            From GPU shaders to AES-128 encryption —<br className="hidden md:block" />
+            A full-stack engineer bridging AI, 3D graphics, and system security
           </motion.p>
 
           <motion.div
@@ -250,10 +266,10 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <Code2 className="w-10 h-10 text-primary" />
-              Projects
+              Featured Projects
             </h2>
             <p className="text-zinc-400 text-lg">
-              Each project solves a real problem — from creative AI to system-level security
+              Click any project card to deep-dive into technical challenges, solutions, and system architecture
             </p>
           </motion.div>
 
@@ -276,10 +292,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              🛠️ Integrated Tech Stack
+              🛠️ Skill & Tech Stack
             </h2>
             <p className="text-zinc-400 text-lg">
-              A full-spectrum toolkit — from GPU shaders to encrypted storage
+              From GPU shaders to encrypted storage — the real value each technology delivers
             </p>
           </motion.div>
 
@@ -343,6 +359,261 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== Proof of Performance Section ==================== */}
+      <section id="performance" className="py-24 px-4 bg-zinc-950">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+              <TrendingUp className="w-10 h-10 text-primary" />
+              Proof of Performance
+            </h2>
+            <p className="text-zinc-400 text-lg">
+              Technical achievements proven by quantitative metrics and verification results
+            </p>
+          </motion.div>
+
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            {[
+              { value: '6', label: 'Completed Projects', icon: '🚀' },
+              { value: '15,000+', label: 'Total Lines of Code', icon: '📝' },
+              { value: '3', label: 'Shipped Desktop Apps', icon: '💻' },
+              { value: '3', label: 'Live Web Services', icon: '🌐' },
+            ].map((metric, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1, type: 'spring', stiffness: 200 }}
+                viewport={{ once: true }}
+                className="text-center p-6 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-primary/40 transition-all group"
+              >
+                <motion.span
+                  className="text-3xl block mb-2"
+                  whileHover={{ scale: 1.3 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  {metric.icon}
+                </motion.span>
+                <p className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors">
+                  {metric.value}
+                </p>
+                <p className="text-sm text-zinc-500 mt-1">{metric.label}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Security & Quality Verification */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {/* Security Verification */}
+            <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-3 mb-5">
+                <Shield className="w-6 h-6 text-emerald-400" />
+                <h3 className="text-lg font-bold text-foreground">Security Verification</h3>
+              </div>
+              <div className="space-y-3">
+                {[
+                  'AES-128 (Fernet) Encryption — Protecting settings, history, and palette data',
+                  'External encryption key separation (secret.key) — No hardcoding',
+                  'Built-in XSS / CSRF / Clickjacking prevention utilities',
+                  'Firestore Security Rules — Server-side data validation',
+                  'Win32 API atomic clipboard access (race condition resolved)',
+                  'OS Mutex pattern — Multi-instance prevention',
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-2"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <span className="text-sm text-zinc-300">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Performance Optimization */}
+            <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="flex items-center gap-3 mb-5">
+                <TrendingUp className="w-6 h-6 text-cyan-400" />
+                <h3 className="text-lg font-bold text-foreground">Performance Optimization</h3>
+              </div>
+              <div className="space-y-3">
+                {[
+                  'GLSL shader GPU computation — 50,000+ particles at 60fps',
+                  '2-Pass Grid Sampling — O(W×H) → O(n/g²) complexity reduction',
+                  'Trie dictionary search — O(n) → O(m) real-time word verification',
+                  'Adaptive polling (200ms~1000ms) — Minimized CPU load',
+                  'SVG element merging — 60%+ output size reduction',
+                  'Mobile adaptive DPR/Bloom — Cross-device optimization',
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-2"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+                    <span className="text-sm text-zinc-300">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Unit Test CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="mt-12 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-6 border border-primary/20"
+          >
+            <div className="flex items-start gap-4">
+              <AlertTriangle className="w-6 h-6 text-amber-400 mt-1 shrink-0" />
+              <div>
+                <h4 className="text-base font-bold text-foreground mb-2">Upcoming: Unit Test Integration</h4>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Currently preparing to introduce unit tests for core logic in each project (color algorithms, encryption modules, particle generation, etc.).
+                  Plan to add test coverage reports based on pytest (Python) and Vitest/Jest (TypeScript) to this section.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ==================== Professional Experience & Retro Section ==================== */}
+      <section id="experience" className="py-24 px-4">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+              <BookOpen className="w-10 h-10 text-primary" />
+              Experience & Retrospective
+            </h2>
+            <p className="text-zinc-400 text-lg">
+              Lessons learned from failures, transformed into technical growth
+            </p>
+          </motion.div>
+
+          <div className="space-y-8">
+            {/* Retrospective 1 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-primary/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-primary" />
+                  <h3 className="text-lg font-bold text-foreground">Redesigning Security Architecture</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">Color Palette Generator v1.0.0 → v1.0.1</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  In v1.0.0, I made the critical mistake of hardcoding the encryption key in the source code.
+                  If the code had been uploaded to a public repository, all user data would have been exposed — a severe security vulnerability.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Separated the key into an external file (secret.key), configured .gitignore, and built a data re-encryption pipeline.
+                    This experience taught me the principle that &quot;security must come first, not later.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Retrospective 2 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-secondary/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-secondary rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-secondary" />
+                  <h3 className="text-lg font-bold text-foreground">CPU vs GPU — Discovering Parallel Processing</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">ParticleVerse</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  In the initial version, updating 50,000 particle positions every frame in JavaScript resulted in a dismal 10fps.
+                  I temporarily gave up, thinking &quot;this many particles is impossible on the web.&quot;
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> After learning GLSL custom shaders and offloading computation to the GPU, I achieved 60fps.
+                    The realization that &quot;it&apos;s not impossible — the approach was wrong&quot; taught me that understanding hardware architecture is the key to software performance.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Retrospective 3 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-accent/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-accent rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-accent" />
+                  <h3 className="text-lg font-bold text-foreground">Future Technical Direction</h3>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  Building on my experience creating both desktop security tools and web graphics,
+                  I aim to expand my technical scope into the following areas.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { title: 'Testing & CI/CD', desc: 'Test automation with pytest/Vitest and building GitHub Actions pipelines' },
+                    { title: 'WebGPU & Compute', desc: 'Next-gen browser parallel computation using WebGPU Compute Shaders' },
+                    { title: 'Rust / WASM', desc: 'Native-level performance through Rust → WASM compilation for performance-critical modules' },
+                  ].map((goal, i) => (
+                    <div key={i} className="p-4 bg-zinc-800/60 rounded-xl border border-zinc-700/50">
+                      <p className="text-sm font-semibold text-foreground mb-1">{goal.title}</p>
+                      <p className="text-xs text-zinc-500">{goal.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

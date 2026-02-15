@@ -1,9 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Download, Globe } from 'lucide-react';
+import { Github, ExternalLink, Download, Globe, BarChart3 } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useState, MouseEvent } from 'react';
+
+const categoryColors: Record<string, string> = {
+  language: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+  framework: 'bg-violet-500/15 text-violet-400 border-violet-500/30',
+  library: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
+  tool: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+  api: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+  infrastructure: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
+};
 
 interface ProjectCardProps {
   project: Project;
@@ -102,19 +111,37 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
           Click to read more →
         </span>
 
+        {/* Metrics */}
+        {project.metrics && (
+          <div className="flex flex-wrap gap-2 mb-3 mt-3">
+            {project.metrics.slice(0, 3).map((metric, i) => (
+              <div key={i} className="flex items-center gap-1 px-2 py-1 bg-zinc-800/80 rounded-md border border-zinc-700/50">
+                <BarChart3 className="w-3 h-3 text-primary" />
+                <span className="text-[10px] text-zinc-500">{metric.label}:</span>
+                <span className="text-[10px] font-semibold text-zinc-300">{metric.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-5 mt-3">
-          {project.techStack.map((tech, i) => (
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {project.techStack.slice(0, 5).map((tech, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 + i * 0.05 }}
-              className="px-3 py-1 text-xs bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors"
+              className={`px-2.5 py-1 text-[11px] border rounded-full transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
             >
-              {tech}
+              {tech.name}
             </motion.span>
           ))}
+          {project.techStack.length > 5 && (
+            <span className="px-2.5 py-1 text-[11px] bg-zinc-800/60 text-zinc-500 border border-zinc-700/50 rounded-full">
+              +{project.techStack.length - 5} more
+            </span>
+          )}
         </div>
 
         {/* Links */}
