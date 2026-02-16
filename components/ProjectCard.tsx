@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3 } from 'lucide-react';
 import { Project } from '@/data/projects';
-import { useState, MouseEvent } from 'react';
+import { useState, useEffect, useRef, MouseEvent } from 'react';
 
 const categoryColors: Record<string, string> = {
   language: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
@@ -23,6 +23,22 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
+  const [showThumbnail, setShowThumbnail] = useState(false);
+  const [thumbPos, setThumbPos] = useState({ x: 0, y: 0 });
+  const [currentThumbIndex, setCurrentThumbIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cycle through thumbnails every 5 seconds
+  useEffect(() => {
+    if (showThumbnail && project.thumbnails && project.thumbnails.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentThumbIndex((prev) => (prev + 1) % project.thumbnails!.length);
+      }, 5000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [showThumbnail, project.thumbnails]);
 
   // 3D tilt effect on mouse move
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -37,11 +53,19 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
     setRotateX(rotateXValue);
     setRotateY(rotateYValue);
+
+    // Update thumbnail position (offset from cursor)
+    if (project.thumbnails && project.thumbnails.length > 0) {
+      setThumbPos({ x: e.clientX + 16, y: e.clientY + 16 });
+      setShowThumbnail(true);
+    }
   };
 
   const handleMouseLeave = () => {
     setRotateX(0);
     setRotateY(0);
+    setShowThumbnail(false);
+    setCurrentThumbIndex(0);
   };
 
   // Color accents per project
@@ -183,6 +207,37 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
       {/* Shine Effect */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+
+      {/* Thumbnail Preview on Hover */}
+      {showThumbnail && project.thumbnails && project.thumbnails.length > 0 && (
+        <div
+          className="fixed z-[9999] pointer-events-none"
+          style={{
+            left: thumbPos.x,
+            top: thumbPos.y,
+          }}
+        >
+          <div className="relative w-72 h-48 rounded-xl overflow-hidden border border-zinc-600/50 shadow-2xl shadow-black/60 bg-zinc-900">
+            <img
+              src={project.thumbnails[currentThumbIndex]}
+              alt={`${project.title} preview`}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+            {project.thumbnails.length > 1 && (
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {project.thumbnails.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      i === currentThumbIndex ? 'bg-white' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

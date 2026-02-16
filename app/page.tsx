@@ -383,10 +383,9 @@ export default function Home() {
           </motion.div>
 
           {/* Metrics Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-3 gap-6 mb-16">
             {[
               { value: '6', label: 'Completed Projects', icon: '🚀' },
-              { value: '15,000+', label: 'Total Lines of Code', icon: '📝' },
               { value: '3', label: 'Shipped Desktop Apps', icon: '💻' },
               { value: '3', label: 'Live Web Services', icon: '🌐' },
             ].map((metric, i) => (
@@ -586,14 +585,133 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
-              className="relative pl-8 border-l-2 border-accent/30"
+              className="relative pl-8 border-l-2 border-primary/30"
             >
-              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-accent rounded-full" />
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
-                  <Target className="w-5 h-5 text-accent" />
+                  <Target className="w-5 h-5 text-primary" />
+                  <h3 className="text-lg font-bold text-foreground">Cross-Platform Data Migration Dilemma</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">Croquis</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  When pushing an installer upgrade via Inno Setup, changing the encryption key caused all previously saved practice history 
+                  to become undecryptable. Users who upgraded lost their entire practice streak data with no way to recover it.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Documented an Export → Re-import workflow in the release notes as an immediate fix, and planned an automatic 
+                    migration script for future versions. Learned that &quot;data compatibility across versions must be a first-class design concern, not an afterthought.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Retrospective 4 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-emerald-500/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-emerald-500 rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-emerald-500" />
+                  <h3 className="text-lg font-bold text-foreground">Taming Unpredictable AI Responses</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">Color Palette Generator</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  The Gemini API returned free-form text with wildly inconsistent formats — sometimes valid JSON, sometimes markdown, sometimes 
+                  plain text with embedded HEX codes. A single parsing strategy could never handle all variants, and the app crashed frequently 
+                  during demo scenarios.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Built a multi-stage fallback pipeline (JSON parse → Regex HEX extraction → default colors) 
+                    that gracefully degrades instead of crashing. Realized &quot;never trust external API output — always design for the worst-case response.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Retrospective 5 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-amber-500/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-amber-500 rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-amber-500" />
+                  <h3 className="text-lg font-bold text-foreground">The Main Thread Freeze Incident</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">SVG Converter</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  When a user uploaded a 4000×3000px photo, the single-pass pixel traversal blocked the main thread for over 8 seconds. 
+                  The browser showed &quot;Page Unresponsive&quot; — a terrible UX for an app that promises client-side speed.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Redesigned the algorithm into a 2-Pass Grid Sampling approach, reducing complexity from O(W×H) to a fraction. 
+                    Combined with Luminance-based background removal and adjacent region merging, cut output SVG size by 60%+. 
+                    &quot;Brute-force may work in dev, but always design for real-world input sizes.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Retrospective 6 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-rose-500/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-rose-500 rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-rose-500" />
+                  <h3 className="text-lg font-bold text-foreground">Race Conditions in Clipboard Monitoring</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">Paste Guardian</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  During testing, running two instances of Paste Guardian simultaneously caused corrupted clipboard history — both instances 
+                  were writing to the same encrypted file without coordination, and polling at fixed 200ms intervals kept CPU usage constantly high.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Implemented OS-level named mutex for single-instance enforcement, Win32 OpenClipboard/CloseClipboard 
+                    for atomic access, and adaptive polling (200ms active → 1000ms idle) to cut CPU usage. 
+                    &quot;System-level apps demand system-level thinking — OS primitives exist for a reason.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Future Direction */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-primary/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-primary" />
                   <h3 className="text-lg font-bold text-foreground">Future Technical Direction</h3>
                 </div>
                 <p className="text-sm text-zinc-400 leading-relaxed mb-4">

@@ -17,6 +17,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
+  thumbnails?: string[];
   metrics?: {
     label: string;
     value: string;
@@ -68,9 +69,8 @@ export const projects: Project[] = [
     └── Image Recoloring`,
     githubUrl: "https://github.com/jiwonjae-svg/color_palette",
     liveUrl: "https://github.com/jiwonjae-svg/color_palette/releases",
+    thumbnails: ["/images/CPG1.png", "/images/CPG2.png", "/images/CPG3.png"],
     metrics: [
-      { label: "Modules", value: "12+" },
-      { label: "UI Code", value: "4,593 lines" },
       { label: "Languages", value: "KO/EN" },
       { label: "Encryption", value: "AES-128" },
     ],
@@ -122,6 +122,7 @@ export const projects: Project[] = [
     └── Inno Setup → Windows Installer (Install / Upgrade / Uninstall)`,
     githubUrl: "https://github.com/jiwonjae-svg/Croquis",
     liveUrl: "https://github.com/jiwonjae-svg/Croquis/releases",
+    thumbnails: ["/images/Croquis1.png", "/images/Croquis2.png", "/images/Croquis3.png"],
     metrics: [
       { label: "Languages", value: "KO/EN/JA" },
       { label: "Build Size", value: "~48MB" },
@@ -180,6 +181,7 @@ export const projects: Project[] = [
     └── Zustand (useAppStore) → Real-time Parameter Sync`,
     githubUrl: "https://github.com/jiwonjae-svg/particle-verse",
     liveUrl: "https://particle-verse.vercel.app/",
+    thumbnails: ["/images/ParticleVerse1.png", "/images/ParticleVerse2.png"],
     metrics: [
       { label: "Particles", value: "50,000+" },
       { label: "Effects", value: "11 Types" },
@@ -235,6 +237,7 @@ export const projects: Project[] = [
     └── Conversion Progress, Settings, Image List`,
     githubUrl: "https://github.com/jiwonjae-svg/svg-converter",
     liveUrl: "https://imagetosvg.vercel.app/",
+    thumbnails: ["/images/SVG Converte.png"],
     metrics: [
       { label: "Processing", value: "100% Client-Side" },
       { label: "Languages", value: "4 Languages" },
@@ -290,6 +293,7 @@ export const projects: Project[] = [
     └── Encrypted Local Storage (JSON + Fernet)`,
     githubUrl: "https://github.com/jiwonjae-svg/paste-guard",
     liveUrl: "https://github.com/jiwonjae-svg/paste-guard/releases",
+    thumbnails: ["/images/PasteGuardian1.png", "/images/PasteGuardian2.png"],
     metrics: [
       { label: "Security Layers", value: "4 Levels" },
       { label: "CPU Optimization", value: "Adaptive Polling" },
@@ -347,6 +351,7 @@ export const projects: Project[] = [
     └── Firestore Security Rules (Anti-Cheat)`,
     githubUrl: "https://github.com/jiwonjae-svg/word-cube",
     liveUrl: "https://wordcube.web.app/",
+    thumbnails: ["/images/WordCube1.png", "/images/WordCube2.png"],
     metrics: [
       { label: "3D Engine", value: "Three.js" },
       { label: "Auth", value: "Firebase Auth" },
