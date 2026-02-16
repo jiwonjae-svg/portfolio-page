@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3 } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useState, useEffect, useRef, MouseEvent } from 'react';
@@ -23,14 +23,15 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
-  const [showThumbnail, setShowThumbnail] = useState(false);
-  const [thumbPos, setThumbPos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
   const [currentThumbIndex, setCurrentThumbIndex] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Cycle through thumbnails every 5 seconds
+  const hasThumbnails = project.thumbnails && project.thumbnails.length > 0;
+
+  // Cycle through thumbnails every 5 seconds while hovered
   useEffect(() => {
-    if (showThumbnail && project.thumbnails && project.thumbnails.length > 1) {
+    if (isHovered && project.thumbnails && project.thumbnails.length > 1) {
       intervalRef.current = setInterval(() => {
         setCurrentThumbIndex((prev) => (prev + 1) % project.thumbnails!.length);
       }, 5000);
@@ -38,7 +39,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [showThumbnail, project.thumbnails]);
+  }, [isHovered, project.thumbnails]);
 
   // 3D tilt effect on mouse move
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -53,18 +54,16 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
     setRotateX(rotateXValue);
     setRotateY(rotateYValue);
+  };
 
-    // Update thumbnail position (offset from cursor)
-    if (project.thumbnails && project.thumbnails.length > 0) {
-      setThumbPos({ x: e.clientX + 16, y: e.clientY + 16 });
-      setShowThumbnail(true);
-    }
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
     setRotateX(0);
     setRotateY(0);
-    setShowThumbnail(false);
+    setIsHovered(false);
     setCurrentThumbIndex(0);
   };
 
@@ -95,12 +94,13 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
       viewport={{ once: true }}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: 'transform 0.1s ease-out',
       }}
-      className={`group relative bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-2xl p-6 border border-zinc-700/50 ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer`}
+      className={`group relative bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-2xl border border-zinc-700/50 ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer`}
       onClick={() => onOpenModal(project)}
     >
       {/* Background Gradient Effect */}
@@ -114,7 +114,53 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         }}
       />
 
-      <div className="relative z-10">
+      {/* Thumbnail Preview — embedded at top of card */}
+      {hasThumbnails && (
+        <div className="relative w-full overflow-hidden bg-zinc-950">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentThumbIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`w-full transition-all duration-500 ease-in-out ${
+                isHovered ? 'h-44' : 'h-32'
+              }`}
+            >
+              <img
+                src={project.thumbnails![currentThumbIndex]}
+                alt={`${project.title} preview ${currentThumbIndex + 1}`}
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </motion.div>
+          </AnimatePresence>
+          {/* Gradient fade to card body */}
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-900 to-transparent" />
+          {/* Dot indicators */}
+          {project.thumbnails!.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+              {project.thumbnails!.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentThumbIndex(i);
+                  }}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentThumbIndex
+                      ? 'bg-white w-4'
+                      : 'bg-white/40 hover:bg-white/60'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="relative z-10 p-6">
         {/* Project Number */}
         <span className="text-xs font-mono text-zinc-600 group-hover:text-primary/60 transition-colors">
           #{String(project.id).padStart(2, '0')}
@@ -207,37 +253,6 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
       {/* Shine Effect */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
-
-      {/* Thumbnail Preview on Hover */}
-      {showThumbnail && project.thumbnails && project.thumbnails.length > 0 && (
-        <div
-          className="fixed z-[9999] pointer-events-none"
-          style={{
-            left: thumbPos.x,
-            top: thumbPos.y,
-          }}
-        >
-          <div className="relative w-72 h-48 rounded-xl overflow-hidden border border-zinc-600/50 shadow-2xl shadow-black/60 bg-zinc-900">
-            <img
-              src={project.thumbnails[currentThumbIndex]}
-              alt={`${project.title} preview`}
-              className="w-full h-full object-cover transition-opacity duration-500"
-            />
-            {project.thumbnails.length > 1 && (
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-                {project.thumbnails.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                      i === currentThumbIndex ? 'bg-white' : 'bg-white/30'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 }
