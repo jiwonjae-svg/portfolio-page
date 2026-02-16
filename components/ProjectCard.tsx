@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3 } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useState, useEffect, useRef, MouseEvent } from 'react';
@@ -116,28 +116,27 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
       {/* Thumbnail Preview — embedded at top of card */}
       {hasThumbnails && (
-        <div className="relative w-full overflow-hidden bg-zinc-950">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentThumbIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className={`w-full transition-all duration-500 ease-in-out ${
-                isHovered ? 'h-44' : 'h-32'
+        <div
+          className={`relative w-full overflow-hidden bg-zinc-950 transition-[height] duration-500 ease-in-out ${
+            isHovered ? 'h-48' : 'h-32'
+          }`}
+        >
+          {/* Stack all images; only the active one is fully opaque */}
+          {project.thumbnails!.map((thumb, i) => (
+            <img
+              key={thumb}
+              src={thumb}
+              alt={`${project.title} preview ${i + 1}`}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
+                isHovered ? 'object-contain' : 'object-cover'
+              } ${
+                i === currentThumbIndex ? 'opacity-100' : 'opacity-0'
               }`}
-            >
-              <img
-                src={project.thumbnails![currentThumbIndex]}
-                alt={`${project.title} preview ${currentThumbIndex + 1}`}
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            </motion.div>
-          </AnimatePresence>
+              draggable={false}
+            />
+          ))}
           {/* Gradient fade to card body */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-900 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-900 to-transparent z-[1]" />
           {/* Dot indicators */}
           {project.thumbnails!.length > 1 && (
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
