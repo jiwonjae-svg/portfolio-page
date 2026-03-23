@@ -1,3 +1,5 @@
+export type ProjectCategory = 'web' | 'desktop' | 'mobile' | 'game';
+
 export interface TechDetail {
   name: string;
   category: 'language' | 'framework' | 'library' | 'tool' | 'api' | 'infrastructure';
@@ -22,6 +24,9 @@ export interface Project {
     label: string;
     value: string;
   }[];
+  status?: 'released' | 'testing' | 'development';
+  category: ProjectCategory;
+  period: string;
 }
 
 export const projects: Project[] = [
@@ -74,6 +79,8 @@ export const projects: Project[] = [
       { label: "Languages", value: "KO/EN" },
       { label: "Encryption", value: "AES-128" },
     ],
+    category: 'desktop',
+    period: '2024.03 – 2024.06',
   },
   {
     id: 2,
@@ -129,6 +136,8 @@ export const projects: Project[] = [
       { label: "Encryption", value: "AES-128" },
       { label: "Installer", value: "Inno Setup" },
     ],
+    category: 'desktop',
+    period: '2024.06 – 2024.09',
   },
   {
     id: 3,
@@ -188,6 +197,8 @@ export const projects: Project[] = [
       { label: "Target FPS", value: "60fps" },
       { label: "Color Modes", value: "5 Types" },
     ],
+    category: 'web',
+    period: '2024.09 – 2024.12',
   },
   {
     id: 4,
@@ -244,6 +255,8 @@ export const projects: Project[] = [
       { label: "SVG Reduction", value: "~60% Smaller" },
       { label: "Security", value: "XSS/CSRF Prevention" },
     ],
+    category: 'web',
+    period: '2024.12 – 2025.02',
   },
   {
     id: 5,
@@ -300,6 +313,8 @@ export const projects: Project[] = [
       { label: "Encryption", value: "AES-128" },
       { label: "Instance", value: "Singleton" },
     ],
+    category: 'desktop',
+    period: '2025.01 – 2025.03',
   },
   {
     id: 6,
@@ -358,5 +373,74 @@ export const projects: Project[] = [
       { label: "Search", value: "Trie O(m)" },
       { label: "Security", value: "Firestore Rules" },
     ],
+    category: 'game',
+    period: '2025.02 – 2025.03',
+  },
+  {
+    id: 7,
+    title: "DailyGlow",
+    summary: "A cross-platform motivational quotes app built with React Native (Expo SDK 54). Features AI-generated quotes, speech recognition for speak-along practice, handwriting recognition via ML Kit, GitHub-style grass heatmaps, and multi-language support (KO/EN/JA/ZH/ES) — all backed by Firebase and Zustand.",
+    description: "DailyGlow is a comprehensive motivational quotes application where users receive curated and AI-generated quotes, practice them through speak-along (SFSpeechRecognizer), write-along (@react-native-ml-kit/text-recognition), and type-along modes. The app features a GitHub-style grass heatmap to track daily engagement, a FIFO-based modal queue system for managing UI modals, and a weighted quote selection algorithm that selects from 1000+ quotes based on user-selected categories. Offline quotes are bundled client-side while additional quotes are fetched from Firestore. Includes premium features (auto-play, widgets, custom notifications), a virtual company-based AI development workflow with 50 worker personas across 8 departments, and comprehensive i18n support for 5 languages.",
+    techStack: [
+      { name: "TypeScript 5", category: "language" },
+      { name: "React Native (Expo SDK 54)", category: "framework" },
+      { name: "Zustand v5 (State Management)", category: "library" },
+      { name: "Firebase Auth (Google OAuth)", category: "api" },
+      { name: "Cloud Firestore", category: "api" },
+      { name: "Firestore Security Rules", category: "tool" },
+      { name: "react-native-reanimated", category: "library" },
+      { name: "expo-notifications", category: "library" },
+      { name: "react-native-tts", category: "library" },
+      { name: "@react-native-ml-kit/text-recognition", category: "library" },
+      { name: "RevenueCat (Subscriptions)", category: "api" },
+      { name: "i18n (KO/EN/JA/ZH/ES)", category: "tool" },
+      { name: "EAS Build (Android/iOS)", category: "infrastructure" },
+      { name: "Firebase Cloud Functions", category: "infrastructure" },
+    ],
+    technicalChallenge: {
+      problem: "The AI quote generation via Grok API returned repetitive patterns after a few cycles, and quotes occasionally came in the wrong language despite the prompt specifying the user's selected language. Additionally, building locally on Windows for Android was unsupported by EAS Build (macOS/Linux only), and Firebase Auth state was not persisting between sessions due to missing AsyncStorage configuration.",
+      solution: "Replaced AI-only generation with a hybrid approach: crawled 1000+ copyright-safe quotes from Quotable API, Wikiquote, and Project Gutenberg, then translated them into 5 languages and assigned weighted category scores. Implemented a weighted random selection algorithm (pick 10 random → highest weight wins, with tie-break randomization and a 20-quote recency buffer). Solved the Windows build issue using WSL2 with Android SDK. Fixed auth persistence by configuring getReactNativePersistence with AsyncStorage in the Firebase initialization.",
+    },
+    architecture: `[User Input]
+    ├── Speak Along → SFSpeechRecognizer (iOS) / SpeechRecognizer (Android)
+    ├── Write Along → @react-native-ml-kit/text-recognition (Camera OCR)
+    └── Type Along → Keyboard Input Matching
+    ↓
+[Quote Selection Engine] ← Client-side weighted algorithm
+    ├── quotesClient.json (500+ offline quotes)
+    ├── Firestore quotesServer collection (500+ online quotes)
+    ├── Category weight scoring (user-selected categories × quote categories)
+    └── 20-quote recency buffer (no repeat)
+    ↓
+[Zustand Stores] ← 5 stores with persist middleware + AsyncStorage
+    ├── useQuoteStore (quotes, viewed, bookmarked)
+    ├── useUserStore (auth, profile, premium, streak)
+    ├── useGrassStore (daily activity heatmap)
+    ├── useCommunityStore (shared quotes, likes)
+    └── useAutoPlayStore (background playback state)
+    ↓
+[Firebase Backend]
+    ├── Auth (Email/Password + Google OAuth)
+    ├── Firestore (users, quotes, community, activities)
+    ├── Cloud Functions (auto-approve, notifications, like events)
+    └── Security Rules (server-side validation)
+    ↓
+[UI Layer] ← Expo Router (file-based routing)
+    ├── Quote Tab (snap-scroll cards + floating action buttons)
+    ├── Grass Tab (GitHub-style heatmap + activity logs)
+    ├── My Tab (bookmarked + recent quotes)
+    ├── Settings Tab (theme, language, notifications, premium)
+    └── Modal Queue System (FIFO centralized in _layout.tsx)`,
+    githubUrl: "https://github.com/jiwonjae-svg/dailyglow",
+    thumbnails: ["/images/DG1.png", "/images/DG2.png", "/images/DG3.png", "/images/DG4.png", "/images/DG5.png", "/images/DG6.png"],
+    status: 'testing',
+    metrics: [
+      { label: "Languages", value: "5 (KO/EN/JA/ZH/ES)" },
+      { label: "Offline Quotes", value: "500+" },
+      { label: "Zustand Stores", value: "5" },
+      { label: "Cloud Functions", value: "4" },
+    ],
+    category: 'mobile',
+    period: '2025.03 – Present',
   },
 ];

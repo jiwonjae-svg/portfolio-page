@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface Particle {
   x: number;
@@ -13,10 +14,13 @@ interface Particle {
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: -1000, y: -1000 }); // Initial mouse position off-screen
+  const mouseRef = useRef({ x: -1000, y: -1000 });
   const particlesRef = useRef<Particle[]>([]);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -113,7 +117,19 @@ export default function ParticleBackground() {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [reducedMotion]);
+
+  if (reducedMotion) {
+    return (
+      <div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          opacity: 0.15,
+          background: 'radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.3), transparent 70%), radial-gradient(ellipse at 70% 50%, rgba(139,92,246,0.2), transparent 70%)',
+        }}
+      />
+    );
+  }
 
   return (
     <canvas

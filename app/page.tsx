@@ -1,13 +1,30 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package, Download, Globe, CheckCircle2, TrendingUp, AlertTriangle, BookOpen, Target, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Mail, ArrowDown, Code2, Sparkles, Cpu, Layers, Shield, Package, Download, Globe, CheckCircle2, TrendingUp, AlertTriangle, BookOpen, Target, ChevronRight, Smartphone, Clock } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import ParticleBackground from '@/components/ParticleBackground';
 import AnimatedGradientText from '@/components/AnimatedGradientText';
-import { projects, Project } from '@/data/projects';
+import TableOfContents from '@/components/TableOfContents';
+import ProjectFilter from '@/components/ProjectFilter';
+import ProjectTimeline from '@/components/ProjectTimeline';
+import GitHubActivity from '@/components/GitHubActivity';
+import ContactForm from '@/components/ContactForm';
+import ThemeToggle from '@/components/ThemeToggle';
+import { projects, Project, ProjectCategory } from '@/data/projects';
 import { useState } from 'react';
+
+const TypewriterText = dynamic(() => import('@/components/TypewriterText'), {
+  ssr: false,
+  loading: () => <span className="opacity-0">&#8203;</span>,
+});
+
+const SectionTypewriter = dynamic(() => import('@/components/SectionTypewriter'), {
+  ssr: false,
+  loading: () => <span className="invisible">&#8203;</span>,
+});
 
 // Tech stack organized by category
 const techCategories = [
@@ -38,6 +55,10 @@ const techCategories = [
         desc: 'Building high-performance web services with SSR/ISR. Bundle optimization via Dynamic Import, minimized initial loading by separating Server/Client Components. Applied in ParticleVerse, portfolio, and more.',
       },
       {
+        name: 'React Native (Expo SDK 54)',
+        desc: 'Cross-platform mobile app development with managed workflow. File-based routing via Expo Router, native module integration (TTS, ML Kit, camera), and EAS Build for Android/iOS distribution.',
+      },
+      {
         name: 'PyQt6 & CustomTkinter',
         desc: 'Python-based desktop GUI frameworks. Experience with signal-slot event architecture, QResource system, and dark-mode theme customization. Built 3 shipped desktop applications.',
       },
@@ -47,7 +68,7 @@ const techCategories = [
       },
       {
         name: 'Zustand (State Management)',
-        desc: 'Lightweight global state management library. 90% less boilerplate than Redux. Local storage sync with persist middleware, preventing unnecessary re-renders with selector patterns.',
+        desc: 'Lightweight global state management library. 90% less boilerplate than Redux. Local storage sync with persist middleware, preventing unnecessary re-renders with selector patterns. Used across web and mobile projects.',
       },
     ],
   },
@@ -94,8 +115,8 @@ const techCategories = [
         desc: 'File upload validation, input sanitization, and Content Security Policy enforcement. Designed reusable security utility modules applied across multiple projects.',
       },
       {
-        name: 'Firebase (Auth, Firestore, Security Rules)',
-        desc: 'Serverless authentication (anonymous/Google OAuth) + real-time DB. Server-side data validation and anti-cheat logic via Firestore Security Rules.',
+        name: 'Firebase (Auth, Firestore, Cloud Functions, Security Rules)',
+        desc: 'Serverless authentication (email/Google OAuth) + real-time DB. Server-side data validation and anti-cheat logic via Firestore Security Rules. Cloud Functions for automated moderation, notifications, and event triggers.',
       },
     ],
   },
@@ -112,12 +133,16 @@ const techCategories = [
         desc: 'Packaging Python apps into single .exe files and building Windows installers. Managing resources/hiddenimports in spec files, with data preservation logic for install/upgrade/uninstall scenarios.',
       },
       {
-        name: 'Firebase Hosting',
-        desc: 'SPA deployment and custom domain setup. Global accessibility through CDN-based static asset serving.',
+        name: 'EAS Build (Expo Application Services)',
+        desc: 'Cloud and local builds for Android/iOS via Expo. Profile-based build configuration (development/preview/production), environment variable injection, and WSL2-based local Android builds on Windows.',
+      },
+      {
+        name: 'Firebase Hosting & Cloud Functions',
+        desc: 'SPA deployment and custom domain setup via CDN-based static asset serving. Serverless Cloud Functions for automated content moderation, push notifications, and event-driven triggers.',
       },
       {
         name: 'i18n (Multilingual Support)',
-        desc: 'Designing systems supporting up to 4 languages (KO/EN/JA/ZH). Experience with CSV-based translation management (Croquis), modular locale files (SVG Converter), and LanguageManager classes (Color Palette).',
+        desc: 'Designing systems supporting up to 5 languages (KO/EN/JA/ZH/ES). Experience with i18next locale modules (DailyGlow), CSV-based translation management (Croquis), and LanguageManager classes (Color Palette).',
       },
     ],
   },
@@ -135,6 +160,11 @@ const categoryIcons: Record<string, React.ReactNode> = {
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'all'>('all');
+
+  const filteredProjects = projects.filter(
+    (p) => activeCategory === 'all' || p.category === activeCategory
+  );
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
@@ -148,6 +178,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <ThemeToggle />
       <ParticleBackground />
 
       {/* Project Detail Modal */}
@@ -178,9 +209,18 @@ export default function Home() {
             className="text-5xl md:text-7xl font-bold mb-6"
           >
             <AnimatedGradientText>
-              Security & Graphics:
+              <TypewriterText
+                text="Security & Graphics:"
+                speed={60}
+                delay={800}
+                cursor={false}
+              />
               <br />
-              A Developer Breaking Technical Boundaries
+              <TypewriterText
+                text="A Developer Breaking Technical Boundaries"
+                speed={45}
+                delay={2200}
+              />
             </AnimatedGradientText>
           </motion.h1>
 
@@ -190,8 +230,12 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-zinc-400 mb-12 leading-relaxed"
           >
-            From GPU shaders to AES-128 encryption —<br className="hidden md:block" />
-            A full-stack engineer bridging AI, 3D graphics, and system security
+            <TypewriterText
+              text="From GPU shaders to mobile apps, AES-128 encryption to real-time AI — building full-stack solutions across every layer of the stack."
+              speed={25}
+              delay={5500}
+              cursor={false}
+            />
           </motion.p>
 
           <motion.div
@@ -254,6 +298,9 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ==================== Table of Contents ==================== */}
+      <TableOfContents />
+
       {/* ==================== Projects Section ==================== */}
       <section id="projects" className="py-24 px-4 bg-zinc-950">
         <div className="max-w-7xl mx-auto">
@@ -266,18 +313,31 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <Code2 className="w-10 h-10 text-primary" />
-              Featured Projects
+              <SectionTypewriter text="Featured Projects" speed={50} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              Click any project card to deep-dive into technical challenges, solutions, and system architecture
+              <SectionTypewriter text="Click any project card to deep-dive into technical challenges, solutions, and system architecture" speed={20} />
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} onOpenModal={openModal} />
-            ))}
-          </div>
+          <ProjectFilter active={activeCategory} onChange={setActiveCategory} />
+
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ProjectCard project={project} index={index} onOpenModal={openModal} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
@@ -292,10 +352,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              🛠️ Skill & Tech Stack
+              🛠️ <SectionTypewriter text="Skill & Tech Stack" speed={50} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              From GPU shaders to encrypted storage — the real value each technology delivers
+              <SectionTypewriter text="From GPU shaders to encrypted storage — the real value each technology delivers" speed={20} />
             </p>
           </motion.div>
 
@@ -375,19 +435,20 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <TrendingUp className="w-10 h-10 text-primary" />
-              Proof of Performance
+              <SectionTypewriter text="Proof of Performance" speed={50} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              Technical achievements proven by quantitative metrics and verification results
+              <SectionTypewriter text="Technical achievements proven by quantitative metrics and verification results" speed={20} />
             </p>
           </motion.div>
 
           {/* Metrics Grid */}
-          <div className="grid grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {[
-              { value: '6', label: 'Completed Projects', icon: '🚀' },
+              { value: '7', label: 'Completed Projects', icon: '🚀' },
               { value: '3', label: 'Shipped Desktop Apps', icon: '💻' },
               { value: '3', label: 'Live Web Services', icon: '🌐' },
+              { value: '1', label: 'Mobile App (Testing)', icon: '📱' },
             ].map((metric, i) => (
               <motion.div
                 key={i}
@@ -434,6 +495,8 @@ export default function Home() {
                   'Firestore Security Rules — Server-side data validation',
                   'Win32 API atomic clipboard access (race condition resolved)',
                   'OS Mutex pattern — Multi-instance prevention',
+                  'Firebase Cloud Functions — Automated content moderation & anti-abuse',
+                  'Environment variable validation with Husky pre-commit secret scanning',
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -464,6 +527,8 @@ export default function Home() {
                   'Adaptive polling (200ms~1000ms) — Minimized CPU load',
                   'SVG element merging — 60%+ output size reduction',
                   'Mobile adaptive DPR/Bloom — Cross-device optimization',
+                  'Weighted quote selection — Client-side CPU scoring with 20-quote recency buffer',
+                  'Hybrid offline/online data — 500+ bundled quotes + Firestore sync',
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -500,6 +565,40 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+
+          {/* GitHub Activity */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-8"
+          >
+            <GitHubActivity />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ==================== Project Timeline Section ==================== */}
+      <section id="timeline" className="py-24 px-4">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+              <Clock className="w-10 h-10 text-primary" />
+              <SectionTypewriter text="Project Timeline" speed={50} />
+            </h2>
+            <p className="text-zinc-400 text-lg">
+              <SectionTypewriter text="A chronological journey through each project's evolution" speed={20} />
+            </p>
+          </motion.div>
+
+          <ProjectTimeline projects={projects} />
         </div>
       </section>
 
@@ -515,10 +614,10 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <BookOpen className="w-10 h-10 text-primary" />
-              Experience & Retrospective
+              <SectionTypewriter text="Experience & Retrospective" speed={50} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              Lessons learned from failures, transformed into technical growth
+              <SectionTypewriter text="Lessons learned from failures, transformed into technical growth" speed={20} />
             </p>
           </motion.div>
 
@@ -700,6 +799,37 @@ export default function Home() {
               </div>
             </motion.div>
 
+            {/* Retrospective 7 — DailyGlow */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              viewport={{ once: true }}
+              className="relative pl-8 border-l-2 border-cyan-500/30"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 bg-cyan-500 rounded-full" />
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-5 h-5 text-cyan-500" />
+                  <h3 className="text-lg font-bold text-foreground">From AI Generation to Curated Data Pipelines</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">DailyGlow</span>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                  Initially relied entirely on the Grok API to generate motivational quotes, but after a few cycles, 
+                  the AI produced increasingly repetitive patterns and occasionally returned quotes in the wrong language. 
+                  The cost per API call and unpredictable output quality made it unsustainable for production.
+                </p>
+                <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                  <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-zinc-300">
+                    <span className="font-semibold text-emerald-400">Lesson:</span> Pivoted to a hybrid approach: crawled 1000+ copyright-safe quotes from public domain sources (Quotable API, Wikiquote, Project Gutenberg), 
+                    translated them into 5 languages, and assigned weighted category scores. Built a client-side weighted selection algorithm with a 20-quote recency buffer. 
+                    &quot;AI is powerful, but curated data with smart algorithms often delivers more consistent, predictable results.&quot;
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Future Direction */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -722,7 +852,7 @@ export default function Home() {
                   {[
                     { title: 'Testing & CI/CD', desc: 'Test automation with pytest/Vitest and building GitHub Actions pipelines' },
                     { title: 'WebGPU & Compute', desc: 'Next-gen browser parallel computation using WebGPU Compute Shaders' },
-                    { title: 'Rust / WASM', desc: 'Native-level performance through Rust → WASM compilation for performance-critical modules' },
+                    { title: 'Mobile Release', desc: 'Publishing DailyGlow to App Store & Google Play with RevenueCat subscription integration' },
                   ].map((goal, i) => (
                     <div key={i} className="p-4 bg-zinc-800/60 rounded-xl border border-zinc-700/50">
                       <p className="text-sm font-semibold text-foreground mb-1">{goal.title}</p>
@@ -738,46 +868,56 @@ export default function Home() {
 
       {/* ==================== Contact Section ==================== */}
       <section id="contact" className="py-24 px-4 bg-zinc-950">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Let&apos;s Work Together
+              <SectionTypewriter text="Let's Work Together" speed={50} />
             </h2>
-            <p className="text-zinc-400 text-lg mb-12">
-              Got an interesting challenge or want to build something together? Let&apos;s talk.
+            <p className="text-zinc-400 text-lg">
+              <SectionTypewriter text="Got an interesting challenge or want to build something together? Let's talk." speed={25} />
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-              <a
-                href="mailto:onehouse0460@outlook.com"
-                className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/80 hover:to-secondary/80 text-white rounded-full font-medium transition-all hover:scale-105"
-              >
-                <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Send Email
-              </a>
-              <a
-                href="https://github.com/jiwonjae-svg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 px-8 py-4 border border-zinc-700 hover:border-primary text-foreground hover:text-primary rounded-full font-medium transition-all hover:scale-105"
-              >
-                <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                GitHub
-              </a>
-            </div>
-
-            <div className="pt-12 border-t border-zinc-800">
-              <p className="text-zinc-500">
-                © 2026 jiwonjae-svg. Built with Next.js & Framer Motion.
-              </p>
-            </div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            viewport={{ once: true }}
+            className="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 mb-8"
+          >
+            <ContactForm />
+          </motion.div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <a
+              href="mailto:onehouse0460@outlook.com"
+              className="group flex items-center gap-3 px-6 py-3 border border-zinc-700 hover:border-primary text-zinc-400 hover:text-primary rounded-full text-sm font-medium transition-all hover:scale-105"
+            >
+              <Mail className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+              onehouse0460@outlook.com
+            </a>
+            <a
+              href="https://github.com/jiwonjae-svg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 px-6 py-3 border border-zinc-700 hover:border-primary text-zinc-400 hover:text-primary rounded-full text-sm font-medium transition-all hover:scale-105"
+            >
+              <Github className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+              GitHub
+            </a>
+          </div>
+
+          <div className="pt-8 border-t border-zinc-800 text-center">
+            <p className="text-zinc-500 text-sm">
+              © 2026 jiwonjae-svg. Built with Next.js & Framer Motion.
+            </p>
+          </div>
         </div>
       </section>
     </main>

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Download, Globe, BarChart3 } from 'lucide-react';
+import { Github, ExternalLink, Download, Globe, BarChart3, FlaskConical } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useState, useEffect, useRef, MouseEvent } from 'react';
 
@@ -227,8 +227,19 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
               <span className="text-sm font-medium">GitHub</span>
             </a>
           )}
-          {project.liveUrl && (() => {
-            const isRelease = project.liveUrl.includes('/releases');
+          {project.status === 'testing' ? (
+            <div
+              className="relative flex items-center gap-2 px-4 py-2 bg-amber-500/15 text-amber-400 border border-amber-500/30 rounded-lg cursor-default group/testing"
+              title="Currently in testing phase"
+            >
+              <FlaskConical className="w-4 h-4" />
+              <span className="text-sm font-medium">Testing</span>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-zinc-800 text-xs text-zinc-300 rounded-lg border border-zinc-700 opacity-0 group-hover/testing:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                This project is currently in testing
+              </div>
+            </div>
+          ) : project.liveUrl && (() => {
+            const isRelease = project.liveUrl!.includes('/releases');
             const Icon = isRelease ? Download : Globe;
             const label = isRelease ? 'Download' : 'Live Demo';
             return (

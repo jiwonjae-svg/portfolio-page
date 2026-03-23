@@ -1,17 +1,42 @@
 import type { Metadata } from 'next'
+import { ThemeProvider } from 'next-themes'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Creative Developer',
-  description: 'A creative developer portfolio showcasing projects in web development, 3D graphics, AI integration, desktop applications, and security tools.',
-  keywords: ['developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js', 'Python', 'full-stack'],
+  title: 'jiwonjae | Full-Stack & Mobile Developer',
+  description:
+    'Portfolio of jiwonjae — building across the full stack from GPU shaders and AES-128 encryption to cross-platform mobile apps. Specializing in React Native, Next.js, Three.js, Python, and Firebase.',
+  keywords: [
+    'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
+    'Python', 'React Native', 'Expo', 'Firebase', 'mobile', 'full-stack',
+    'GLSL', 'shader', 'encryption', 'security',
+  ],
   authors: [{ name: 'jiwonjae-svg' }],
+  metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
-    title: 'Portfolio | Creative Developer',
-    description: 'Crafting digital experiences through code — from AI-powered tools to interactive 3D worlds.',
+    title: 'jiwonjae | Full-Stack & Mobile Developer',
+    description:
+      'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, AI integration, and cross-platform mobile.',
     type: 'website',
     locale: 'en_US',
+    url: 'https://jiwonjae-portfolio.vercel.app',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'jiwonjae | Full-Stack & Mobile Developer',
+    description:
+      'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, and AI.',
+  },
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'jiwonjae',
+  url: 'https://jiwonjae-portfolio.vercel.app',
+  sameAs: ['https://github.com/jiwonjae-svg'],
+  jobTitle: 'Full-Stack & Mobile Developer',
+  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript'],
 }
 
 export default function RootLayout({
@@ -29,8 +54,22 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {/* Plausible Analytics — privacy-respecting, no cookies */}
+        <script
+          defer
+          data-domain="jiwonjae-portfolio.vercel.app"
+          src="https://plausible.io/js/script.js"
+        />
       </head>
-      <body className="font-inter">{children}</body>
+      <body className="font-inter">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

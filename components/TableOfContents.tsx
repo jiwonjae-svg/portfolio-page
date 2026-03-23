@@ -1,0 +1,143 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, Cpu, TrendingUp, BookOpen, Mail, ChevronRight, Menu, X, Clock } from 'lucide-react';
+
+const tocItems = [
+  { href: '#projects', label: 'Featured Projects', icon: <Code2 className="w-4 h-4" /> },
+  { href: '#tech', label: 'Skill & Tech Stack', icon: <Cpu className="w-4 h-4" /> },
+  { href: '#performance', label: 'Proof of Performance', icon: <TrendingUp className="w-4 h-4" /> },
+  { href: '#timeline', label: 'Project Timeline', icon: <Clock className="w-4 h-4" /> },
+  { href: '#experience', label: 'Experience & Retrospective', icon: <BookOpen className="w-4 h-4" /> },
+  { href: '#contact', label: "Let's Work Together", icon: <Mail className="w-4 h-4" /> },
+];
+
+export default function TableOfContents() {
+  const [activeSection, setActiveSection] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+
+  useEffect(() => {
+    const sectionIds = tocItems.map((item) => item.href.slice(1));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: '-20% 0px -60% 0px' }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    // Track hero section to show/hide desktop sidebar
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    const heroEl = document.querySelector('section');
+    if (heroEl) heroObserver.observe(heroEl);
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      heroObserver.disconnect();
+    };
+  }, []);
+
+  return (
+    <>
+      {/* ===== Desktop sticky sidebar ===== */}
+      <AnimatePresence>
+        {pastHero && (
+          <motion.nav
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col gap-1 group/sidebar"
+          >
+            <div className="bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-800 p-2 transition-all duration-300 w-12 group-hover/sidebar:w-52 overflow-hidden">
+              {tocItems.map((item) => {
+                const isActive = activeSection === item.href.slice(1);
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-2 py-2 rounded-xl transition-all whitespace-nowrap ${
+                      isActive
+                        ? 'text-primary bg-primary/10'
+                        : 'text-zinc-500 hover:text-primary hover:bg-primary/5'
+                    }`}
+                  >
+                    <span className="shrink-0">{item.icon}</span>
+                    <span className="text-xs font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">
+                      {item.label}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
+      {/* ===== Mobile inline TOC (collapsible) ===== */}
+      <section className="py-12 px-4 bg-zinc-950/50 lg:hidden">
+        <div className="max-w-3xl mx-auto">
+          <motion.nav
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="bg-zinc-900/80 backdrop-blur-sm rounded-2xl border border-zinc-800 overflow-hidden"
+          >
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-full flex items-center justify-between p-4 text-sm font-semibold text-zinc-500 uppercase tracking-wider"
+            >
+              <span>Table of Contents</span>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </motion.span>
+            </button>
+
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-4 pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {tocItems.map((item, i) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-zinc-400 hover:text-primary hover:bg-primary/5 transition-all group"
+                      >
+                        <span className="text-zinc-600 group-hover:text-primary transition-colors">{item.icon}</span>
+                        <span className="text-sm font-medium">{item.label}</span>
+                        <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.nav>
+        </div>
+      </section>
+    </>
+  );
+}

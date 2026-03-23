@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3 } from 'lucide-react';
+import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useEffect, useState } from 'react';
 
@@ -279,8 +279,19 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     <span className="font-medium">GitHub</span>
                   </a>
                 )}
-                {project.liveUrl && (() => {
-                  const isRelease = project.liveUrl.includes('/releases');
+                {project.status === 'testing' ? (
+                  <div
+                    className="relative flex items-center gap-2 px-6 py-3 bg-amber-500/15 text-amber-400 border border-amber-500/30 rounded-xl cursor-default group"
+                    title="Currently in testing phase"
+                  >
+                    <FlaskConical className="w-5 h-5" />
+                    <span className="font-medium">Testing</span>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-zinc-800 text-xs text-zinc-300 rounded-lg border border-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                      This project is currently in testing
+                    </div>
+                  </div>
+                ) : project.liveUrl && (() => {
+                  const isRelease = project.liveUrl!.includes('/releases');
                   const Icon = isRelease ? Download : Globe;
                   const label = isRelease ? 'Download' : 'Live Demo';
                   return (

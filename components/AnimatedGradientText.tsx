@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 // Parse HSL string to numeric components
 interface HSL {
@@ -12,8 +13,8 @@ interface HSL {
 function randomHSL(): HSL {
   return {
     h: Math.random() * 360,
-    s: 60 + Math.random() * 30,  // 60-90% saturation
-    l: 55 + Math.random() * 20,  // 55-75% lightness
+    s: 65 + Math.random() * 25,  // 65-90% saturation
+    l: 60 + Math.random() * 15,  // 60-75% lightness
   };
 }
 
@@ -76,8 +77,10 @@ interface AnimatedGradientTextProps {
 
 export default function AnimatedGradientText({ children, className = '' }: AnimatedGradientTextProps) {
   const spanRef = useRef<HTMLSpanElement>(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const el = spanRef.current;
     if (!el) return;
 
@@ -85,7 +88,7 @@ export default function AnimatedGradientText({ children, className = '' }: Anima
     let current = randomTarget();
     let next = randomTarget();
     let startTime = performance.now();
-    const cycleDuration = 5000; // ms per transition
+    const cycleDuration = 7000; // ms per transition — slower for elegance
     let animId = 0;
 
     const tick = (now: number) => {
@@ -105,7 +108,7 @@ export default function AnimatedGradientText({ children, className = '' }: Anima
       const sMid = (s1 + s2) / 2;
 
       el.style.backgroundImage =
-        `linear-gradient(${angle.toFixed(1)}deg, ${hslToString(c1)} ${s1.toFixed(1)}%, ${hslToString(c2)} ${sMid.toFixed(1)}%, ${hslToString(c3)} ${s2.toFixed(1)}%)`;
+        `linear-gradient(${angle.toFixed(1)}deg, ${hslToString(c1)} ${s1.toFixed(1)}%, ${hslToString(c2)} ${(s1 + sMid * 0.4).toFixed(1)}%, ${hslToString(c3)} ${sMid.toFixed(1)}%, ${hslToString(c2)} ${(sMid + s2 * 0.2).toFixed(1)}%, ${hslToString(c1)} ${s2.toFixed(1)}%)`;
 
       if (rawT >= 1) {
         // Seamlessly chain: old target becomes current, pick a fresh next
@@ -119,7 +122,7 @@ export default function AnimatedGradientText({ children, className = '' }: Anima
 
     animId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animId);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <span

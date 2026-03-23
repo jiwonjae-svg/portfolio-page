@@ -12,8 +12,10 @@ const config: Config = {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        background: '#0a0a0a',
-        foreground: '#ededed',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        card: 'var(--card)',
+        border: 'var(--border)',
         primary: '#6366f1',
         secondary: '#8b5cf6',
         accent: '#06b6d4',
@@ -40,5 +42,6 @@ const config: Config = {
     },
   },
   plugins: [],
+  darkMode: 'class',
 }
 export default config
