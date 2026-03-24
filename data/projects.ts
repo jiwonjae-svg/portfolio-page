@@ -72,8 +72,8 @@ export const projects: Project[] = [
     ├── Color Adjustment Panel (Warmth, Contrast, HSV Sliders)
     ├── Preset Browser
     └── Image Recoloring`,
-    githubUrl: "https://github.com/jiwonjae-svg/color_palette",
-    liveUrl: "https://github.com/jiwonjae-svg/color_palette/releases",
+    githubUrl: "https://github.com/jiwonjae-svg/color-palette-generator",
+    liveUrl: "https://github.com/jiwonjae-svg/color-palette-generator/releases",
     thumbnails: ["/images/CPG1.png", "/images/CPG2.png", "/images/CPG3.png"],
     metrics: [
       { label: "Languages", value: "KO/EN" },

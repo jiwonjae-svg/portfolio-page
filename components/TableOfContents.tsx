@@ -61,7 +61,7 @@ export default function TableOfContents() {
             transition={{ duration: 0.3 }}
             className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col gap-1 group/sidebar"
           >
-            <div className="bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-800 p-2 transition-all duration-300 w-12 group-hover/sidebar:w-52 overflow-hidden">
+            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none p-2 transition-all duration-300 w-12 group-hover/sidebar:w-52 overflow-hidden">
               {tocItems.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (
@@ -71,7 +71,7 @@ export default function TableOfContents() {
                     className={`flex items-center gap-3 px-2 py-2 rounded-xl transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-primary bg-primary/10'
-                        : 'text-zinc-500 hover:text-primary hover:bg-primary/5'
+                        : 'text-zinc-500 dark:text-zinc-500 hover:text-primary hover:bg-primary/5'
                     }`}
                   >
                     <span className="shrink-0">{item.icon}</span>
@@ -87,18 +87,18 @@ export default function TableOfContents() {
       </AnimatePresence>
 
       {/* ===== Mobile inline TOC (collapsible) ===== */}
-      <section className="py-12 px-4 bg-zinc-950/50 lg:hidden">
+      <section className="py-12 px-4 bg-zinc-100/80 dark:bg-zinc-950/50 lg:hidden">
         <div className="max-w-3xl mx-auto">
           <motion.nav
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-zinc-900/80 backdrop-blur-sm rounded-2xl border border-zinc-800 overflow-hidden"
+            className="bg-white/90 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-none overflow-hidden"
           >
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-full flex items-center justify-between p-4 text-sm font-semibold text-zinc-500 uppercase tracking-wider"
+              className="w-full flex items-center justify-between p-4 text-sm font-semibold text-zinc-500 dark:text-zinc-500 uppercase tracking-wider"
             >
               <span>Table of Contents</span>
               <motion.span
@@ -124,9 +124,9 @@ export default function TableOfContents() {
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-zinc-400 hover:text-primary hover:bg-primary/5 transition-all group"
+                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-zinc-600 dark:text-zinc-400 hover:text-primary hover:bg-primary/5 transition-all group"
                       >
-                        <span className="text-zinc-600 group-hover:text-primary transition-colors">{item.icon}</span>
+                        <span className="text-zinc-500 dark:text-zinc-600 group-hover:text-primary transition-colors">{item.icon}</span>
                         <span className="text-sm font-medium">{item.label}</span>
                         <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>

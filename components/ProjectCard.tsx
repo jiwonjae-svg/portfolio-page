@@ -100,7 +100,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: 'transform 0.1s ease-out',
       }}
-      className={`group relative bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-2xl border border-zinc-700/50 ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer`}
+      className={`group relative bg-gradient-to-br from-white to-zinc-50 dark:from-zinc-900 dark:to-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700/50 ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col`}
       onClick={() => onOpenModal(project)}
     >
       {/* Background Gradient Effect */}
@@ -117,7 +117,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
       {/* Thumbnail Preview — embedded at top of card */}
       {hasThumbnails && (
         <div
-          className={`relative w-full overflow-hidden bg-zinc-950 transition-[height] duration-500 ease-in-out ${
+          className={`relative w-full overflow-hidden bg-zinc-100 dark:bg-zinc-950 transition-[height] duration-500 ease-in-out ${
             isHovered ? 'h-48' : 'h-32'
           }`}
         >
@@ -136,7 +136,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
             />
           ))}
           {/* Gradient fade to card body */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-zinc-900 to-transparent z-[1]" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-zinc-900 to-transparent z-[1]" />
           {/* Dot indicators */}
           {project.thumbnails!.length > 1 && (
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
@@ -159,9 +159,9 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         </div>
       )}
 
-      <div className="relative z-10 p-6">
+      <div className="relative z-10 p-6 flex flex-col flex-1">
         {/* Project Number */}
-        <span className="text-xs font-mono text-zinc-600 group-hover:text-primary/60 transition-colors">
+        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-600 group-hover:text-primary/60 transition-colors">
           #{String(project.id).padStart(2, '0')}
         </span>
 
@@ -171,7 +171,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         </h3>
 
         {/* Project Summary (truncated) */}
-        <p className="text-zinc-400 mb-4 leading-relaxed line-clamp-2">
+        <p className="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed line-clamp-2">
           {project.summary}
         </p>
 
@@ -184,10 +184,10 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         {project.metrics && (
           <div className="flex flex-wrap gap-2 mb-3 mt-3">
             {project.metrics.slice(0, 3).map((metric, i) => (
-              <div key={i} className="flex items-center gap-1 px-2 py-1 bg-zinc-800/80 rounded-md border border-zinc-700/50">
+              <div key={i} className="flex items-center gap-1 px-2 py-1 bg-zinc-100 dark:bg-zinc-800/80 rounded-md border border-zinc-200 dark:border-zinc-700/50">
                 <BarChart3 className="w-3 h-3 text-primary" />
                 <span className="text-[10px] text-zinc-500">{metric.label}:</span>
-                <span className="text-[10px] font-semibold text-zinc-300">{metric.value}</span>
+                <span className="text-[10px] font-semibold text-zinc-700 dark:text-zinc-300">{metric.value}</span>
               </div>
             ))}
           </div>
@@ -214,14 +214,14 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
         </div>
 
         {/* Links */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 mt-auto pt-4">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-foreground rounded-lg transition-colors group/link"
+              className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-lg transition-colors group/link"
             >
               <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform" />
               <span className="text-sm font-medium">GitHub</span>

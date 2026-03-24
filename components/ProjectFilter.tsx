@@ -26,7 +26,7 @@ export default function ProjectFilter({ active, onChange }: ProjectFilterProps) 
           className={`relative px-5 py-2 rounded-full text-sm font-medium transition-colors ${
             active === f.value
               ? 'text-white'
-              : 'text-zinc-400 bg-zinc-800/60 hover:text-zinc-200 hover:bg-zinc-700/60'
+              : 'text-zinc-600 dark:text-zinc-400 bg-zinc-200/60 dark:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-300/60 dark:hover:bg-zinc-700/60 border border-zinc-300/60 dark:border-transparent'
           }`}
         >
           {active === f.value && (

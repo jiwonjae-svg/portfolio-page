@@ -37,7 +37,7 @@ export default function GitHubActivity() {
   if (!loading && activities.length === 0) return null;
 
   return (
-    <div className="bg-zinc-900 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-800 col-span-1 md:col-span-2 lg:col-span-1">
+    <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 col-span-1 md:col-span-2 lg:col-span-1">
       <div className="flex items-center gap-3 mb-5">
         <GitCommit className="w-6 h-6 text-violet-400" />
         <h3 className="text-lg font-bold text-foreground">Recent Activity</h3>
@@ -54,7 +54,7 @@ export default function GitHubActivity() {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-9 bg-zinc-800/50 rounded-lg animate-pulse" />
+            <div key={i} className="h-9 bg-zinc-200/80 dark:bg-zinc-800/50 rounded-lg animate-pulse" />
           ))}
         </div>
       ) : (
@@ -65,15 +65,15 @@ export default function GitHubActivity() {
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.07 }}
-              className="flex items-start gap-2 p-2.5 rounded-lg bg-zinc-800/30 hover:bg-zinc-800/60 transition-colors group"
+              className="flex items-start gap-2 p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/30 hover:bg-zinc-200 dark:hover:bg-zinc-800/60 transition-colors group"
             >
               <span className="text-violet-400 shrink-0 mt-0.5 group-hover:text-violet-300 transition-colors">›</span>
               <div className="min-w-0 flex-1">
                 <span className="text-emerald-400">{a.repo}</span>
                 <span className="text-zinc-600 mx-1">—</span>
-                <span className="text-zinc-300 break-all">{a.message}</span>
+                <span className="text-zinc-700 dark:text-zinc-300 break-all">{a.message}</span>
               </div>
-              <span className="text-zinc-600 shrink-0 ml-2 whitespace-nowrap">{timeAgo(a.date)}</span>
+              <span className="text-zinc-500 dark:text-zinc-600 shrink-0 ml-2 whitespace-nowrap">{timeAgo(a.date)}</span>
             </motion.div>
           ))}
         </div>

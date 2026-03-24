@@ -50,13 +50,13 @@ export default function ContactForm() {
   };
 
   const inputClass =
-    'w-full bg-zinc-900 dark:bg-zinc-900 border border-zinc-700 hover:border-zinc-600 focus:border-primary rounded-xl px-4 py-3 text-sm text-foreground placeholder-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-primary/40';
+    'w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 focus:border-primary rounded-xl px-4 py-3 text-sm text-foreground placeholder-zinc-400 dark:placeholder-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-primary/40';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-zinc-400 mb-1.5">Name</label>
+          <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Name</label>
           <input
             type="text"
             value={name}
@@ -69,7 +69,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-zinc-400 mb-1.5">Email</label>
+          <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Email</label>
           <input
             type="email"
             value={email}
@@ -84,9 +84,9 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-zinc-400 mb-1.5">
+        <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">
           Message
-          <span className="ml-auto float-right text-zinc-600">{message.length}/2000</span>
+          <span className="ml-auto float-right text-zinc-500 dark:text-zinc-600">{message.length}/2000</span>
         </label>
         <textarea
           value={message}

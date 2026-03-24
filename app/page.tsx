@@ -210,16 +210,16 @@ export default function Home() {
           >
             <AnimatedGradientText>
               <TypewriterText
-                text="Security & Graphics:"
+                text="Hard problems."
                 speed={60}
                 delay={800}
                 cursor={false}
               />
               <br />
               <TypewriterText
-                text="A Developer Breaking Technical Boundaries"
+                text="Seven shipped products, every platform."
                 speed={45}
-                delay={2200}
+                delay={2000}
               />
             </AnimatedGradientText>
           </motion.h1>
@@ -228,12 +228,12 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-zinc-400 mb-12 leading-relaxed"
+            className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed"
           >
             <TypewriterText
-              text="From GPU shaders to mobile apps, AES-128 encryption to real-time AI — building full-stack solutions across every layer of the stack."
-              speed={25}
-              delay={5500}
+              text="From immersive 3D interfaces to secure desktop tools to cross-platform mobile — real problems, thoughtfully solved."
+              speed={22}
+              delay={5000}
               cursor={false}
             />
           </motion.p>
@@ -302,7 +302,7 @@ export default function Home() {
       <TableOfContents />
 
       {/* ==================== Projects Section ==================== */}
-      <section id="projects" className="py-24 px-4 bg-zinc-950">
+      <section id="projects" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -322,7 +322,7 @@ export default function Home() {
 
           <ProjectFilter active={activeCategory} onChange={setActiveCategory} />
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <motion.div
@@ -331,8 +331,7 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                >
+                  transition={{ duration: 0.3 }}                  className="h-full"                >
                   <ProjectCard project={project} index={index} onOpenModal={openModal} />
                 </motion.div>
               ))}
@@ -369,7 +368,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="group relative"
               >
-                <div className="relative bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-primary/40 transition-all duration-500 overflow-hidden h-full">
+                <div className="relative bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-primary/40 transition-all duration-500 overflow-hidden h-full">
                   {/* Hover gradient background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -403,10 +402,10 @@ export default function Home() {
                           whileHover={{ x: 4 }}
                           className="group/item"
                         >
-                          <p className="text-sm font-semibold text-zinc-200 group-hover/item:text-primary transition-colors">
+                          <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 group-hover/item:text-primary transition-colors">
                             {item.name}
                           </p>
-                          <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
+                          <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-0.5 leading-relaxed">
                             {item.desc}
                           </p>
                         </motion.div>
@@ -424,7 +423,7 @@ export default function Home() {
       </section>
 
       {/* ==================== Proof of Performance Section ==================== */}
-      <section id="performance" className="py-24 px-4 bg-zinc-950">
+      <section id="performance" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -456,7 +455,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1, type: 'spring', stiffness: 200 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-zinc-900 rounded-2xl border border-zinc-800 hover:border-primary/40 transition-all group"
+                className="text-center p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-primary/40 transition-all group"
               >
                 <motion.span
                   className="text-3xl block mb-2"
@@ -468,7 +467,7 @@ export default function Home() {
                 <p className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {metric.value}
                 </p>
-                <p className="text-sm text-zinc-500 mt-1">{metric.label}</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-1">{metric.label}</p>
               </motion.div>
             ))}
           </div>
@@ -482,7 +481,7 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
             {/* Security Verification */}
-            <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-3 mb-5">
                 <Shield className="w-6 h-6 text-emerald-400" />
                 <h3 className="text-lg font-bold text-foreground">Security Verification</h3>
@@ -507,14 +506,14 @@ export default function Home() {
                     className="flex items-start gap-2"
                   >
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                    <span className="text-sm text-zinc-300">{item}</span>
+                    <span className="text-sm text-zinc-700 dark:text-zinc-300">{item}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
 
             {/* Performance Optimization */}
-            <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-3 mb-5">
                 <TrendingUp className="w-6 h-6 text-cyan-400" />
                 <h3 className="text-lg font-bold text-foreground">Performance Optimization</h3>
@@ -539,7 +538,7 @@ export default function Home() {
                     className="flex items-start gap-2"
                   >
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
-                    <span className="text-sm text-zinc-300">{item}</span>
+                    <span className="text-sm text-zinc-700 dark:text-zinc-300">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -558,7 +557,7 @@ export default function Home() {
               <AlertTriangle className="w-6 h-6 text-amber-400 mt-1 shrink-0" />
               <div>
                 <h4 className="text-base font-bold text-foreground mb-2">Upcoming: Unit Test Integration</h4>
-                <p className="text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                   Currently preparing to introduce unit tests for core logic in each project (color algorithms, encryption modules, particle generation, etc.).
                   Plan to add test coverage reports based on pytest (Python) and Vitest/Jest (TypeScript) to this section.
                 </p>
@@ -631,19 +630,19 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-primary/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-primary" />
                   <h3 className="text-lg font-bold text-foreground">Redesigning Security Architecture</h3>
                   <span className="text-xs text-zinc-500 ml-auto">Color Palette Generator v1.0.0 → v1.0.1</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   In v1.0.0, I made the critical mistake of hardcoding the encryption key in the source code.
                   If the code had been uploaded to a public repository, all user data would have been exposed — a severe security vulnerability.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Separated the key into an external file (secret.key), configured .gitignore, and built a data re-encryption pipeline.
                     This experience taught me the principle that &quot;security must come first, not later.&quot;
                   </p>
@@ -660,19 +659,19 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-secondary/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-secondary rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-secondary" />
                   <h3 className="text-lg font-bold text-foreground">CPU vs GPU — Discovering Parallel Processing</h3>
                   <span className="text-xs text-zinc-500 ml-auto">ParticleVerse</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   In the initial version, updating 50,000 particle positions every frame in JavaScript resulted in a dismal 10fps.
                   I temporarily gave up, thinking &quot;this many particles is impossible on the web.&quot;
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> After learning GLSL custom shaders and offloading computation to the GPU, I achieved 60fps.
                     The realization that &quot;it&apos;s not impossible — the approach was wrong&quot; taught me that understanding hardware architecture is the key to software performance.
                   </p>
@@ -689,19 +688,19 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-primary/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-primary" />
                   <h3 className="text-lg font-bold text-foreground">Cross-Platform Data Migration Dilemma</h3>
                   <span className="text-xs text-zinc-500 ml-auto">Croquis</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   When pushing an installer upgrade via Inno Setup, changing the encryption key caused all previously saved practice history 
                   to become undecryptable. Users who upgraded lost their entire practice streak data with no way to recover it.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Documented an Export → Re-import workflow in the release notes as an immediate fix, and planned an automatic 
                     migration script for future versions. Learned that &quot;data compatibility across versions must be a first-class design concern, not an afterthought.&quot;
                   </p>
@@ -718,20 +717,20 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-emerald-500/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-emerald-500 rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-emerald-500" />
                   <h3 className="text-lg font-bold text-foreground">Taming Unpredictable AI Responses</h3>
                   <span className="text-xs text-zinc-500 ml-auto">Color Palette Generator</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   The Gemini API returned free-form text with wildly inconsistent formats — sometimes valid JSON, sometimes markdown, sometimes 
                   plain text with embedded HEX codes. A single parsing strategy could never handle all variants, and the app crashed frequently 
                   during demo scenarios.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Built a multi-stage fallback pipeline (JSON parse → Regex HEX extraction → default colors) 
                     that gracefully degrades instead of crashing. Realized &quot;never trust external API output — always design for the worst-case response.&quot;
                   </p>
@@ -748,19 +747,19 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-amber-500/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-amber-500 rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-amber-500" />
                   <h3 className="text-lg font-bold text-foreground">The Main Thread Freeze Incident</h3>
                   <span className="text-xs text-zinc-500 ml-auto">SVG Converter</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   When a user uploaded a 4000×3000px photo, the single-pass pixel traversal blocked the main thread for over 8 seconds. 
                   The browser showed &quot;Page Unresponsive&quot; — a terrible UX for an app that promises client-side speed.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Redesigned the algorithm into a 2-Pass Grid Sampling approach, reducing complexity from O(W×H) to a fraction. 
                     Combined with Luminance-based background removal and adjacent region merging, cut output SVG size by 60%+. 
                     &quot;Brute-force may work in dev, but always design for real-world input sizes.&quot;
@@ -778,19 +777,19 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-rose-500/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-rose-500 rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-rose-500" />
                   <h3 className="text-lg font-bold text-foreground">Race Conditions in Clipboard Monitoring</h3>
                   <span className="text-xs text-zinc-500 ml-auto">Paste Guardian</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   During testing, running two instances of Paste Guardian simultaneously caused corrupted clipboard history — both instances 
                   were writing to the same encrypted file without coordination, and polling at fixed 200ms intervals kept CPU usage constantly high.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Implemented OS-level named mutex for single-instance enforcement, Win32 OpenClipboard/CloseClipboard 
                     for atomic access, and adaptive polling (200ms active → 1000ms idle) to cut CPU usage. 
                     &quot;System-level apps demand system-level thinking — OS primitives exist for a reason.&quot;
@@ -808,20 +807,20 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-cyan-500/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-cyan-500 rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-cyan-500" />
                   <h3 className="text-lg font-bold text-foreground">From AI Generation to Curated Data Pipelines</h3>
                   <span className="text-xs text-zinc-500 ml-auto">DailyGlow</span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   Initially relied entirely on the Grok API to generate motivational quotes, but after a few cycles, 
                   the AI produced increasingly repetitive patterns and occasionally returned quotes in the wrong language. 
                   The cost per API call and unpredictable output quality made it unsustainable for production.
                 </p>
                 <div className="flex items-start gap-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                   <ChevronRight className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-zinc-300">
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     <span className="font-semibold text-emerald-400">Lesson:</span> Pivoted to a hybrid approach: crawled 1000+ copyright-safe quotes from public domain sources (Quotable API, Wikiquote, Project Gutenberg), 
                     translated them into 5 languages, and assigned weighted category scores. Built a client-side weighted selection algorithm with a 20-quote recency buffer. 
                     &quot;AI is powerful, but curated data with smart algorithms often delivers more consistent, predictable results.&quot;
@@ -839,12 +838,12 @@ export default function Home() {
               className="relative pl-8 border-l-2 border-primary/30"
             >
               <div className="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full" />
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-primary" />
                   <h3 className="text-lg font-bold text-foreground">Future Technical Direction</h3>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
                   Building on my experience creating both desktop security tools and web graphics,
                   I aim to expand my technical scope into the following areas.
                 </p>
@@ -854,7 +853,7 @@ export default function Home() {
                     { title: 'WebGPU & Compute', desc: 'Next-gen browser parallel computation using WebGPU Compute Shaders' },
                     { title: 'Mobile Release', desc: 'Publishing DailyGlow to App Store & Google Play with RevenueCat subscription integration' },
                   ].map((goal, i) => (
-                    <div key={i} className="p-4 bg-zinc-800/60 rounded-xl border border-zinc-700/50">
+                    <div key={i} className="p-4 bg-zinc-100 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700/50">
                       <p className="text-sm font-semibold text-foreground mb-1">{goal.title}</p>
                       <p className="text-xs text-zinc-500">{goal.desc}</p>
                     </div>
@@ -867,7 +866,7 @@ export default function Home() {
       </section>
 
       {/* ==================== Contact Section ==================== */}
-      <section id="contact" className="py-24 px-4 bg-zinc-950">
+      <section id="contact" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -889,7 +888,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 mb-8"
+            className="bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 mb-8"
           >
             <ContactForm />
           </motion.div>
@@ -913,7 +912,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="pt-8 border-t border-zinc-800 text-center">
+          <div className="pt-8 border-t border-zinc-200 dark:border-zinc-800 text-center">
             <p className="text-zinc-500 text-sm">
               © 2026 jiwonjae-svg. Built with Next.js & Framer Motion.
             </p>

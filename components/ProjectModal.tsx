@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical } from 'lucide-react';
+import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { useEffect, useState } from 'react';
 
@@ -31,12 +31,14 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'challenge' | 'architecture'>('overview');
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       setActiveTab('overview');
+      setGalleryIndex(0);
     } else {
       document.body.style.overflow = '';
     }
@@ -90,7 +92,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
           {/* Modal Content */}
           <motion.div
-            className="relative w-full max-w-3xl max-h-[90vh] bg-zinc-900 border border-zinc-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 flex flex-col"
+            className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 flex flex-col"
             initial={{ scale: 0.85, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.85, opacity: 0, y: 40 }}
@@ -104,7 +106,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-all hover:rotate-90 duration-300 z-10"
+                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all hover:rotate-90 duration-300 z-10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -128,7 +130,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   transition={{ delay: 0.12 }}
                 >
                   {project.metrics.map((metric, i) => (
-                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800/80 rounded-lg border border-zinc-700/50">
+                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800/80 rounded-lg border border-zinc-200 dark:border-zinc-700/50">
                       <BarChart3 className="w-3.5 h-3.5 text-primary" />
                       <span className="text-xs text-zinc-400">{metric.label}:</span>
                       <span className="text-xs font-semibold text-foreground">{metric.value}</span>
@@ -139,7 +141,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
               {/* Tab Navigation */}
               <motion.div
-                className="flex gap-1 mb-6 bg-zinc-800/50 rounded-xl p-1 border border-zinc-700/30"
+                  className="flex gap-1 mb-6 bg-zinc-100 dark:bg-zinc-800/50 rounded-xl p-1 border border-zinc-200 dark:border-zinc-700/30"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
@@ -151,7 +153,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${
                       activeTab === tab.key
                         ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
+                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700/50'
                     }`}
                   >
                     {tab.label}
@@ -169,14 +171,68 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                   >
+                    {/* Screenshot Gallery */}
+                    {project.thumbnails && project.thumbnails.length > 0 && (
+                      <div className="mb-8">
+                        {/* Main image */}
+                        <div className="relative rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 mb-3 group">
+                          <img
+                            src={project.thumbnails[galleryIndex]}
+                            alt={`${project.title} screenshot ${galleryIndex + 1}`}
+                            className="w-full max-h-72 object-contain"
+                          />
+                          {project.thumbnails.length > 1 && (
+                            <>
+                              <button
+                                onClick={() => setGalleryIndex((i) => (i - 1 + project.thumbnails!.length) % project.thumbnails!.length)}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
+                              >
+                                <ChevronLeft className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => setGalleryIndex((i) => (i + 1) % project.thumbnails!.length)}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
+                              >
+                                <ChevronRight className="w-4 h-4" />
+                              </button>
+                            </>
+                          )}
+                          {/* Image counter */}
+                          {project.thumbnails.length > 1 && (
+                            <span className="absolute bottom-2 right-2 text-[10px] bg-black/50 text-white px-2 py-0.5 rounded-full">
+                              {galleryIndex + 1} / {project.thumbnails.length}
+                            </span>
+                          )}
+                        </div>
+                        {/* Thumbnail strip */}
+                        {project.thumbnails.length > 1 && (
+                          <div className="flex gap-2 overflow-x-auto pb-1">
+                            {project.thumbnails.map((thumb, i) => (
+                              <button
+                                key={i}
+                                onClick={() => setGalleryIndex(i)}
+                                className={`shrink-0 w-16 h-11 rounded-lg overflow-hidden border-2 transition-all ${
+                                  i === galleryIndex
+                                    ? 'border-primary opacity-100'
+                                    : 'border-transparent opacity-60 hover:opacity-90'
+                                }`}
+                              >
+                                <img src={thumb} alt={`Thumb ${i + 1}`} className="w-full h-full object-cover" />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     {/* Full Description */}
-                    <p className="text-zinc-300 text-base leading-relaxed mb-8">
+                    <p className="text-zinc-700 dark:text-zinc-300 text-base leading-relaxed mb-8">
                       {project.description}
                     </p>
 
                     {/* Grouped Tech Stack */}
                     <div className="space-y-4 mb-8">
-                      <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-500 uppercase tracking-wider flex items-center gap-2">
                         <span className="w-8 h-px bg-zinc-700" />
                         Tech Stack
                         <span className="flex-1 h-px bg-zinc-700" />
@@ -217,7 +273,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         <AlertTriangle className="w-5 h-5 text-red-400" />
                         <h3 className="text-base font-bold text-red-400">Problem</h3>
                       </div>
-                      <p className="text-zinc-300 text-sm leading-relaxed">
+                      <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
                         {project.technicalChallenge.problem}
                       </p>
                     </div>
@@ -233,7 +289,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         <Lightbulb className="w-5 h-5 text-emerald-400" />
                         <h3 className="text-base font-bold text-emerald-400">Solution</h3>
                       </div>
-                      <p className="text-zinc-300 text-sm leading-relaxed">
+                      <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
                         {project.technicalChallenge.solution}
                       </p>
                     </div>
@@ -252,8 +308,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       <Network className="w-5 h-5 text-primary" />
                       <h3 className="text-base font-bold text-foreground">System Data Flow</h3>
                     </div>
-                    <div className="bg-zinc-800/60 border border-zinc-700/50 rounded-2xl p-6 overflow-x-auto">
-                      <pre className="text-sm text-zinc-300 font-mono leading-relaxed whitespace-pre">
+                    <div className="bg-zinc-100 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/50 rounded-2xl p-6 overflow-x-auto">
+                      <pre className="text-sm text-zinc-700 dark:text-zinc-300 font-mono leading-relaxed whitespace-pre">
                         {project.architecture}
                       </pre>
                     </div>
@@ -263,7 +319,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
               {/* Links - Always visible */}
               <motion.div
-                className="flex gap-4 mt-8 pt-6 border-t border-zinc-800"
+                className="flex gap-4 mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
@@ -273,7 +329,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-foreground rounded-xl transition-all hover:scale-105 group"
+                    className="flex items-center gap-2 px-6 py-3 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-xl transition-all hover:scale-105 group"
                   >
                     <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                     <span className="font-medium">GitHub</span>
