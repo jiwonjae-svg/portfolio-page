@@ -220,16 +220,16 @@ export default function Home() {
           >
             <AnimatedGradientText>
               <TypewriterText
-                text="Hard problems."
+                text="Real craft. Real ownership."
                 speed={60}
                 delay={800}
                 cursor={false}
               />
               <br />
               <TypewriterText
-                text="Seven shipped products, every platform."
+                text="Seven shipped products — every platform."
                 speed={45}
-                delay={2000}
+                delay={2200}
               />
             </AnimatedGradientText>
           </motion.h1>
@@ -241,9 +241,9 @@ export default function Home() {
             className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed"
           >
             <TypewriterText
-              text="From immersive 3D interfaces to secure desktop tools to cross-platform mobile — real problems, thoughtfully solved."
-              speed={22}
-              delay={5000}
+              text="TypeScript enforces correctness before runtime. GLSL shaders move computation to the GPU. AES-256 encryption ships by default — not as an afterthought. React Native, Electron, and PyQt5: the same discipline, every platform."
+              speed={20}
+              delay={5400}
               cursor={false}
             />
           </motion.p>

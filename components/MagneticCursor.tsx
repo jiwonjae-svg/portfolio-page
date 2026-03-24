@@ -16,6 +16,7 @@ export default function MagneticCursor() {
   const mouse = useRef({ x: -200, y: -200 });
   const dot = useRef({ x: -200, y: -200 });
   const ring = useRef({ x: -200, y: -200 });
+  const ringScale = useRef(1); // lerped in rAF — no CSS scale property
 
   // Use refs for interaction state — avoids re-renders racing with the rAF loop
   const leftDown = useRef(false);
@@ -32,15 +33,12 @@ export default function MagneticCursor() {
     document.documentElement.style.cursor = 'none';
     let rafId = 0;
 
-    // Apply ring scale directly to DOM — no state, no re-render
-    const applyRingScale = () => {
-      if (!ringRef.current) return;
-      let s: number;
-      if (leftDown.current) s = 1.8;        // left click → expand
-      else if (rightDown.current) s = 0.4;  // right click → shrink
-      else if (hovering.current) s = 1.6;   // hover interactive
-      else s = 1;
-      ringRef.current.style.scale = String(s);
+    // Target scale based on interaction state — read in rAF, never triggers re-render
+    const getTargetScale = () => {
+      if (leftDown.current) return 1.8;
+      if (rightDown.current) return 0.4;
+      if (hovering.current) return 1.6;
+      return 1;
     };
 
     const onMove = (e: MouseEvent) => {
@@ -59,17 +57,14 @@ export default function MagneticCursor() {
     const onMouseDown = (e: MouseEvent) => {
       if (e.button === 0) leftDown.current = true;
       if (e.button === 2) rightDown.current = true;
-      applyRingScale();
     };
     const onMouseUp = (e: MouseEvent) => {
       if (e.button === 0) leftDown.current = false;
       if (e.button === 2) rightDown.current = false;
-      applyRingScale();
     };
     const onOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       hovering.current = !!target.closest('a, button, [role="button"], input, textarea, select, label');
-      applyRingScale();
       if (ringRef.current) {
         ringRef.current.style.borderColor = hovering.current ? '#06b6d4' : 'rgba(99,102,241,0.5)';
         ringRef.current.style.backgroundColor = hovering.current ? 'rgba(99,102,241,0.08)' : 'transparent';
@@ -88,12 +83,14 @@ export default function MagneticCursor() {
       dot.current.y = lerp(dot.current.y, mouse.current.y, 0.45);
       ring.current.x = lerp(ring.current.x, mouse.current.x, 0.12);
       ring.current.y = lerp(ring.current.y, mouse.current.y, 0.12);
+      // Lerp scale in rAF — baked into transform so there's only one transform property
+      ringScale.current = lerp(ringScale.current, getTargetScale(), 0.12);
 
       if (dotRef.current) {
         dotRef.current.style.transform = `translate(${dot.current.x - 4}px, ${dot.current.y - 4}px)`;
       }
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ring.current.x - 16}px, ${ring.current.y - 16}px)`;
+        ringRef.current.style.transform = `translate(${ring.current.x - 16}px, ${ring.current.y - 16}px) scale(${ringScale.current})`;
       }
       rafId = requestAnimationFrame(animate);
     };
@@ -142,9 +139,8 @@ export default function MagneticCursor() {
           backgroundColor: 'transparent',
           opacity: 0,
           willChange: 'transform',
-          transform: 'translate(-200px, -200px)',
-          scale: '1',
-          transition: 'scale 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s ease, background-color 0.2s ease, opacity 0.3s ease',
+          transform: 'translate(-200px, -200px) scale(1)',
+          transition: 'border-color 0.2s ease, background-color 0.2s ease, opacity 0.3s ease',
         }}
       />
     </>

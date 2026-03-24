@@ -61,21 +61,21 @@ export default function TableOfContents() {
             transition={{ duration: 0.3 }}
             className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col gap-1 group/sidebar"
           >
-            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none p-2 transition-all duration-300 w-12 group-hover/sidebar:w-52 overflow-hidden">
+            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none p-3 transition-all duration-300 w-14 group-hover/sidebar:w-56 overflow-hidden">
               {tocItems.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 px-2 py-2 rounded-xl transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-primary bg-primary/10'
                         : 'text-zinc-500 dark:text-zinc-500 hover:text-primary hover:bg-primary/5'
                     }`}
                   >
-                    <span className="shrink-0">{item.icon}</span>
-                    <span className="text-xs font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">
+                    <span className="shrink-0 [&>svg]:w-5 [&>svg]:h-5">{item.icon}</span>
+                    <span className="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300">
                       {item.label}
                     </span>
                   </a>
