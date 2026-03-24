@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
+import ScrollProgress from '@/components/ScrollProgress'
+import MagneticCursor from '@/components/MagneticCursor'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -67,6 +69,8 @@ export default function RootLayout({
       </head>
       <body className="font-inter">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <ScrollProgress />
+          <MagneticCursor />
           {children}
         </ThemeProvider>
       </body>

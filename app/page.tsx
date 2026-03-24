@@ -26,6 +26,16 @@ const SectionTypewriter = dynamic(() => import('@/components/SectionTypewriter')
   loading: () => <span className="invisible">&#8203;</span>,
 });
 
+const ScrambleText = dynamic(() => import('@/components/ScrambleText'), {
+  ssr: false,
+  loading: () => <span className="invisible">&#8203;</span>,
+});
+
+const CountUp = dynamic(() => import('@/components/CountUp'), {
+  ssr: false,
+  loading: () => <span>0</span>,
+});
+
 // Tech stack organized by category
 const techCategories = [
   {
@@ -313,7 +323,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <Code2 className="w-10 h-10 text-primary" />
-              <SectionTypewriter text="Featured Projects" speed={50} />
+              <ScrambleText text="Featured Projects" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="Click any project card to deep-dive into technical challenges, solutions, and system architecture" speed={20} />
@@ -434,7 +444,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <TrendingUp className="w-10 h-10 text-primary" />
-              <SectionTypewriter text="Proof of Performance" speed={50} />
+              <ScrambleText text="Proof of Performance" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="Technical achievements proven by quantitative metrics and verification results" speed={20} />
@@ -464,9 +474,10 @@ export default function Home() {
                 >
                   {metric.icon}
                 </motion.span>
-                <p className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  {metric.value}
-                </p>
+                <CountUp
+                  target={parseInt(metric.value)}
+                  className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors"
+                />
                 <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-1">{metric.label}</p>
               </motion.div>
             ))}
