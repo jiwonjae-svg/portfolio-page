@@ -16,9 +16,11 @@ export default function MagneticCursor() {
   const mouse = useRef({ x: -200, y: -200 });
   const dot = useRef({ x: -200, y: -200 });
   const ring = useRef({ x: -200, y: -200 });
-  const [visible, setVisible] = useState(false);
-  const [clicking, setClicking] = useState(false);
-  const [hovering, setHovering] = useState(false);
+
+  // Use refs for interaction state — avoids re-renders racing with the rAF loop
+  const leftDown = useRef(false);
+  const rightDown = useRef(false);
+  const hovering = useRef(false);
 
   useEffect(() => {
     setIsTouch(window.matchMedia('(hover: none)').matches);
@@ -26,25 +28,52 @@ export default function MagneticCursor() {
 
   useEffect(() => {
     if (reducedMotion || isTouch) return;
-    // Hide default cursor
-    document.documentElement.style.cursor = 'none';
 
+    document.documentElement.style.cursor = 'none';
     let rafId = 0;
+
+    // Apply ring scale directly to DOM — no state, no re-render
+    const applyRingScale = () => {
+      if (!ringRef.current) return;
+      let s: number;
+      if (leftDown.current) s = 1.8;        // left click → expand
+      else if (rightDown.current) s = 0.4;  // right click → shrink
+      else if (hovering.current) s = 1.6;   // hover interactive
+      else s = 1;
+      ringRef.current.style.scale = String(s);
+    };
 
     const onMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
-      if (!visible) setVisible(true);
+      if (dotRef.current) dotRef.current.style.opacity = '1';
+      if (ringRef.current) ringRef.current.style.opacity = '1';
     };
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
-    const onMouseDown = () => setClicking(true);
-    const onMouseUp = () => setClicking(false);
-
-    // Hover detection for interactive elements
+    const onLeave = () => {
+      if (dotRef.current) dotRef.current.style.opacity = '0';
+      if (ringRef.current) ringRef.current.style.opacity = '0';
+    };
+    const onEnter = () => {
+      if (dotRef.current) dotRef.current.style.opacity = '1';
+      if (ringRef.current) ringRef.current.style.opacity = '1';
+    };
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button === 0) leftDown.current = true;
+      if (e.button === 2) rightDown.current = true;
+      applyRingScale();
+    };
+    const onMouseUp = (e: MouseEvent) => {
+      if (e.button === 0) leftDown.current = false;
+      if (e.button === 2) rightDown.current = false;
+      applyRingScale();
+    };
     const onOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isInteractive = !!target.closest('a, button, [role="button"], input, textarea, select, label');
-      setHovering(isInteractive);
+      hovering.current = !!target.closest('a, button, [role="button"], input, textarea, select, label');
+      applyRingScale();
+      if (ringRef.current) {
+        ringRef.current.style.borderColor = hovering.current ? '#06b6d4' : 'rgba(99,102,241,0.5)';
+        ringRef.current.style.backgroundColor = hovering.current ? 'rgba(99,102,241,0.08)' : 'transparent';
+      }
     };
 
     window.addEventListener('mousemove', onMove);
@@ -80,7 +109,7 @@ export default function MagneticCursor() {
       window.removeEventListener('mouseover', onOver);
       cancelAnimationFrame(rafId);
     };
-  }, [reducedMotion, isTouch, visible]);
+  }, [reducedMotion, isTouch]);
 
   if (reducedMotion || isTouch) return null;
 
@@ -90,33 +119,32 @@ export default function MagneticCursor() {
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[999] rounded-full transition-opacity duration-300"
+        className="pointer-events-none fixed top-0 left-0 z-[999] rounded-full"
         style={{
           width: 8,
           height: 8,
-          backgroundColor: clicking ? 'var(--color-accent)' : 'var(--color-primary, #6366f1)',
-          opacity: visible ? 1 : 0,
+          backgroundColor: 'var(--color-primary, #6366f1)',
+          opacity: 0,
           willChange: 'transform',
           transform: 'translate(-200px, -200px)',
-          scale: clicking ? '0.5' : '1',
-          transition: 'scale 0.15s ease, background-color 0.2s ease, opacity 0.3s ease',
+          transition: 'opacity 0.3s ease',
         }}
       />
       {/* Outer ring — slow, trailing */}
       <div
         ref={ringRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[998] rounded-full border transition-opacity duration-300"
+        className="pointer-events-none fixed top-0 left-0 z-[998] rounded-full border"
         style={{
           width: 32,
           height: 32,
-          borderColor: hovering ? '#06b6d4' : 'rgba(99,102,241,0.5)',
-          backgroundColor: hovering ? 'rgba(99,102,241,0.08)' : 'transparent',
-          opacity: visible ? 1 : 0,
+          borderColor: 'rgba(99,102,241,0.5)',
+          backgroundColor: 'transparent',
+          opacity: 0,
           willChange: 'transform',
           transform: 'translate(-200px, -200px)',
-          scale: clicking ? '0.7' : hovering ? '1.6' : '1',
-          transition: 'scale 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, opacity 0.3s ease',
+          scale: '1',
+          transition: 'scale 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s ease, background-color 0.2s ease, opacity 0.3s ease',
         }}
       />
     </>

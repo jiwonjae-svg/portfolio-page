@@ -351,7 +351,7 @@ export default function Home() {
       </section>
 
       {/* ==================== Tech Stack Section ==================== */}
-      <section id="tech" className="py-24 px-4">
+      <section id="tech" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -590,7 +590,7 @@ export default function Home() {
       </section>
 
       {/* ==================== Project Timeline Section ==================== */}
-      <section id="timeline" className="py-24 px-4">
+      <section id="timeline" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -613,7 +613,7 @@ export default function Home() {
       </section>
 
       {/* ==================== Professional Experience & Retro Section ==================== */}
-      <section id="experience" className="py-24 px-4">
+      <section id="experience" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -207,7 +207,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
             </motion.span>
           ))}
           {project.techStack.length > 5 && (
-            <span className="px-2.5 py-1 text-[11px] bg-zinc-800/60 text-zinc-500 border border-zinc-700/50 rounded-full">
+            <span className="px-2.5 py-1 text-[11px] bg-zinc-100/80 dark:bg-zinc-800/60 text-zinc-500 border border-zinc-300/50 dark:border-zinc-700/50 rounded-full">
               +{project.techStack.length - 5} more
             </span>
           )}
