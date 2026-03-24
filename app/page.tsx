@@ -220,7 +220,7 @@ export default function Home() {
           >
             <AnimatedGradientText>
               <TypewriterText
-                text="최원집의 포트폴리오"
+                text="Jiwonjae's Portfolio"
                 speed={60}
                 delay={800}
                 cursor={false}
@@ -235,7 +235,7 @@ export default function Home() {
             className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed"
           >
             <TypewriterText
-              text="안녕하세요! 웹, 데스크톱, 모바일을 아우르는 7개의 실제 배포 프로젝트들을 담은 포트폴리오입니다."
+              text="Welcome to my portfolio! I'm a software developer specializing in building performant, secure, and user-friendly applications across web, desktop, and mobile platforms. Explore my projects to see how I turn complex technical challenges into elegant solutions."
               speed={35}
               delay={2400}
               cursor={false}
