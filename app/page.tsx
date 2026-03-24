@@ -220,16 +220,10 @@ export default function Home() {
           >
             <AnimatedGradientText>
               <TypewriterText
-                text="Real craft. Real ownership."
+                text="최원집의 포트폴리오"
                 speed={60}
                 delay={800}
                 cursor={false}
-              />
-              <br />
-              <TypewriterText
-                text="Seven shipped products — every platform."
-                speed={45}
-                delay={2200}
               />
             </AnimatedGradientText>
           </motion.h1>
@@ -241,9 +235,9 @@ export default function Home() {
             className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed"
           >
             <TypewriterText
-              text="TypeScript enforces correctness before runtime. GLSL shaders move computation to the GPU. AES-256 encryption ships by default — not as an afterthought. React Native, Electron, and PyQt5: the same discipline, every platform."
-              speed={20}
-              delay={5400}
+              text="안녕하세요! 웹, 데스크톱, 모바일을 아우르는 7개의 실제 배포 프로젝트들을 담은 포트폴리오입니다."
+              speed={35}
+              delay={2400}
               cursor={false}
             />
           </motion.p>
@@ -361,7 +355,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              🛠️ <SectionTypewriter text="Skill & Tech Stack" speed={50} />
+              🛠️ <ScrambleText text="Skill & Tech Stack" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="From GPU shaders to encrypted storage — the real value each technology delivers" speed={20} />
@@ -601,7 +595,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <Clock className="w-10 h-10 text-primary" />
-              <SectionTypewriter text="Project Timeline" speed={50} />
+              <ScrambleText text="Project Timeline" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="A chronological journey through each project's evolution" speed={20} />
@@ -624,7 +618,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
               <BookOpen className="w-10 h-10 text-primary" />
-              <SectionTypewriter text="Experience & Retrospective" speed={50} />
+              <ScrambleText text="Experience & Retrospective" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="Lessons learned from failures, transformed into technical growth" speed={20} />
@@ -887,7 +881,7 @@ export default function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <SectionTypewriter text="Let's Work Together" speed={50} />
+              <ScrambleText text="Let's Work Together" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
               <SectionTypewriter text="Got an interesting challenge or want to build something together? Let's talk." speed={25} />

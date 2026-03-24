@@ -18,6 +18,7 @@ export default function TableOfContents() {
   const [isOpen, setIsOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [hasUsed, setHasUsed] = useState(false);
 
   useEffect(() => {
     const sectionIds = tocItems.map((item) => item.href.slice(1));
@@ -65,14 +66,14 @@ export default function TableOfContents() {
             onMouseLeave={() => setIsHovered(false)}
           >
             <div className="relative bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-md dark:shadow-none p-2 transition-all duration-300 w-12 group-hover/sidebar:w-52 overflow-hidden">
-              {/* Pulsing hint border — appears when nav first shows, fades on hover */}
+              {/* Pulsing hint border — appears when nav first shows, fades on hover or after first use */}
               <motion.div
                 key={pastHero ? 'on' : 'off'}
                 className="absolute inset-0 rounded-2xl pointer-events-none"
-                style={{ boxShadow: '0 0 0 2px #6366f1' }}
-                animate={isHovered ? { opacity: 0 } : { opacity: [0, 1, 0] }}
+                style={{ boxShadow: '0 0 0 4px #6366f1' }}
+                animate={(isHovered || hasUsed) ? { opacity: 0 } : { opacity: [0, 1, 0] }}
                 transition={
-                  isHovered
+                  (isHovered || hasUsed)
                     ? { duration: 0.4 }
                     : { duration: 2.4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.5 }
                 }
@@ -83,6 +84,7 @@ export default function TableOfContents() {
                   <a
                     key={item.href}
                     href={item.href}
+                    onClick={() => setHasUsed(true)}
                     className={`flex items-center gap-3 px-2 py-2 rounded-xl transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-primary bg-primary/10'
