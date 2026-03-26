@@ -5,18 +5,18 @@ import MagneticCursor from '@/components/MagneticCursor'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'jiwonjae | Full-Stack & Mobile Developer',
+  title: 'Jiwonjae | Full-Stack & Mobile Developer',
   description:
-    'Portfolio of jiwonjae — building across the full stack from GPU shaders and AES-128 encryption to cross-platform mobile apps. Specializing in React Native, Next.js, Three.js, Python, and Firebase.',
+    'Portfolio of Jiwonjae — building across the full stack from GPU shaders and AES-128 encryption to cross-platform mobile apps. Specializing in React Native, Next.js, Three.js, Python, and Firebase.',
   keywords: [
     'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
     'Python', 'React Native', 'Expo', 'Firebase', 'mobile', 'full-stack',
     'GLSL', 'shader', 'encryption', 'security',
   ],
-  authors: [{ name: 'jiwonjae-svg' }],
+  authors: [{ name: 'Jiwonjae-svg' }],
   metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
-    title: 'jiwonjae | Full-Stack & Mobile Developer',
+    title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
       'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, AI integration, and cross-platform mobile.',
     type: 'website',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'jiwonjae | Full-Stack & Mobile Developer',
+    title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
       'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, and AI.',
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'jiwonjae',
+  name: 'Jiwonjae',
   url: 'https://jiwonjae-portfolio.vercel.app',
   sameAs: ['https://github.com/jiwonjae-svg'],
   jobTitle: 'Full-Stack & Mobile Developer',
