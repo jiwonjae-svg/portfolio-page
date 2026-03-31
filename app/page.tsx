@@ -13,6 +13,7 @@ import ProjectTimeline from '@/components/ProjectTimeline';
 import GitHubActivity from '@/components/GitHubActivity';
 import ContactForm from '@/components/ContactForm';
 import ThemeToggle from '@/components/ThemeToggle';
+import { GradientDots } from '@/components/ui/gradient-dots';
 import { projects, Project, ProjectCategory } from '@/data/projects';
 import { useState } from 'react';
 
@@ -196,11 +197,17 @@ export default function Home() {
 
       {/* ==================== Hero Section ==================== */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-        {/* Background Orbs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-        </div>
+        {/* Gradient Dots Background */}
+        <GradientDots
+          dotSize={6}
+          spacing={18}
+          duration={25}
+          colorCycleDuration={8}
+          backgroundColor="var(--background)"
+          className="opacity-60"
+        />
+        {/* Soft vignette overlay to keep text readable */}
+        <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-background/40 to-background/80 pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div
