@@ -18,9 +18,10 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   onOpenModal: (project: Project) => void;
+  cardSummary?: string;
 }
 
-export default function ProjectCard({ project, index, onOpenModal }: ProjectCardProps) {
+export default function ProjectCard({ project, index, onOpenModal, cardSummary }: ProjectCardProps) {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -172,7 +173,7 @@ export default function ProjectCard({ project, index, onOpenModal }: ProjectCard
 
         {/* Project Summary (truncated) */}
         <p className="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed line-clamp-2">
-          {project.summary}
+          {cardSummary ?? project.summary}
         </p>
 
         {/* "Read More" hint */}

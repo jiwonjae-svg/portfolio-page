@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Cpu, TrendingUp, BookOpen, Mail, ChevronRight, Menu, X, Clock } from 'lucide-react';
+import { Code2, Globe, Layers, Package, BookOpen, Mail, ChevronRight, Menu, X, Clock, Target } from 'lucide-react';
 
 const tocItems = [
-  { href: '#projects', label: 'Featured Projects', icon: <Code2 className="w-4 h-4" /> },
-  { href: '#tech', label: 'Skill & Tech Stack', icon: <Cpu className="w-4 h-4" /> },
-  { href: '#performance', label: 'Proof of Performance', icon: <TrendingUp className="w-4 h-4" /> },
-  { href: '#timeline', label: 'Project Timeline', icon: <Clock className="w-4 h-4" /> },
-  { href: '#experience', label: 'Experience & Retrospective', icon: <BookOpen className="w-4 h-4" /> },
+  { href: '#target-roles', label: 'Target Roles', icon: <Target className="w-4 h-4" /> },
+  { href: '#japan-readiness', label: 'Japan Readiness', icon: <Globe className="w-4 h-4" /> },
+  { href: '#featured-projects', label: 'Featured Projects', icon: <Code2 className="w-4 h-4" /> },
+  { href: '#more-projects', label: 'More Projects', icon: <Package className="w-4 h-4" /> },
+  { href: '#technical-strengths', label: 'Technical Strengths', icon: <Layers className="w-4 h-4" /> },
+  { href: '#case-studies', label: 'Case Studies', icon: <BookOpen className="w-4 h-4" /> },
+  { href: '#timeline', label: 'Timeline', icon: <Clock className="w-4 h-4" /> },
   { href: '#contact', label: "Let's Work Together", icon: <Mail className="w-4 h-4" /> },
 ];
 
