@@ -443,4 +443,64 @@ export const projects: Project[] = [
     category: 'mobile',
     period: '2025.03 – Present',
   },
+  {
+    id: 8,
+    title: "DocuMind",
+    summary: "Secure internal knowledge search MVP for Japanese and Korean teams. Authenticated users can upload documents, generate OpenAI embeddings, search owner-scoped chunks with pgvector, and ask grounded questions with source citations.",
+    description: "DocuMind is a full-stack retrieval-augmented knowledge product built around authenticated document ingestion, PostgreSQL/Prisma data modeling, pgvector semantic search, OpenAI-powered grounded answers, source citations, audit logging, Docker-backed local infrastructure, CI, and agent-ready scoped API endpoints. The product focus is practical: help internal teams find trusted answers from their own documents while keeping API keys server-side and enforcing ownership rules for search, deletion, and question answering.",
+    techStack: [
+      { name: "TypeScript", category: "language" },
+      { name: "Next.js App Router", category: "framework" },
+      { name: "React", category: "framework" },
+      { name: "Tailwind CSS", category: "library" },
+      { name: "Auth.js", category: "library" },
+      { name: "PostgreSQL", category: "infrastructure" },
+      { name: "Prisma", category: "tool" },
+      { name: "pgvector", category: "library" },
+      { name: "OpenAI Embeddings API", category: "api" },
+      { name: "OpenAI Answer API", category: "api" },
+      { name: "Docker / Docker Compose", category: "infrastructure" },
+      { name: "GitHub Actions CI", category: "infrastructure" },
+      { name: "Vercel", category: "infrastructure" },
+    ],
+    technicalChallenge: {
+      problem: "An internal knowledge search product needs AI retrieval without becoming a privileged bypass around document ownership, API key handling, or auditability.",
+      solution: "Built authenticated document upload, server-side text extraction and chunking, owner-scoped Prisma queries, pgvector semantic search, grounded question answering with citations, audit logs, and scoped /api/tools endpoints prepared for future agent or MCP wrappers.",
+    },
+    architecture: `[Authenticated User]
+    |
+[Next.js App Router UI]
+    |
+[Auth.js Session Check]
+    |
+[Owner-Scoped API Routes]
+    |-- Document upload / delete
+    |-- Semantic search
+    |-- Grounded ask with citations
+    |-- Agent-ready /api/tools endpoints
+    |
+[Prisma Data Model]
+    |-- Users
+    |-- Documents
+    |-- Chunks
+    |-- Questions / Answers
+    |-- Audit Logs
+    |
+[PostgreSQL + pgvector]
+    |
+[OpenAI Embeddings + Answer Generation]
+    |
+[Cited Answers + Matched Snippets]`,
+    githubUrl: "https://github.com/jiwonjae-svg/DocuMind",
+    liveUrl: "https://documind-chi.vercel.app",
+    metrics: [
+      { label: "Document Types", value: "TXT/MD/PDF" },
+      { label: "Search", value: "pgvector" },
+      { label: "Auth", value: "Owner-Scoped" },
+      { label: "Agent APIs", value: "3 Tools" },
+    ],
+    status: 'released',
+    category: 'web',
+    period: '2026.06 - Present',
+  },
 ];

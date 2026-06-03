@@ -31,7 +31,7 @@ const techCategories = [
     icon: <Layers className="w-6 h-6" />,
     title: 'Frontend',
     technologies: ['React 18', 'Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Zustand'],
-    usedIn: ['ParticleVerse', 'SVG Converter', 'DailyGlow'],
+    usedIn: ['DocuMind', 'ParticleVerse', 'SVG Converter', 'DailyGlow'],
   },
   {
     icon: <Smartphone className="w-6 h-6" />,
@@ -42,14 +42,14 @@ const techCategories = [
   {
     icon: <Globe className="w-6 h-6" />,
     title: 'Backend / Cloud',
-    technologies: ['Firebase Auth', 'Cloud Firestore', 'Cloud Functions', 'Security Rules', 'Firebase Hosting', 'Vercel'],
-    usedIn: ['DailyGlow', 'Word Cube', 'SVG Converter', 'ParticleVerse'],
+    technologies: ['Auth.js', 'PostgreSQL / Prisma', 'pgvector', 'Firebase', 'Docker', 'Vercel'],
+    usedIn: ['DocuMind', 'DailyGlow', 'Word Cube', 'SVG Converter'],
   },
   {
     icon: <Sparkles className="w-6 h-6" />,
     title: 'AI / Data',
-    technologies: ['Google Gemini API', 'Weighted selection', 'Offline/online data sync', 'K-Means clustering', 'Delta E CIE2000', 'i18n data'],
-    usedIn: ['DailyGlow', 'Color Palette Generator'],
+    technologies: ['OpenAI embeddings', 'RAG with citations', 'Google Gemini API', 'Weighted selection', 'K-Means clustering', 'i18n data'],
+    usedIn: ['DocuMind', 'DailyGlow', 'Color Palette Generator'],
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
@@ -76,10 +76,11 @@ const techCategories = [
   },
 ];
 
-const featuredProjectIds = [7, 3, 4, 5];
-const moreProjectIds = [2, 1, 6];
+const featuredProjectIds = [8, 7, 3, 4];
+const moreProjectIds = [5, 2, 1, 6];
 
 const featuredProjectCardCopy: Record<number, string> = {
+  8: 'Full-stack RAG MVP for Japanese and Korean teams using Next.js, Auth.js, PostgreSQL, pgvector, OpenAI embeddings, citations, and scoped tool APIs.',
   7: 'Mobile product in testing built with React Native, Firebase, i18n, offline/online quote data, and Japanese language support.',
   3: 'Interactive WebGL experience using Three.js, custom GLSL shaders, and real-time hand tracking with performance-focused GPU rendering.',
   4: 'Privacy-first browser utility that converts images client-side with Canvas API, 2-pass sampling, and SVG output optimization.',
@@ -87,23 +88,24 @@ const featuredProjectCardCopy: Record<number, string> = {
 };
 
 const moreProjectCardCopy: Record<number, string> = {
+  5: 'Local clipboard security utility with Win32 APIs, encrypted storage, singleton control, and adaptive polling.',
   2: 'PyQt6 drawing-practice timer with encrypted local history, heatmap tracking, and Windows installer packaging.',
   1: 'Python desktop color tool using Gemini API, K-Means extraction, Delta E color comparison, and encrypted presets.',
   6: 'Three.js word puzzle with Firebase auth, real-time leaderboard, Trie search, and mobile touch support.',
 };
 
 const portfolioStats = [
-  { value: 7, label: 'Completed Projects', icon: <Code2 className="w-6 h-6" /> },
+  { value: 8, label: 'Portfolio Projects', icon: <Code2 className="w-6 h-6" /> },
   { value: 3, label: 'Shipped Desktop Apps', icon: <Package className="w-6 h-6" /> },
-  { value: 3, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
+  { value: 4, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
   { value: 1, label: 'Mobile App in Testing', icon: <Smartphone className="w-6 h-6" /> },
 ];
 
 const targetRoles = [
   {
     title: 'Full-Stack Web',
-    evidence: 'Next.js/Vite frontends with Firebase Auth, Firestore, Cloud Functions, and deployed live services.',
-    projects: 'DailyGlow, Word Cube, SVG Converter',
+    evidence: 'Next.js/Vite frontends with authenticated APIs, Prisma/PostgreSQL, Firebase, and deployed live services.',
+    projects: 'DocuMind, DailyGlow, Word Cube, SVG Converter',
     icon: <Layers className="w-6 h-6" />,
   },
   {
@@ -114,8 +116,8 @@ const targetRoles = [
   },
   {
     title: 'AI-Enabled Tools',
-    evidence: 'Gemini API color generation, AI-assisted quote workflows, parsing fallbacks, and curated data pipelines.',
-    projects: 'Color Palette Generator, DailyGlow',
+    evidence: 'OpenAI embeddings, grounded answers with citations, Gemini API color generation, parsing fallbacks, and curated data pipelines.',
+    projects: 'DocuMind, Color Palette Generator, DailyGlow',
     icon: <Sparkles className="w-6 h-6" />,
   },
   {
@@ -476,7 +478,7 @@ export default function Home() {
               <ScrambleText text="Featured Projects" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              <SectionTypewriter text="Four projects selected for mobile product, WebGL performance, browser tooling, and local security evidence" speed={20} />
+              <SectionTypewriter text="Four projects selected for full-stack AI, mobile product, WebGL performance, and browser tooling evidence" speed={20} />
             </p>
           </motion.div>
 
