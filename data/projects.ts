@@ -493,6 +493,7 @@ export const projects: Project[] = [
 [Cited Answers + Matched Snippets]`,
     githubUrl: "https://github.com/jiwonjae-svg/DocuMind",
     liveUrl: "https://documind-chi.vercel.app",
+    thumbnails: ["/images/DocuMind1.png", "/images/DocuMind2.png"],
     metrics: [
       { label: "Document Types", value: "TXT/MD/PDF" },
       { label: "Search", value: "pgvector" },
