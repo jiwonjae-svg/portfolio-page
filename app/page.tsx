@@ -48,7 +48,7 @@ const techCategories = [
   {
     icon: <ShieldCheck className="w-6 h-6" />,
     title: 'Quality / Reliability',
-    technologies: ['Release gates', 'SLO budgets', 'Audit trails', 'Owner-scoped tests', 'Rollback plans', 'API contracts'],
+    technologies: ['Release gates', 'Decision policies', 'SLO budgets', 'Audit trails', 'Runbooks', 'Owner-scoped tests'],
     usedIn: ['OpsFlow Command Center', 'DocuMind', 'Paste Guardian'],
   },
   {
@@ -86,7 +86,7 @@ const featuredProjectIds = [9, 8, 7, 3];
 const moreProjectIds = [4, 5, 2, 1, 6];
 
 const featuredProjectCardCopy: Record<number, string> = {
-  9: 'Release safety console for AI-enabled workflow systems with SLO checks, release gates, rollback readiness, audit trails, and owner-scoped policy tests.',
+  9: 'Release safety console for AI-enabled workflow systems with decision policies, review packets, SLO checks, remediation runbooks, audit trails, and owner-scoped policy tests.',
   8: 'Full-stack RAG MVP for Japanese and Korean teams using Next.js, Auth.js, PostgreSQL, pgvector, OpenAI embeddings, citations, and scoped tool APIs.',
   7: 'Mobile product in testing built with React Native, Firebase, i18n, offline/online quote data, and Japanese language support.',
   3: 'Interactive WebGL experience using Three.js, custom GLSL shaders, and real-time hand tracking with performance-focused GPU rendering.',
@@ -117,7 +117,7 @@ const targetRoles = [
   },
   {
     title: 'Workflow / QA Reliability',
-    evidence: 'Release gates, SLO budgets, audit trails, owner-scoped tests, rollback readiness, and API/data validation.',
+    evidence: 'Release gates, decision policies, SLO budgets, audit trails, remediation runbooks, owner-scoped tests, and API/data validation.',
     projects: 'OpsFlow Command Center, DocuMind',
     icon: <ShieldCheck className="w-6 h-6" />,
   },
@@ -145,9 +145,9 @@ const caseStudies = [
       icon: 'text-cyan-500',
     },
     problem: 'Senior-leaning roles need evidence of operational judgment, not only feature delivery or attractive UI work.',
-    action: 'Built an interactive release console that models SLO budgets, policy gates, rollback readiness, and audit events across three deterministic scenarios.',
-    result: 'Added a clear platform/QA reliability signal while keeping the portfolio honest by labeling the project as a portfolio implementation.',
-    lesson: 'A small project can still show senior engineering thinking when the failure modes, decision gates, and audit boundaries are explicit.',
+    action: 'Built an interactive release console that models SLO budgets, explicit decision thresholds, review packets, remediation runbooks, rollback readiness, and audit events across three deterministic scenarios.',
+    result: 'Added a clearer platform/QA reliability signal while keeping the portfolio honest by labeling the project as a portfolio implementation.',
+    lesson: 'A small project can still show senior engineering thinking when failure modes, decision thresholds, response ownership, and audit boundaries are explicit.',
   },
   {
     title: 'Security architecture redesign',

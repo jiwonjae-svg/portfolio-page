@@ -7,18 +7,18 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Jiwonjae | Full-Stack & Mobile Developer',
   description:
-    'Portfolio of Jiwonjae — building AI-enabled workflow tools, release-safety dashboards, GPU shader experiences, encrypted desktop utilities, and cross-platform mobile apps with React Native, Next.js, TypeScript, Python, and Firebase.',
+    'Portfolio of Jiwonjae — building AI-enabled workflow tools, release-safety dashboards with decision policies and runbooks, GPU shader experiences, encrypted desktop utilities, and cross-platform mobile apps with React Native, Next.js, TypeScript, Python, and Firebase.',
   keywords: [
     'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
     'Python', 'React Native', 'Expo', 'Firebase', 'mobile', 'full-stack',
-    'GLSL', 'shader', 'encryption', 'security', 'QA', 'SLO', 'audit logs',
+    'GLSL', 'shader', 'encryption', 'security', 'QA', 'SLO', 'audit logs', 'runbooks',
   ],
   authors: [{ name: 'Jiwonjae-svg' }],
   metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
     title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
-      'Projects spanning AI-enabled workflow systems, release safety, 3D graphics, system security, and cross-platform mobile.',
+      'Projects spanning AI-enabled workflow systems, release safety, decision policies, 3D graphics, system security, and cross-platform mobile.',
     type: 'website',
     locale: 'en_US',
     url: 'https://jiwonjae-portfolio.vercel.app',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
-      'Projects spanning AI-enabled workflow systems, release safety, 3D graphics, system security, and mobile.',
+      'Projects spanning AI-enabled workflow systems, release safety, decision policies, 3D graphics, system security, and mobile.',
   },
 }
 
@@ -38,7 +38,7 @@ const jsonLd = {
   url: 'https://jiwonjae-portfolio.vercel.app',
   sameAs: ['https://github.com/jiwonjae-svg'],
   jobTitle: 'Full-Stack & Mobile Developer',
-  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript', 'QA automation', 'AI workflow systems'],
+  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript', 'QA automation', 'AI workflow systems', 'release runbooks'],
 }
 
 export default function RootLayout({
