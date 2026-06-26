@@ -268,12 +268,22 @@ function MetricBar({ label, value, suffix, state }: { label: string; value: numb
 
 export default function OpsFlowCommandCenter() {
   const [scenarioId, setScenarioId] = useState(scenarios[0].id);
-  const [reviewCount, setReviewCount] = useState(0);
+  const [reviewRunsByScenario, setReviewRunsByScenario] = useState<Record<string, number>>({});
   const scenario = useMemo(() => scenarios.find((item) => item.id === scenarioId) ?? scenarios[0], [scenarioId]);
   const blockedGates = scenario.gates.filter((gate) => gate.state === 'fail').length;
   const warningGates = scenario.gates.filter((gate) => gate.state === 'warn').length;
   const releaseDecision = blockedGates > 0 ? 'Release blocked' : warningGates > 0 ? 'Manual review required' : 'Ready for release';
+  const reviewCount = reviewRunsByScenario[scenario.id] ?? 0;
   const reviewLabel = reviewCount > 0 ? `Review #${String(reviewCount).padStart(2, '0')}` : 'No review run yet';
+  const reviewedScenarioCount = scenarios.filter((item) => (reviewRunsByScenario[item.id] ?? 0) > 0).length;
+  const totalReviewRuns = scenarios.reduce((total, item) => total + (reviewRunsByScenario[item.id] ?? 0), 0);
+
+  const runScenarioReview = () => {
+    setReviewRunsByScenario((current) => ({
+      ...current,
+      [scenario.id]: (current[scenario.id] ?? 0) + 1,
+    }));
+  };
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -351,13 +361,56 @@ export default function OpsFlowCommandCenter() {
           <button
             type="button"
             aria-label={`Run release review for ${scenario.label}`}
-            onClick={() => setReviewCount((value) => value + 1)}
+            onClick={runScenarioReview}
             className="ml-auto inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-300"
           >
             <RefreshCcw className="h-4 w-4" />
             Run review {reviewCount > 0 ? `(${reviewCount})` : ''}
           </button>
         </div>
+
+        <section className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Scenario review ledger</p>
+              <h2 className="text-2xl font-bold text-white">Review state is scenario-scoped</h2>
+            </div>
+            <span className="rounded-full border border-zinc-700 px-3 py-1 text-xs font-semibold text-zinc-400">
+              {reviewedScenarioCount}/{scenarios.length} scenarios reviewed · {totalReviewRuns} total runs
+            </span>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {scenarios.map((item) => {
+              const count = reviewRunsByScenario[item.id] ?? 0;
+              const active = item.id === scenario.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-pressed={active}
+                  aria-label={`Select ${item.label}. ${count > 0 ? `${count} review run${count > 1 ? 's' : ''}` : 'No review run'}.`}
+                  onClick={() => setScenarioId(item.id)}
+                  className={`rounded-xl border p-4 text-left transition ${
+                    active
+                      ? 'border-cyan-400 bg-cyan-400/10'
+                      : 'border-zinc-800 bg-zinc-950/60 hover:border-cyan-400/60'
+                  }`}
+                >
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold text-white">{item.label}</p>
+                      <p className="mt-1 text-xs text-zinc-500">Owner: {item.owner}</p>
+                    </div>
+                    <StatusPill state={item.risk} />
+                  </div>
+                  <p className={`text-sm font-semibold ${count > 0 ? 'text-emerald-300' : 'text-zinc-500'}`}>
+                    {count > 0 ? `${count} review run${count > 1 ? 's' : ''}` : 'No review run'}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
         <div className="mb-6 grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <section className="min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5">
