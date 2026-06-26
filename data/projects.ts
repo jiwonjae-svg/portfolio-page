@@ -504,4 +504,66 @@ export const projects: Project[] = [
     category: 'web',
     period: '2026.06 - Present',
   },
+  {
+    id: 9,
+    title: "OpsFlow Command Center",
+    summary: "Portfolio-built release safety console for AI-enabled workflow systems. Models SLO checks, release gates, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
+    description: "OpsFlow Command Center is an interactive portfolio implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, SLO budgets, queue pressure, citation coverage, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
+    techStack: [
+      { name: "TypeScript", category: "language" },
+      { name: "Next.js App Router", category: "framework" },
+      { name: "React", category: "framework" },
+      { name: "Tailwind CSS", category: "library" },
+      { name: "Framer Motion", category: "library" },
+      { name: "lucide-react", category: "library" },
+      { name: "SLO / Error Budget Modeling", category: "tool" },
+      { name: "Release Gate Design", category: "tool" },
+      { name: "Audit Trail Data Model", category: "tool" },
+      { name: "Owner-Scoped Policy Checks", category: "tool" },
+      { name: "Vercel", category: "infrastructure" },
+    ],
+    technicalChallenge: {
+      problem: "The portfolio already showed strong feature implementation, but senior-leaning roles also evaluate whether a candidate can reason about release safety, operational reliability, access boundaries, and measurable quality gates. Adding those signals without inventing production metrics or company-scale experience required a transparent implementation.",
+      solution: "Built a deterministic operations console as a portfolio project. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, and audit events, and clearly labels the work as a portfolio implementation. The result demonstrates systems thinking while keeping claims accurate.",
+    },
+    architecture: `[Operator]
+    |
+[OpsFlow Command Center]
+    |-- Scenario selector
+    |-- Release decision summary
+    |-- SLO and queue pressure dashboard
+    |-- Service health map
+    |-- Release gate checklist
+    |-- Audit trail table
+    |
+[Deterministic Scenario Model]
+    |-- Steady release
+    |-- Retrieval latency
+    |-- Owner-scope policy regression
+    |
+[Quality Signals]
+    |-- API contract state
+    |-- Owner-scoped access checks
+    |-- Citation coverage
+    |-- Rollback readiness
+    |-- Error budget and p95 latency
+    |
+[Hiring Evidence]
+    |-- QA automation mindset
+    |-- Platform reliability thinking
+    |-- AI workflow safety
+    |-- Auditability and access boundaries`,
+    githubUrl: "https://github.com/jiwonjae-svg/portfolio-page/tree/main/app/opsflow-command-center",
+    liveUrl: "https://jiwonjae-portfolio.vercel.app/opsflow-command-center",
+    thumbnails: ["/images/OpsFlowCommandCenter.png"],
+    metrics: [
+      { label: "Scenarios", value: "3" },
+      { label: "Release Gates", value: "4" },
+      { label: "Signals", value: "SLO/Audit/RBAC" },
+      { label: "Scope", value: "Portfolio Demo" },
+    ],
+    status: 'released',
+    category: 'web',
+    period: '2026.06 - Present',
+  },
 ];

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock } from 'lucide-react';
+import { Github, Mail, ArrowDown, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
@@ -43,7 +43,13 @@ const techCategories = [
     icon: <Globe className="w-6 h-6" />,
     title: 'Backend / Cloud',
     technologies: ['Auth.js', 'PostgreSQL / Prisma', 'pgvector', 'Firebase', 'Docker', 'Vercel'],
-    usedIn: ['DocuMind', 'DailyGlow', 'Word Cube', 'SVG Converter'],
+    usedIn: ['OpsFlow Command Center', 'DocuMind', 'DailyGlow', 'Word Cube', 'SVG Converter'],
+  },
+  {
+    icon: <ShieldCheck className="w-6 h-6" />,
+    title: 'Quality / Reliability',
+    technologies: ['Release gates', 'SLO budgets', 'Audit trails', 'Owner-scoped tests', 'Rollback plans', 'API contracts'],
+    usedIn: ['OpsFlow Command Center', 'DocuMind', 'Paste Guardian'],
   },
   {
     icon: <Sparkles className="w-6 h-6" />,
@@ -76,10 +82,11 @@ const techCategories = [
   },
 ];
 
-const featuredProjectIds = [8, 7, 3, 4];
-const moreProjectIds = [5, 2, 1, 6];
+const featuredProjectIds = [9, 8, 7, 3];
+const moreProjectIds = [4, 5, 2, 1, 6];
 
 const featuredProjectCardCopy: Record<number, string> = {
+  9: 'Release safety console for AI-enabled workflow systems with SLO checks, release gates, rollback readiness, audit trails, and owner-scoped policy tests.',
   8: 'Full-stack RAG MVP for Japanese and Korean teams using Next.js, Auth.js, PostgreSQL, pgvector, OpenAI embeddings, citations, and scoped tool APIs.',
   7: 'Mobile product in testing built with React Native, Firebase, i18n, offline/online quote data, and Japanese language support.',
   3: 'Interactive WebGL experience using Three.js, custom GLSL shaders, and real-time hand tracking with performance-focused GPU rendering.',
@@ -95,9 +102,9 @@ const moreProjectCardCopy: Record<number, string> = {
 };
 
 const portfolioStats = [
-  { value: 8, label: 'Portfolio Projects', icon: <Code2 className="w-6 h-6" /> },
+  { value: 9, label: 'Portfolio Projects', icon: <Code2 className="w-6 h-6" /> },
   { value: 3, label: 'Shipped Desktop Apps', icon: <Package className="w-6 h-6" /> },
-  { value: 4, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
+  { value: 5, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
   { value: 1, label: 'Mobile App in Testing', icon: <Smartphone className="w-6 h-6" /> },
 ];
 
@@ -109,15 +116,15 @@ const targetRoles = [
     icon: <Layers className="w-6 h-6" />,
   },
   {
-    title: 'Mobile Product',
-    evidence: 'React Native Expo app in testing with ML Kit OCR, TTS, notifications, RevenueCat, and Firebase-backed data.',
-    projects: 'DailyGlow',
-    icon: <Smartphone className="w-6 h-6" />,
+    title: 'Workflow / QA Reliability',
+    evidence: 'Release gates, SLO budgets, audit trails, owner-scoped tests, rollback readiness, and API/data validation.',
+    projects: 'OpsFlow Command Center, DocuMind',
+    icon: <ShieldCheck className="w-6 h-6" />,
   },
   {
     title: 'AI-Enabled Tools',
-    evidence: 'OpenAI embeddings, grounded answers with citations, Gemini API color generation, parsing fallbacks, and curated data pipelines.',
-    projects: 'DocuMind, Color Palette Generator, DailyGlow',
+    evidence: 'OpenAI embeddings, grounded answers with citations, citation coverage checks, Gemini parsing fallbacks, and curated data pipelines.',
+    projects: 'DocuMind, OpsFlow Command Center, Color Palette Generator, DailyGlow',
     icon: <Sparkles className="w-6 h-6" />,
   },
   {
@@ -129,6 +136,19 @@ const targetRoles = [
 ];
 
 const caseStudies = [
+  {
+    title: 'Release safety as a product surface',
+    project: 'OpsFlow Command Center',
+    accent: {
+      border: 'border-cyan-500/30',
+      dot: 'bg-cyan-500',
+      icon: 'text-cyan-500',
+    },
+    problem: 'Senior-leaning roles need evidence of operational judgment, not only feature delivery or attractive UI work.',
+    action: 'Built an interactive release console that models SLO budgets, policy gates, rollback readiness, and audit events across three deterministic scenarios.',
+    result: 'Added a clear platform/QA reliability signal while keeping the portfolio honest by labeling the project as a portfolio implementation.',
+    lesson: 'A small project can still show senior engineering thinking when the failure modes, decision gates, and audit boundaries are explicit.',
+  },
   {
     title: 'Security architecture redesign',
     project: 'Color Palette Generator',

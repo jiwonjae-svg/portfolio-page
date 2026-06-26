@@ -7,18 +7,18 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Jiwonjae | Full-Stack & Mobile Developer',
   description:
-    'Portfolio of Jiwonjae — building across the full stack from GPU shaders and AES-128 encryption to cross-platform mobile apps. Specializing in React Native, Next.js, Three.js, Python, and Firebase.',
+    'Portfolio of Jiwonjae — building AI-enabled workflow tools, release-safety dashboards, GPU shader experiences, encrypted desktop utilities, and cross-platform mobile apps with React Native, Next.js, TypeScript, Python, and Firebase.',
   keywords: [
     'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
     'Python', 'React Native', 'Expo', 'Firebase', 'mobile', 'full-stack',
-    'GLSL', 'shader', 'encryption', 'security',
+    'GLSL', 'shader', 'encryption', 'security', 'QA', 'SLO', 'audit logs',
   ],
   authors: [{ name: 'Jiwonjae-svg' }],
   metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
     title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
-      'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, AI integration, and cross-platform mobile.',
+      'Projects spanning AI-enabled workflow systems, release safety, 3D graphics, system security, and cross-platform mobile.',
     type: 'website',
     locale: 'en_US',
     url: 'https://jiwonjae-portfolio.vercel.app',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jiwonjae | Full-Stack & Mobile Developer',
     description:
-      'From GPU shaders to mobile apps — projects spanning 3D graphics, system security, and AI.',
+      'Projects spanning AI-enabled workflow systems, release safety, 3D graphics, system security, and mobile.',
   },
 }
 
@@ -38,7 +38,7 @@ const jsonLd = {
   url: 'https://jiwonjae-portfolio.vercel.app',
   sameAs: ['https://github.com/jiwonjae-svg'],
   jobTitle: 'Full-Stack & Mobile Developer',
-  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript'],
+  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript', 'QA automation', 'AI workflow systems'],
 }
 
 export default function RootLayout({
