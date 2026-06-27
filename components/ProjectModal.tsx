@@ -92,6 +92,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
           {/* Modal Content */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
             className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 flex flex-col"
             initial={{ scale: 0.85, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -105,6 +108,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             <div className="overflow-y-auto flex-1 p-8">
               {/* Close Button */}
               <button
+                type="button"
+                aria-label={`Close ${project.title} details`}
                 onClick={onClose}
                 className="absolute top-5 right-5 p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all hover:rotate-90 duration-300 z-10"
               >
@@ -113,6 +118,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
               {/* Title */}
               <motion.h2
+                id="project-modal-title"
                 className="text-3xl font-bold text-foreground mb-2 pr-10"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -141,7 +147,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
               {/* Tab Navigation */}
               <motion.div
-                  className="flex gap-1 mb-6 bg-zinc-100 dark:bg-zinc-800/50 rounded-xl p-1 border border-zinc-200 dark:border-zinc-700/30"
+                role="tablist"
+                aria-label={`${project.title} detail sections`}
+                className="flex gap-1 mb-6 bg-zinc-100 dark:bg-zinc-800/50 rounded-xl p-1 border border-zinc-200 dark:border-zinc-700/30"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
@@ -149,6 +157,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {tabs.map((tab) => (
                   <button
                     key={tab.key}
+                    id={`project-tab-${tab.key}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeTab === tab.key}
+                    aria-controls={`project-panel-${tab.key}`}
                     onClick={() => setActiveTab(tab.key)}
                     className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${
                       activeTab === tab.key
@@ -166,6 +179,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {activeTab === 'overview' && (
                   <motion.div
                     key="overview"
+                    id="project-panel-overview"
+                    role="tabpanel"
+                    aria-labelledby="project-tab-overview"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -184,12 +200,16 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           {project.thumbnails.length > 1 && (
                             <>
                               <button
+                                type="button"
+                                aria-label={`Show previous ${project.title} screenshot`}
                                 onClick={() => setGalleryIndex((i) => (i - 1 + project.thumbnails!.length) % project.thumbnails!.length)}
                                 className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
                               >
                                 <ChevronLeft className="w-4 h-4" />
                               </button>
                               <button
+                                type="button"
+                                aria-label={`Show next ${project.title} screenshot`}
                                 onClick={() => setGalleryIndex((i) => (i + 1) % project.thumbnails!.length)}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
                               >
@@ -210,6 +230,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             {project.thumbnails.map((thumb, i) => (
                               <button
                                 key={i}
+                                type="button"
+                                aria-label={`Show ${project.title} screenshot ${i + 1}`}
+                                aria-pressed={i === galleryIndex}
                                 onClick={() => setGalleryIndex(i)}
                                 className={`shrink-0 w-16 h-11 rounded-lg overflow-hidden border-2 transition-all ${
                                   i === galleryIndex
@@ -261,6 +284,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {activeTab === 'challenge' && (
                   <motion.div
                     key="challenge"
+                    id="project-panel-challenge"
+                    role="tabpanel"
+                    aria-labelledby="project-tab-challenge"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -299,6 +325,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 {activeTab === 'architecture' && (
                   <motion.div
                     key="architecture"
+                    id="project-panel-architecture"
+                    role="tabpanel"
+                    aria-labelledby="project-tab-architecture"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -329,6 +358,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Open ${project.title} GitHub repository`}
                     className="flex items-center gap-2 px-6 py-3 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-xl transition-all hover:scale-105 group"
                   >
                     <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -355,6 +385,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${label} for ${project.title}`}
                       className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl transition-all hover:scale-105 group"
                     >
                       <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck } from 'lucide-react';
+import { Github, Mail, ArrowDown, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
@@ -106,6 +106,24 @@ const portfolioStats = [
   { value: 3, label: 'Shipped Desktop Apps', icon: <Package className="w-6 h-6" /> },
   { value: 5, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
   { value: 1, label: 'Mobile App in Testing', icon: <Smartphone className="w-6 h-6" /> },
+];
+
+const recruiterSnapshot = [
+  {
+    label: 'Primary fit',
+    title: 'AI-enabled full-stack / workflow systems',
+    detail: 'DocuMind and OpsFlow show authenticated RAG workflows, owner-scoped retrieval, release gates, audit trails, and review packets.',
+  },
+  {
+    label: 'Frontend proof',
+    title: 'Interactive UI plus performance work',
+    detail: 'ParticleVerse, SVG Converter, Word Cube, and DailyGlow cover WebGL, Canvas processing, mobile UX, and responsive product surfaces.',
+  },
+  {
+    label: 'Japan signal',
+    title: 'Japan-ready communication context',
+    detail: 'Working holiday experience in Japan, conversational Japanese, and product work with multilingual data and Japanese support.',
+  },
 ];
 
 const targetRoles = [
@@ -371,6 +389,49 @@ export default function Home() {
 
       {/* ==================== Table of Contents ==================== */}
       <TableOfContents />
+
+      {/* ==================== Recruiter Snapshot Section ==================== */}
+      <section id="recruiter-snapshot" className="py-20 px-4 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <p className="text-xs uppercase tracking-[0.22em] text-primary font-semibold mb-3">Recruiter snapshot</p>
+            <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+              <h2 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
+                Fast evidence path for Japan IT roles.
+              </h2>
+              <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Start with the role-fit cards, then open the featured project details. The strongest signals are full-stack AI workflow systems, frontend/product implementation, and Japan readiness.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            {recruiterSnapshot.map((item, index) => (
+              <motion.article
+                key={item.label}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800"
+              >
+                <div className="flex items-center gap-2 mb-4 text-primary">
+                  <CheckCircle2 className="w-5 h-5" />
+                  <p className="text-xs uppercase tracking-wider font-semibold">{item.label}</p>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.detail}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ==================== Target Roles Section ==================== */}
       <section id="target-roles" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">

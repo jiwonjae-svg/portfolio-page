@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Globe, Layers, Package, BookOpen, Mail, ChevronRight, Menu, X, Clock, Target } from 'lucide-react';
+import { Code2, Globe, Layers, Package, BookOpen, Mail, ChevronRight, Menu, X, Clock, Target, CheckCircle2 } from 'lucide-react';
 
 const tocItems = [
+  { href: '#recruiter-snapshot', label: 'Snapshot', icon: <CheckCircle2 className="w-4 h-4" /> },
   { href: '#target-roles', label: 'Target Roles', icon: <Target className="w-4 h-4" /> },
   { href: '#japan-readiness', label: 'Japan Readiness', icon: <Globe className="w-4 h-4" /> },
   { href: '#featured-projects', label: 'Featured Projects', icon: <Code2 className="w-4 h-4" /> },

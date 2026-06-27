@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3, FlaskConical } from 'lucide-react';
 import { Project } from '@/data/projects';
-import { useState, useEffect, useRef, MouseEvent } from 'react';
+import { useState, useEffect, useRef, MouseEvent, KeyboardEvent } from 'react';
 
 const categoryColors: Record<string, string> = {
   language: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
@@ -68,6 +68,14 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
     setCurrentThumbIndex(0);
   };
 
+  const handleCardKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.target !== e.currentTarget) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onOpenModal(project);
+    }
+  };
+
   // Color accents per project
   const accentColors = [
     'from-rose-500/20 to-orange-500/20',
@@ -97,6 +105,10 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onKeyDown={handleCardKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`Open ${project.title} project details`}
       style={{
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: 'transform 0.1s ease-out',
@@ -144,6 +156,9 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               {project.thumbnails!.map((_, i) => (
                 <button
                   key={i}
+                  type="button"
+                  aria-label={`Show ${project.title} preview ${i + 1}`}
+                  aria-pressed={i === currentThumbIndex}
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrentThumbIndex(i);
@@ -221,6 +236,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Open ${project.title} GitHub repository`}
               onClick={(e) => e.stopPropagation()}
               className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-lg transition-colors group/link"
             >
@@ -248,6 +264,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${label} for ${project.title}`}
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-lg transition-colors group/link"
               >
