@@ -13,8 +13,13 @@ const nextConfig = {
   },
   redirects: async () => [
     {
+      source: '/opsflow',
+      destination: 'https://opsflow-sable.vercel.app',
+      permanent: true,
+    },
+    {
       source: '/opsflow-command-center',
-      destination: '/opsflow',
+      destination: 'https://opsflow-sable.vercel.app',
       permanent: true,
     },
   ],

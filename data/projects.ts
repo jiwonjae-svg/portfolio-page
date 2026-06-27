@@ -562,8 +562,7 @@ export const projects: Project[] = [
     |-- Platform reliability thinking
     |-- AI workflow safety
     |-- Auditability and access boundaries`,
-    githubUrl: "https://github.com/jiwonjae-svg/portfolio-page/tree/main/app/opsflow",
-    liveUrl: "https://jiwonjae-portfolio.vercel.app/opsflow",
+    liveUrl: "https://opsflow-sable.vercel.app",
     thumbnails: ["/images/OpsFlowCommandCenter.jpg"],
     metrics: [
       { label: "Scenarios", value: "3" },
