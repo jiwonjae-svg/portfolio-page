@@ -277,12 +277,40 @@ export default function OpsFlowCommandCenter() {
   const reviewLabel = reviewCount > 0 ? `Review #${String(reviewCount).padStart(2, '0')}` : 'No review run yet';
   const reviewedScenarioCount = scenarios.filter((item) => (reviewRunsByScenario[item.id] ?? 0) > 0).length;
   const totalReviewRuns = scenarios.reduce((total, item) => total + (reviewRunsByScenario[item.id] ?? 0), 0);
+  const ownerScopeGate = scenario.gates.find((gate) => gate.label === 'Owner scope');
+  const rollbackGate = scenario.gates.find((gate) => gate.label === 'Rollback plan');
+  const securityChecks: Array<{ label: string; state: GateState; evidence: string }> = [
+    {
+      label: 'Static rendering boundary',
+      state: 'pass',
+      evidence: 'Scenario data is local, typed, and rendered as React text. This route accepts no user-provided content.',
+    },
+    {
+      label: 'Raw HTML injection',
+      state: 'pass',
+      evidence: 'OpsFlow does not use raw HTML injection; audit, policy, and runbook values remain escaped by React.',
+    },
+    {
+      label: 'Owner-scoped access',
+      state: ownerScopeGate?.state ?? scenario.risk,
+      evidence: ownerScopeGate?.note ?? 'Owner boundary state is tied to the selected release scenario.',
+    },
+    {
+      label: 'Audit and rollback trail',
+      state: rollbackGate?.state ?? 'warn',
+      evidence: `${scenario.audit.length} audit events are visible. Rollback gate: ${rollbackGate?.note ?? 'not specified'}.`,
+    },
+  ];
 
   const runScenarioReview = () => {
     setReviewRunsByScenario((current) => ({
       ...current,
       [scenario.id]: (current[scenario.id] ?? 0) + 1,
     }));
+  };
+
+  const resetReviews = () => {
+    setReviewRunsByScenario({});
   };
 
   return (
@@ -366,6 +394,16 @@ export default function OpsFlowCommandCenter() {
           >
             <RefreshCcw className="h-4 w-4" />
             Run review {reviewCount > 0 ? `(${reviewCount})` : ''}
+          </button>
+          <button
+            type="button"
+            aria-label="Reset all release review runs"
+            disabled={totalReviewRuns === 0}
+            onClick={resetReviews}
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:border-rose-400 hover:text-rose-300 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-zinc-700 disabled:hover:text-zinc-300"
+          >
+            <XCircle className="h-4 w-4" />
+            Reset reviews
           </button>
         </div>
 
@@ -608,6 +646,30 @@ export default function OpsFlowCommandCenter() {
                   </div>
                   <p className="text-sm leading-6 text-zinc-300">{step.action}</p>
                   <p className={`mt-4 text-xs font-semibold ${style.text}`}>ETA: {step.eta}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="mt-6 min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5">
+          <div className="mb-5 flex items-center gap-3">
+            <LockKeyhole className="h-6 w-6 text-cyan-300" />
+            <div>
+              <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Security inspection</p>
+              <h2 className="text-2xl font-bold text-white">Attack surface and hard gates</h2>
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {securityChecks.map((check) => {
+              const style = stateStyles[check.state];
+              return (
+                <article key={check.label} className={`rounded-xl border p-4 ${style.border} ${style.bg}`}>
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <h3 className="font-semibold text-white">{check.label}</h3>
+                    <StatusPill state={check.state} />
+                  </div>
+                  <p className="text-sm leading-6 text-zinc-300">{check.evidence}</p>
                 </article>
               );
             })}

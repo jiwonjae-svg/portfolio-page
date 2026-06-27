@@ -507,8 +507,8 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "OpsFlow Command Center",
-    summary: "Portfolio-built release safety console for AI-enabled workflow systems. Models SLO checks, explicit release thresholds, scenario-scoped review state, review packets, remediation runbooks, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
-    description: "OpsFlow Command Center is an interactive portfolio implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, decision-policy thresholds, scenario-scoped review state, review packets, SLO budgets, queue pressure, citation coverage, remediation runbooks, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
+    summary: "Portfolio-built release safety console for AI-enabled workflow systems. Models SLO checks, explicit release thresholds, resettable scenario-scoped review state, review packets, security inspection, remediation runbooks, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
+    description: "OpsFlow Command Center is an interactive portfolio implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, decision-policy thresholds, resettable scenario-scoped review state, review packets, security inspection, SLO budgets, queue pressure, citation coverage, remediation runbooks, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "Next.js App Router", category: "framework" },
@@ -520,6 +520,7 @@ export const projects: Project[] = [
       { name: "Release Gate Design", category: "tool" },
       { name: "Decision Policy Modeling", category: "tool" },
       { name: "Scenario-Scoped UI State", category: "tool" },
+      { name: "Security Inspection", category: "tool" },
       { name: "Remediation Runbooks", category: "tool" },
       { name: "Audit Trail Data Model", category: "tool" },
       { name: "Owner-Scoped Policy Checks", category: "tool" },
@@ -527,7 +528,7 @@ export const projects: Project[] = [
     ],
     technicalChallenge: {
       problem: "The portfolio already showed strong feature implementation, but senior-leaning roles also evaluate whether a candidate can reason about release safety, operational reliability, access boundaries, and measurable quality gates. Adding those signals without inventing production metrics or company-scale experience required a transparent implementation.",
-      solution: "Built a deterministic operations console as a portfolio project. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, explicit policy thresholds, scenario-scoped review state, review packets, remediation runbooks, and audit events, and clearly labels the work as a portfolio implementation. The result demonstrates systems thinking while keeping claims accurate.",
+      solution: "Built a deterministic operations console as a portfolio project. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, explicit policy thresholds, resettable scenario-scoped review state, security inspection, review packets, remediation runbooks, and audit events, and clearly labels the work as a portfolio implementation. The result demonstrates systems thinking while keeping claims accurate.",
     },
     architecture: `[Operator]
     |
@@ -541,6 +542,7 @@ export const projects: Project[] = [
     |-- Service health map
     |-- Release gate checklist
     |-- Remediation runbook
+    |-- Security inspection ledger
     |-- Audit trail table
     |
 [Deterministic Scenario Model]
