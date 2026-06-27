@@ -11,6 +11,13 @@ const nextConfig = {
     maxInactiveAge: 60 * 1000,
     pagesBufferLength: 5,
   },
+  redirects: async () => [
+    {
+      source: '/opsflow-command-center',
+      destination: '/opsflow',
+      permanent: true,
+    },
+  ],
   webpack: (config, { dev, isServer }) => {
     // Windows 경로 문제 해결
     config.resolve.alias = {
