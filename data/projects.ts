@@ -507,8 +507,8 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "OpsFlow Command Center",
-    summary: "Portfolio-built release safety console for AI-enabled workflow systems. Models SLO checks, explicit release thresholds, resettable scenario-scoped review state, review packets, security inspection, remediation runbooks, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
-    description: "OpsFlow Command Center is an interactive portfolio implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, decision-policy thresholds, resettable scenario-scoped review state, review packets, security inspection, SLO budgets, queue pressure, citation coverage, remediation runbooks, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
+    summary: "Standalone release safety console for AI-enabled workflow systems. Models SLO checks, explicit release thresholds, resettable scenario-scoped review state, review packets, security inspection, remediation runbooks, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
+    description: "OpsFlow Command Center is an interactive standalone implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, decision-policy thresholds, resettable scenario-scoped review state, review packets, security inspection, SLO budgets, queue pressure, citation coverage, remediation runbooks, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "Next.js App Router", category: "framework" },
@@ -527,8 +527,8 @@ export const projects: Project[] = [
       { name: "Vercel", category: "infrastructure" },
     ],
     technicalChallenge: {
-      problem: "The portfolio already showed strong feature implementation, but senior-leaning roles also evaluate whether a candidate can reason about release safety, operational reliability, access boundaries, and measurable quality gates. Adding those signals without inventing production metrics or company-scale experience required a transparent implementation.",
-      solution: "Built a deterministic operations console as a portfolio project. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, explicit policy thresholds, resettable scenario-scoped review state, security inspection, review packets, remediation runbooks, and audit events, and clearly labels the work as a portfolio implementation. The result demonstrates systems thinking while keeping claims accurate.",
+      problem: "Senior-leaning roles evaluate whether a candidate can reason about release safety, operational reliability, access boundaries, and measurable quality gates. Showing those signals clearly required a focused, standalone interface rather than burying the evidence inside the main portfolio flow.",
+      solution: "Built a deterministic operations console as an independent page. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, explicit policy thresholds, resettable scenario-scoped review state, security inspection, review packets, remediation runbooks, and audit events, and keeps the data framed as demo scenarios rather than production metrics.",
     },
     architecture: `[Operator]
     |
@@ -562,15 +562,15 @@ export const projects: Project[] = [
     |-- Platform reliability thinking
     |-- AI workflow safety
     |-- Auditability and access boundaries`,
-    githubUrl: "https://github.com/jiwonjae-svg/portfolio-page/tree/main/app/opsflow-command-center",
-    liveUrl: "https://jiwonjae-portfolio.vercel.app/opsflow-command-center",
+    githubUrl: "https://github.com/jiwonjae-svg/portfolio-page/tree/main/app/opsflow",
+    liveUrl: "https://jiwonjae-portfolio.vercel.app/opsflow",
     thumbnails: ["/images/OpsFlowCommandCenter.jpg"],
     metrics: [
       { label: "Scenarios", value: "3" },
       { label: "Policy Checks", value: "4 / scenario" },
       { label: "Runbook Tracks", value: "3 / scenario" },
       { label: "Signals", value: "SLO/Audit/RBAC" },
-      { label: "Scope", value: "Portfolio Demo" },
+      { label: "Scope", value: "Standalone Demo" },
     ],
     status: 'released',
     category: 'web',

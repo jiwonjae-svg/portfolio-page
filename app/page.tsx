@@ -164,7 +164,7 @@ const caseStudies = [
     },
     problem: 'Senior-leaning roles need evidence of operational judgment, not only feature delivery or attractive UI work.',
     action: 'Built an interactive release console that models SLO budgets, explicit decision thresholds, review packets, remediation runbooks, rollback readiness, and audit events across three deterministic scenarios.',
-    result: 'Added a clearer platform/QA reliability signal while keeping the portfolio honest by labeling the project as a portfolio implementation.',
+    result: 'Moved the release-safety evidence into a standalone page so the platform/QA reliability signal can be reviewed outside the main portfolio flow.',
     lesson: 'A small project can still show senior engineering thinking when failure modes, decision thresholds, response ownership, and audit boundaries are explicit.',
   },
   {

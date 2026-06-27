@@ -1,11 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
 import {
   Activity,
   AlertTriangle,
-  ArrowLeft,
   CheckCircle2,
   Clock3,
   Database,
@@ -318,12 +316,11 @@ export default function OpsFlowCommandCenter() {
       <section className="border-b border-zinc-800 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.18),transparent_32%),radial-gradient(circle_at_top_right,rgba(16,185,129,0.14),transparent_28%)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition hover:border-cyan-400 hover:text-cyan-300">
-              <ArrowLeft className="h-4 w-4" />
-              Portfolio
-            </Link>
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-300">
+              OpsFlow
+            </div>
             <div className="flex flex-wrap gap-2">
-              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-300">Portfolio implementation</span>
+              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-300">Standalone demo</span>
               <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">AI workflow reliability</span>
             </div>
           </div>
@@ -335,7 +332,7 @@ export default function OpsFlowCommandCenter() {
                 Release safety console for AI-enabled workflow systems.
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-300 md:text-lg">
-                A portfolio-built control plane that models the kind of engineering expected in senior full-stack, QA, and platform roles: release gates, SLO checks, owner-scoped policy tests, rollback readiness, and audit trails.
+                A standalone control plane demo for release gates, SLO checks, owner-scoped policy tests, rollback readiness, security inspection, and audit trails around AI-enabled workflows.
               </p>
             </div>
 
@@ -498,7 +495,7 @@ export default function OpsFlowCommandCenter() {
             {reviewCount === 0 ? (
               <div className="rounded-xl border border-dashed border-zinc-700 bg-zinc-950/50 p-5">
                 <p className="text-sm leading-7 text-zinc-300">
-                  Run a release review to generate a recruiter-visible decision packet: summary, next action, and evidence checked.
+                  Run a release review to generate an operator-readable decision packet: summary, next action, and evidence checked.
                 </p>
               </div>
             ) : (
@@ -709,15 +706,15 @@ export default function OpsFlowCommandCenter() {
             <Activity className="h-6 w-6 text-emerald-300" />
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">Engineering evidence</p>
-              <h2 className="text-2xl font-bold text-white">Why this belongs in the portfolio</h2>
+              <h2 className="text-2xl font-bold text-white">Standalone systems demo</h2>
             </div>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <p className="text-sm leading-7 text-zinc-300">
-              This project keeps the practical-tool identity of the portfolio while adding a senior-level systems angle: release safety, operational health, auditability, and policy enforcement around AI-enabled workflows.
+              This page is built as an independent tool surface, so the release decision, policy gates, SLO budget, remediation plan, and audit trail can be reviewed without relying on another page context.
             </p>
             <p className="text-sm leading-7 text-zinc-300">
-              It is intentionally presented as a portfolio implementation, not as a production claim. The goal is to make the engineering judgment visible to hiring teams without inventing company-scale metrics or employment history.
+              It uses deterministic demo scenarios rather than production company data. The goal is to make engineering judgment visible without inventing company-scale metrics or employment history.
             </p>
           </div>
         </section>
