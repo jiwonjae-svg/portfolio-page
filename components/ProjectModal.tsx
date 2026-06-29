@@ -6,12 +6,12 @@ import { Project } from '@/data/projects';
 import { useEffect, useState } from 'react';
 
 const categoryColors: Record<string, string> = {
-  language: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-  framework: 'bg-violet-500/15 text-violet-400 border-violet-500/30',
+  language: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
+  framework: 'bg-primary/10 text-primary border-primary/25',
   library: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-  tool: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-  api: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-  infrastructure: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
+  tool: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+  api: 'bg-secondary/10 text-secondary border-secondary/25',
+  infrastructure: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
 };
 
 const categoryLabels: Record<string, string> = {
@@ -95,7 +95,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
-            className="relative w-full max-w-3xl max-h-[90vh] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/50 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 flex flex-col"
+            className="relative w-full max-w-3xl max-h-[90vh] console-panel-strong rounded-lg overflow-hidden flex flex-col"
             initial={{ scale: 0.85, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.85, opacity: 0, y: 40 }}
@@ -111,7 +111,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 type="button"
                 aria-label={`Close ${project.title} details`}
                 onClick={onClose}
-                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all hover:rotate-90 duration-300 z-10"
+                className="absolute top-5 right-5 p-2 rounded-md bg-[#07111f] hover:bg-[#0e1b2c] text-slate-400 hover:text-primary border border-border transition-all hover:rotate-90 duration-300 z-10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -136,9 +136,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   transition={{ delay: 0.12 }}
                 >
                   {project.metrics.map((metric, i) => (
-                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800/80 rounded-lg border border-zinc-200 dark:border-zinc-700/50">
+                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-[#07111f]/80 rounded-md border border-[#163042]/80">
                       <BarChart3 className="w-3.5 h-3.5 text-primary" />
-                      <span className="text-xs text-zinc-400">{metric.label}:</span>
+                      <span className="text-xs text-slate-500">{metric.label}:</span>
                       <span className="text-xs font-semibold text-foreground">{metric.value}</span>
                     </div>
                   ))}
@@ -149,7 +149,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <motion.div
                 role="tablist"
                 aria-label={`${project.title} detail sections`}
-                className="flex gap-1 mb-6 bg-zinc-100 dark:bg-zinc-800/50 rounded-xl p-1 border border-zinc-200 dark:border-zinc-700/30"
+                className="flex gap-1 mb-6 bg-[#07111f]/80 rounded-md p-1 border border-[#163042]/80"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
@@ -163,10 +163,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     aria-selected={activeTab === tab.key}
                     aria-controls={`project-panel-${tab.key}`}
                     onClick={() => setActiveTab(tab.key)}
-                    className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ${
+                    className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-300 ${
                       activeTab === tab.key
-                        ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700/50'
+                        ? 'bg-primary text-[#03111c] shadow-lg shadow-primary/20'
+                        : 'text-slate-500 hover:text-slate-200 hover:bg-primary/5'
                     }`}
                   >
                     {tab.label}
@@ -191,7 +191,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     {project.thumbnails && project.thumbnails.length > 0 && (
                       <div className="mb-8">
                         {/* Main image */}
-                        <div className="relative rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 mb-3 group">
+                        <div className="relative rounded-md overflow-hidden bg-[#03070d] border border-[#163042]/80 mb-3 group">
                           <img
                             src={project.thumbnails[galleryIndex]}
                             alt={`${project.title} screenshot ${galleryIndex + 1}`}
@@ -203,7 +203,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 type="button"
                                 aria-label={`Show previous ${project.title} screenshot`}
                                 onClick={() => setGalleryIndex((i) => (i - 1 + project.thumbnails!.length) % project.thumbnails!.length)}
-                                className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
+                                className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md bg-black/40 hover:bg-black/70 text-white transition-colors"
                               >
                                 <ChevronLeft className="w-4 h-4" />
                               </button>
@@ -211,7 +211,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 type="button"
                                 aria-label={`Show next ${project.title} screenshot`}
                                 onClick={() => setGalleryIndex((i) => (i + 1) % project.thumbnails!.length)}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md bg-black/40 hover:bg-black/70 text-white transition-colors"
                               >
                                 <ChevronRight className="w-4 h-4" />
                               </button>
@@ -219,7 +219,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           )}
                           {/* Image counter */}
                           {project.thumbnails.length > 1 && (
-                            <span className="absolute bottom-2 right-2 text-[10px] bg-black/50 text-white px-2 py-0.5 rounded-full">
+                            <span className="absolute bottom-2 right-2 text-[10px] bg-black/55 text-white px-2 py-0.5 rounded-md">
                               {galleryIndex + 1} / {project.thumbnails.length}
                             </span>
                           )}
@@ -234,7 +234,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 aria-label={`Show ${project.title} screenshot ${i + 1}`}
                                 aria-pressed={i === galleryIndex}
                                 onClick={() => setGalleryIndex(i)}
-                                className={`shrink-0 w-16 h-11 rounded-lg overflow-hidden border-2 transition-all ${
+                                className={`shrink-0 w-16 h-11 rounded-md overflow-hidden border-2 transition-all ${
                                   i === galleryIndex
                                     ? 'border-primary opacity-100'
                                     : 'border-transparent opacity-60 hover:opacity-90'
@@ -249,27 +249,27 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     )}
 
                     {/* Full Description */}
-                    <p className="text-zinc-700 dark:text-zinc-300 text-base leading-relaxed mb-8">
+                    <p className="text-slate-300 text-base leading-relaxed mb-8">
                       {project.description}
                     </p>
 
                     {/* Grouped Tech Stack */}
                     <div className="space-y-4 mb-8">
-                      <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-500 uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-8 h-px bg-zinc-700" />
+                      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-8 h-px bg-border" />
                         Tech Stack
-                        <span className="flex-1 h-px bg-zinc-700" />
+                        <span className="flex-1 h-px bg-border" />
                       </h3>
                       {Object.entries(groupedTech).map(([category, techs]) => (
                         <div key={category} className="space-y-2">
-                          <span className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+                          <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
                             {categoryLabels[category] || category}
                           </span>
                           <div className="flex flex-wrap gap-2">
                             {techs.map((tech, i) => (
                               <span
                                 key={i}
-                                className={`px-3 py-1.5 text-xs border rounded-full cursor-default transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
+                                className={`px-3 py-1.5 text-xs border rounded-md cursor-default transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
                               >
                                 {tech.name}
                               </span>
@@ -294,12 +294,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     className="space-y-6"
                   >
                     {/* Problem */}
-                    <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-5">
+                    <div className="bg-red-500/5 border border-red-500/20 rounded-md p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <AlertTriangle className="w-5 h-5 text-red-400" />
                         <h3 className="text-base font-bold text-red-400">Problem</h3>
                       </div>
-                      <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
+                      <p className="text-slate-300 text-sm leading-relaxed">
                         {project.technicalChallenge.problem}
                       </p>
                     </div>
@@ -310,12 +310,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
 
                     {/* Solution */}
-                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-5">
+                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-md p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <Lightbulb className="w-5 h-5 text-emerald-400" />
                         <h3 className="text-base font-bold text-emerald-400">Solution</h3>
                       </div>
-                      <p className="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed">
+                      <p className="text-slate-300 text-sm leading-relaxed">
                         {project.technicalChallenge.solution}
                       </p>
                     </div>
@@ -337,8 +337,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       <Network className="w-5 h-5 text-primary" />
                       <h3 className="text-base font-bold text-foreground">System Data Flow</h3>
                     </div>
-                    <div className="bg-zinc-100 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/50 rounded-2xl p-6 overflow-x-auto">
-                      <pre className="text-sm text-zinc-700 dark:text-zinc-300 font-mono leading-relaxed whitespace-pre">
+                    <div className="bg-[#07111f]/80 border border-[#163042]/80 rounded-md p-6 overflow-x-auto">
+                      <pre className="text-sm text-slate-300 font-mono leading-relaxed whitespace-pre">
                         {project.architecture}
                       </pre>
                     </div>
@@ -348,7 +348,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
               {/* Links - Always visible */}
               <motion.div
-                className="flex gap-4 mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-800"
+                className="flex gap-4 mt-8 pt-6 border-t border-border"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
@@ -359,7 +359,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open ${project.title} GitHub repository`}
-                    className="flex items-center gap-2 px-6 py-3 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-xl transition-all hover:scale-105 group"
+                    className="flex items-center gap-2 px-6 py-3 bg-[#07111f] hover:bg-[#0e1b2c] text-foreground rounded-md border border-[#163042]/80 transition-all hover:scale-[1.02] group"
                   >
                     <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                     <span className="font-medium">GitHub</span>
@@ -367,12 +367,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 )}
                 {project.status === 'testing' ? (
                   <div
-                    className="relative flex items-center gap-2 px-6 py-3 bg-amber-500/15 text-amber-400 border border-amber-500/30 rounded-xl cursor-default group"
+                    className="relative flex items-center gap-2 px-6 py-3 bg-amber-500/15 text-amber-300 border border-amber-500/30 rounded-md cursor-default group"
                     title="Currently in testing phase"
                   >
                     <FlaskConical className="w-5 h-5" />
                     <span className="font-medium">Testing</span>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-zinc-800 text-xs text-zinc-300 rounded-lg border border-zinc-700 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-[#07111f] text-xs text-slate-300 rounded-md border border-border opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
                       This project is currently in testing
                     </div>
                   </div>
@@ -386,7 +386,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${label} for ${project.title}`}
-                      className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-white rounded-xl transition-all hover:scale-105 group"
+                      className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-[#03111c] rounded-md transition-all hover:scale-[1.02] group"
                     >
                       <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       <span className="font-medium">{label}</span>

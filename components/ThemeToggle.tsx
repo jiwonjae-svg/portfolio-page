@@ -19,7 +19,7 @@ export default function ThemeToggle() {
     <button
       aria-label="Toggle dark/light mode"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="fixed top-5 right-5 z-50 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-800/80 hover:bg-zinc-100 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 shadow-sm dark:shadow-none backdrop-blur-sm transition-colors"
+      className="fixed top-5 right-5 z-50 flex h-9 w-9 items-center justify-center rounded-md border border-[#163042] bg-[#0b1220]/80 text-slate-400 shadow-[0_0_24px_rgba(34,211,238,0.08)] backdrop-blur-sm transition-colors hover:border-primary hover:text-primary"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
@@ -30,7 +30,7 @@ export default function ThemeToggle() {
           transition={{ duration: 0.2 }}
         >
           {isDark ? (
-            <Moon className="w-4 h-4 text-zinc-400" />
+            <Moon className="w-4 h-4" />
           ) : (
             <Sun className="w-4 h-4 text-amber-500" />
           )}

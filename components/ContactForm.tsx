@@ -50,13 +50,13 @@ export default function ContactForm() {
   };
 
   const inputClass =
-    'w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 focus:border-primary rounded-xl px-4 py-3 text-sm text-foreground placeholder-zinc-400 dark:placeholder-zinc-600 outline-none transition-colors focus:ring-1 focus:ring-primary/40';
+    'w-full bg-[#07111f]/80 border border-border hover:border-primary/50 focus:border-primary rounded-md px-4 py-3 text-sm text-foreground placeholder-slate-600 outline-none transition-colors focus:ring-1 focus:ring-primary/30';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Name</label>
+          <label className="block text-xs font-medium text-slate-400 mb-1.5">Name</label>
           <input
             type="text"
             value={name}
@@ -69,7 +69,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Email</label>
+          <label className="block text-xs font-medium text-slate-400 mb-1.5">Email</label>
           <input
             type="email"
             value={email}
@@ -84,9 +84,9 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">
+        <label className="block text-xs font-medium text-slate-400 mb-1.5">
           Message
-          <span className="ml-auto float-right text-zinc-500 dark:text-zinc-600">{message.length}/2000</span>
+          <span className="ml-auto float-right text-slate-600">{message.length}/2000</span>
         </label>
         <textarea
           value={message}
@@ -107,7 +107,7 @@ export default function ContactForm() {
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-2 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3"
+            className="flex items-center gap-2 text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-md px-4 py-3"
           >
             <AlertCircle className="w-4 h-4 shrink-0" />
             {errorMsg}
@@ -120,7 +120,7 @@ export default function ContactForm() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-2 text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3"
+            className="flex items-center gap-2 text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-md px-4 py-3"
           >
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             Message sent! I&apos;ll get back to you soon.
@@ -131,7 +131,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'loading' || status === 'success'}
-        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/80 disabled:bg-primary/40 disabled:cursor-not-allowed text-white rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/80 disabled:bg-primary/40 disabled:cursor-not-allowed text-[#03111c] rounded-md font-bold text-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
       >
         {status === 'loading' ? (
           <>

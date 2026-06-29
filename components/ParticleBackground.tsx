@@ -35,7 +35,7 @@ export default function ParticleBackground() {
     window.addEventListener('resize', resizeCanvas);
 
     // Create particles
-    const particleCount = 100;
+    const particleCount = 70;
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -86,7 +86,7 @@ export default function ParticleBackground() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(99, 102, 241, 0.7)';
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.45)';
         ctx.fill();
 
         // Connect nearby particles with lines
@@ -101,7 +101,7 @@ export default function ParticleBackground() {
             ctx.lineTo(particles[j].x, particles[j].y);
             // Lines get brighter when mouse is nearby
             const opacity = (1 - dist2 / 150) * 0.3;
-            ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+            ctx.strokeStyle = `rgba(34, 211, 238, ${opacity * 0.72})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -125,7 +125,7 @@ export default function ParticleBackground() {
         className="fixed inset-0 pointer-events-none z-0"
         style={{
           opacity: 0.15,
-          background: 'radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.3), transparent 70%), radial-gradient(ellipse at 70% 50%, rgba(139,92,246,0.2), transparent 70%)',
+          background: 'radial-gradient(ellipse at 30% 50%, rgba(34,211,238,0.18), transparent 70%), radial-gradient(ellipse at 70% 50%, rgba(163,230,53,0.11), transparent 70%)',
         }}
       />
     );
@@ -135,7 +135,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.35 }}
     />
   );
 }

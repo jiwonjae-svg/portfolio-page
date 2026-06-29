@@ -16,9 +16,9 @@ const config: Config = {
         foreground: 'var(--foreground)',
         card: 'var(--card)',
         border: 'var(--border)',
-        primary: '#6366f1',
-        secondary: '#8b5cf6',
-        accent: '#06b6d4',
+        primary: '#22d3ee',
+        secondary: '#a3e635',
+        accent: '#38bdf8',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in',

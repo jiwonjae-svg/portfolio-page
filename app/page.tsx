@@ -1,12 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Mail, ArrowDown, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Github, Mail, ArrowDown, ArrowRight, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck, CheckCircle2, Activity, Terminal, Database } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import ParticleBackground from '@/components/ParticleBackground';
-import AnimatedGradientText from '@/components/AnimatedGradientText';
 import TableOfContents from '@/components/TableOfContents';
 import ProjectTimeline from '@/components/ProjectTimeline';
 import ContactForm from '@/components/ContactForm';
@@ -301,7 +300,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       <ThemeToggle />
       <ParticleBackground />
 
@@ -309,122 +308,162 @@ export default function Home() {
       <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={closeModal} />
 
       {/* ==================== Hero Section ==================== */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-        {/* Background Orbs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+      <section className="relative min-h-screen px-4 py-14 md:py-16 overflow-hidden">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[240px_minmax(0,1fr)_360px] lg:items-center">
+          <motion.aside
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            className="hidden space-y-4 lg:block"
+          >
+            <div className="console-panel rounded-lg p-5">
+              <p className="console-label mb-5">System Overview</p>
+              {[
+                ['Primary fit', 'AI workflow systems'],
+                ['Backend', 'PostgreSQL / pgvector'],
+                ['Frontend', 'Next.js / TypeScript'],
+                ['Quality', '29 DocuMind test files'],
+              ].map(([label, value]) => (
+                <div key={label} className="border-t border-[#163042]/70 py-3 first:border-t-0 first:pt-0">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{label}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-200">{value}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="console-panel rounded-lg p-5">
+              <p className="console-label mb-4">Japan Signal</p>
+              <div className="space-y-3 text-sm leading-6 text-slate-400">
+                <p>Working holiday experience in Japan.</p>
+                <p>Conversational Japanese and active technical communication practice.</p>
+              </div>
+            </div>
+          </motion.aside>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="min-w-0"
+          >
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <span className="console-chip text-secondary">
+                <Activity className="h-3.5 w-3.5" />
+                operational
+              </span>
+              <span className="console-chip">RAG search</span>
+              <span className="console-chip">release gates</span>
+              <span className="console-chip">WebGL performance</span>
+            </div>
+
+            <h1 className="max-w-4xl break-words text-3xl font-black leading-[1.04] tracking-normal text-foreground sm:text-4xl md:text-6xl xl:text-7xl">
+              AI-enabled full-stack engineer for
+              <span className="block text-secondary">working systems.</span>
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-400 md:text-lg">
+              Korea-based developer targeting Japan IT roles with evidence in RAG knowledge search,
+              owner-scoped access control, release-review workflows, Next.js/TypeScript,
+              PostgreSQL/pgvector, WebGL performance, and secure local utilities.
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#featured-projects"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-bold text-[#03111c] transition-colors hover:bg-primary/80"
+              >
+                View Hiring Evidence
+                <ArrowDown className="w-4 h-4" />
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary/10"
+              >
+                Get in Touch
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            <div className="mt-7 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {portfolioStats.map((metric) => (
+                <div key={metric.label} className="console-panel rounded-lg p-4">
+                  <div className="mb-3 text-primary">{metric.icon}</div>
+                  <CountUp target={metric.value} className="text-2xl font-black text-foreground" />
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{metric.label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.aside
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="console-panel-strong rounded-lg"
+          >
+            <div className="flex items-center justify-between border-b border-[#163042]/80 px-5 py-4">
+              <div className="flex items-center gap-2">
+                <Terminal className="h-4 w-4 text-primary" />
+                <p className="console-label">Candidate Console</p>
+              </div>
+              <span className="font-mono text-[11px] text-secondary">v2026.06</span>
+            </div>
+            <div className="space-y-5 p-5">
+              <pre className="overflow-x-auto rounded-md border border-[#163042]/80 bg-[#03070d] p-4 text-xs leading-6 text-slate-300">
+                <code>{`const candidate = {
+  role: 'AI-enabled full-stack',
+  systems: ['DocuMind', 'OpsFlow'],
+  stack: ['Next.js', 'PostgreSQL', 'pgvector'],
+  proof: ['citations', 'audit logs', 'tests'],
+  japan: 'working holiday + conversational JA'
+};`}</code>
+              </pre>
+
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  ['DocuMind', 'RAG + citations'],
+                  ['OpsFlow', 'release review'],
+                  ['ParticleVerse', 'WebGL / GLSL'],
+                  ['SVG Converter', 'client-side tool'],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-md border border-[#163042]/80 bg-[#07111f]/80 p-3">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">{label}</p>
+                    <p className="mt-1 text-xs text-slate-400">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between rounded-md border border-secondary/25 bg-secondary/10 px-4 py-3">
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-secondary">Review path</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-200">Start with featured evidence</p>
+                </div>
+                <Database className="h-5 w-5 text-secondary" />
+              </div>
+            </div>
+          </motion.aside>
         </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-6"
-          >
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary animate-pulse" />
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-          >
-            <AnimatedGradientText>
-              AI-enabled full-stack engineer building internal tools, workflow automation, and reliable web systems.
-            </AnimatedGradientText>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed max-w-3xl mx-auto"
-          >
-            Korea-based developer targeting Japan IT roles with evidence in RAG knowledge search, owner-scoped access control, release-review workflows, Next.js/TypeScript, PostgreSQL/pgvector, WebGL performance, and secure local utilities.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex gap-4 justify-center mb-16"
-          >
-            <a
-              href="#featured-projects"
-              className="px-8 py-4 bg-primary hover:bg-primary/80 text-white rounded-full font-medium transition-all hover:scale-105 flex items-center gap-2"
-            >
-              View Hiring Evidence
-              <ArrowDown className="w-4 h-4" />
-            </a>
-            <a
-              href="#contact"
-              className="px-8 py-4 border border-primary text-primary hover:bg-primary hover:text-white rounded-full font-medium transition-all hover:scale-105"
-            >
-              Get in Touch
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex gap-6 justify-center"
-          >
-            <a
-              href="https://github.com/jiwonjae-svg"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-primary transition-colors"
-            >
-              <Github className="w-6 h-6" />
-            </a>
-            <a
-              href="mailto:onehouse0460@outlook.com"
-              className="text-zinc-400 hover:text-primary transition-colors"
-            >
-              <Mail className="w-6 h-6" />
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowDown className="w-6 h-6 text-zinc-600" />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* ==================== Table of Contents ==================== */}
       <TableOfContents />
 
       {/* ==================== Recruiter Snapshot Section ==================== */}
-      <section id="recruiter-snapshot" className="py-20 px-4 bg-background">
+      <section id="recruiter-snapshot" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mb-10"
+            className="mb-12"
           >
-            <p className="text-xs uppercase tracking-[0.22em] text-primary font-semibold mb-3">Recruiter snapshot</p>
+            <p className="section-kicker">Recruiter snapshot</p>
             <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-              <h2 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
+              <h2 className="section-title">
                 Fast evidence path for AI-enabled full-stack roles in Japan.
               </h2>
-              <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="section-copy lg:ml-auto">
                 Start with DocuMind and OpsFlow, then review WebGL, browser tooling, security, and Japan readiness evidence. The page is ordered for hiring review rather than project chronology.
               </p>
             </div>
@@ -438,14 +477,14 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800"
+                className="console-panel rounded-lg p-6"
               >
                 <div className="flex items-center gap-2 mb-4 text-primary">
                   <CheckCircle2 className="w-5 h-5" />
                   <p className="text-xs uppercase tracking-wider font-semibold">{item.label}</p>
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.detail}</p>
+                <p className="text-sm text-slate-400 leading-relaxed">{item.detail}</p>
               </motion.article>
             ))}
           </div>
@@ -453,20 +492,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Target Roles Section ==================== */}
-      <section id="target-roles" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="target-roles" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Role Fit</p>
+            <h2 className="section-title flex items-center gap-3">
               <Target className="w-10 h-10 text-primary" />
               <ScrambleText text="Target Roles" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Role fit backed by project evidence, not broad claims" speed={20} />
             </p>
           </motion.div>
@@ -479,16 +519,16 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1, type: 'spring', stiffness: 200 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-primary/40 transition-all group"
+                className="console-panel rounded-lg p-6 text-center transition-all hover:border-primary/40 group"
               >
-                <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 mx-auto mb-3 rounded-md bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   {metric.icon}
                 </div>
                 <CountUp
                   target={metric.value}
                   className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors"
                 />
-                <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-1">{metric.label}</p>
+                <p className="text-sm text-slate-500 mt-1">{metric.label}</p>
               </motion.div>
             ))}
           </div>
@@ -501,13 +541,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-primary/40 transition-all"
+                className="console-panel rounded-lg p-6 transition-all hover:border-primary/40"
               >
-                <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-4">
                   {role.icon}
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{role.title}</h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+                <p className="text-sm text-slate-400 leading-relaxed mb-4">
                   {role.evidence}
                 </p>
                 <p className="text-xs font-medium text-primary">
@@ -520,20 +560,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Japan Readiness Section ==================== */}
-      <section id="japan-readiness" className="py-24 px-4 bg-background">
+      <section id="japan-readiness" className="section-band">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-10"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Relocation Signal</p>
+            <h2 className="section-title flex items-center gap-3">
               <Globe className="w-10 h-10 text-primary" />
               <ScrambleText text="Japan Readiness" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Engineering focus with practical Japan communication context" speed={20} />
             </p>
           </motion.div>
@@ -543,18 +584,18 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800"
+            className="console-panel rounded-lg p-8"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">English</p>
-                <p className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                <p className="text-lg text-slate-300 leading-relaxed">
                   Open to engineering roles in Japan. Working holiday experience in Japan, conversational Japanese, and continued technical communication practice.
                 </p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Japanese</p>
-                <p lang="ja" className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                <p lang="ja" className="text-lg text-slate-300 leading-relaxed">
                   日本でのワーキングホリデー経験と日常会話レベルの日本語力を活かし、日本の開発チームで成長しながら貢献したいと考えています。
                 </p>
               </div>
@@ -564,20 +605,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Featured Projects Section ==================== */}
-      <section id="featured-projects" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="featured-projects" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Case Files</p>
+            <h2 className="section-title flex items-center gap-3">
               <Code2 className="w-10 h-10 text-primary" />
               <ScrambleText text="Featured Projects" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="DocuMind and OpsFlow first, followed by WebGL performance and browser tooling evidence" speed={20} />
             </p>
           </motion.div>
@@ -608,20 +650,21 @@ export default function Home() {
       </section>
 
       {/* ==================== More Projects Section ==================== */}
-      <section id="more-projects" className="py-24 px-4 bg-background">
+      <section id="more-projects" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-10"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Supporting Work</p>
+            <h2 className="section-title flex items-center gap-3">
               <Package className="w-10 h-10 text-primary" />
               <ScrambleText text="More Projects" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Supporting security, mobile, desktop, AI utility, and game projects kept below the main hiring evidence" speed={20} />
             </p>
           </motion.div>
@@ -639,29 +682,29 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.08 }}
                   viewport={{ once: true }}
-                  className="bg-white/80 dark:bg-zinc-900/70 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 hover:border-primary/30 transition-all"
+                  className="console-panel rounded-lg p-5 transition-all hover:border-primary/40"
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div>
-                      <span className="text-xs font-mono text-zinc-500 dark:text-zinc-600">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">
                         #{String(project.id).padStart(2, '0')} / {project.category}
                       </span>
                       <h3 className="text-lg font-bold text-foreground mt-1">{project.title}</h3>
                     </div>
                     {project.status && (
-                      <span className="px-2.5 py-1 text-[11px] rounded-full bg-primary/10 text-primary border border-primary/20 capitalize">
+                      <span className="px-2.5 py-1 text-[11px] rounded-md bg-secondary/10 text-secondary border border-secondary/20 capitalize">
                         {project.status}
                       </span>
                     )}
                   </div>
 
-                  <p className="text-xs text-zinc-600 dark:text-zinc-500 leading-relaxed line-clamp-2 mb-4">
+                  <p className="text-xs text-slate-400 leading-relaxed line-clamp-2 mb-4">
                     {moreProjectCardCopy[project.id] ?? project.summary}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.techStack.slice(0, 3).map((tech) => (
-                      <span key={tech.name} className="px-2.5 py-1 text-[11px] bg-zinc-100/80 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 border border-zinc-300/50 dark:border-zinc-700/50 rounded-full">
+                      <span key={tech.name} className="px-2.5 py-1 text-[11px] bg-[#07111f]/80 text-slate-300 border border-[#163042]/80 rounded-md">
                         {tech.name}
                       </span>
                     ))}
@@ -671,7 +714,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => openModal(project)}
-                      className="px-3 py-1.5 bg-primary hover:bg-primary/80 text-white rounded-lg text-xs font-medium transition-colors"
+                      className="px-3 py-1.5 bg-primary hover:bg-primary/80 text-[#03111c] rounded-md text-xs font-semibold transition-colors"
                     >
                       Details
                     </button>
@@ -680,7 +723,7 @@ export default function Home() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-lg text-xs font-medium transition-colors"
+                        className="flex items-center gap-2 px-3 py-1.5 bg-[#07111f] hover:bg-[#0e1b2c] text-foreground rounded-md border border-[#163042]/80 text-xs font-medium transition-colors"
                       >
                         <Github className="w-4 h-4" />
                         GitHub
@@ -691,7 +734,7 @@ export default function Home() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg text-xs font-medium transition-colors"
+                        className="flex items-center gap-2 px-3 py-1.5 border border-primary/50 text-primary hover:bg-primary/10 rounded-md text-xs font-medium transition-colors"
                       >
                         <LiveIcon className="w-4 h-4" />
                         {liveLabel}
@@ -706,20 +749,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Testing Evidence Section ==================== */}
-      <section id="testing-evidence" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="testing-evidence" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-14"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Quality Signals</p>
+            <h2 className="section-title flex items-center gap-3">
               <ShieldCheck className="w-10 h-10 text-primary" />
               <ScrambleText text="Testing Evidence" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Concrete quality signals for companies that care about maintainability, automation, and release safety" speed={20} />
             </p>
           </motion.div>
@@ -732,14 +776,14 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800"
+                className="console-panel rounded-lg p-6"
               >
                 <div className="flex items-center gap-2 mb-4 text-primary">
                   <CheckCircle2 className="w-5 h-5" />
                   <p className="text-xs uppercase tracking-wider font-semibold">{item.project}</p>
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.detail}</p>
+                <p className="text-sm text-slate-400 leading-relaxed">{item.detail}</p>
               </motion.article>
             ))}
           </div>
@@ -747,19 +791,20 @@ export default function Home() {
       </section>
 
       {/* ==================== Technical Strengths Section ==================== */}
-      <section id="technical-strengths" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="technical-strengths" className="section-band">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <p className="section-kicker">Stack Evidence</p>
+            <h2 className="section-title">
               <ScrambleText text="Technical Strengths" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Compact skill groups tied to project evidence" speed={20} />
             </p>
           </motion.div>
@@ -774,7 +819,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="group relative"
               >
-                <div className="relative bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-primary/40 transition-all duration-500 overflow-hidden h-full">
+                <div className="relative console-panel rounded-lg p-6 hover:border-primary/40 transition-all duration-500 overflow-hidden h-full">
                   {/* Hover gradient background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -785,7 +830,7 @@ export default function Home() {
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-5">
                       <motion.div
-                        className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center"
+                        className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center"
                         whileHover={{ scale: 1.3, rotate: 15 }}
                         transition={{ type: 'spring', stiffness: 300 }}
                       >
@@ -805,16 +850,16 @@ export default function Home() {
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ delay: catIndex * 0.1 + techIndex * 0.04 + 0.2 }}
                           viewport={{ once: true }}
-                          className="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/50 rounded-full text-xs font-medium"
+                          className="px-3 py-1.5 bg-[#07111f]/80 text-slate-300 border border-[#163042]/80 rounded-md text-xs font-medium"
                         >
                           {tech}
                         </motion.div>
                       ))}
                     </div>
 
-                    <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                      <p className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-600 mb-2">Used in:</p>
-                      <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                    <div className="pt-4 border-t border-[#163042]/80">
+                      <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">Used in:</p>
+                      <p className="text-sm text-slate-300 leading-relaxed">
                         {category.usedIn.join(', ')}
                       </p>
                     </div>
@@ -830,20 +875,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Case Studies Section ==================== */}
-      <section id="case-studies" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="case-studies" className="section-band">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Engineering Notes</p>
+            <h2 className="section-title flex items-center gap-3">
               <BookOpen className="w-10 h-10 text-primary" />
               <ScrambleText text="Case Studies" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Problem, action, result, and lesson notes from selected projects" speed={20} />
             </p>
           </motion.div>
@@ -859,13 +905,13 @@ export default function Home() {
                 className={`relative pl-8 border-l-2 ${study.accent.border}`}
               >
                 <div className={`absolute -left-[9px] top-0 w-4 h-4 ${study.accent.dot} rounded-full`} />
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
+                <div className="console-panel rounded-lg p-6">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-5">
                     <div className="flex items-center gap-2 min-w-0">
                       <Target className={`w-5 h-5 shrink-0 ${study.accent.icon}`} />
                       <h3 className="text-lg font-bold text-foreground">{study.title}</h3>
                     </div>
-                    <span className="text-xs text-zinc-500 sm:ml-auto">{study.project}</span>
+                    <span className="text-xs text-slate-500 sm:ml-auto">{study.project}</span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -875,9 +921,9 @@ export default function Home() {
                       ['Result', study.result],
                       ['Lesson', study.lesson],
                     ].map(([label, body]) => (
-                      <div key={label} className="p-4 bg-zinc-100 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700/50">
+                      <div key={label} className="rounded-md border border-[#163042]/80 bg-[#07111f]/80 p-4">
                         <p className="text-xs uppercase tracking-wider text-primary font-semibold mb-2">{label}</p>
-                        <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">{body}</p>
+                        <p className="text-sm text-slate-300 leading-relaxed">{body}</p>
                       </div>
                     ))}
                   </div>
@@ -889,20 +935,21 @@ export default function Home() {
       </section>
 
       {/* ==================== Project Timeline Section ==================== */}
-      <section id="timeline" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="timeline" className="section-band">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+            <p className="section-kicker">Build Sequence</p>
+            <h2 className="section-title flex items-center gap-3">
               <Clock className="w-10 h-10 text-primary" />
               <ScrambleText text="Project Timeline" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="A chronological journey through each project's evolution" speed={20} />
             </p>
           </motion.div>
@@ -912,19 +959,20 @@ export default function Home() {
       </section>
 
       {/* ==================== Contact Section ==================== */}
-      <section id="contact" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+      <section id="contact" className="section-band">
         <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-10"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <p className="section-kicker">Contact</p>
+            <h2 className="section-title">
               <ScrambleText text="Let's Work Together" tag="span" speed={40} />
             </h2>
-            <p className="text-zinc-400 text-lg">
+            <p className="section-copy">
               <SectionTypewriter text="Got an interesting challenge or want to build something together? Let's talk." speed={25} />
             </p>
           </motion.div>
@@ -934,15 +982,15 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 mb-8"
+            className="console-panel rounded-lg p-8 mb-8"
           >
             <ContactForm />
           </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 items-start mb-12">
             <a
               href="mailto:onehouse0460@outlook.com"
-              className="group flex items-center gap-3 px-6 py-3 border border-zinc-700 hover:border-primary text-zinc-400 hover:text-primary rounded-full text-sm font-medium transition-all hover:scale-105"
+              className="group flex items-center gap-3 px-6 py-3 border border-border hover:border-primary text-slate-400 hover:text-primary rounded-md text-sm font-medium transition-all hover:scale-[1.02]"
             >
               <Mail className="w-4 h-4 group-hover:rotate-12 transition-transform" />
               onehouse0460@outlook.com
@@ -951,15 +999,15 @@ export default function Home() {
               href="https://github.com/jiwonjae-svg"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-6 py-3 border border-zinc-700 hover:border-primary text-zinc-400 hover:text-primary rounded-full text-sm font-medium transition-all hover:scale-105"
+              className="group flex items-center gap-3 px-6 py-3 border border-border hover:border-primary text-slate-400 hover:text-primary rounded-md text-sm font-medium transition-all hover:scale-[1.02]"
             >
               <Github className="w-4 h-4 group-hover:rotate-12 transition-transform" />
               GitHub
             </a>
           </div>
 
-          <div className="pt-8 border-t border-zinc-200 dark:border-zinc-800 text-center">
-            <p className="text-zinc-500 text-sm">
+          <div className="pt-8 border-t border-border text-left">
+            <p className="text-slate-500 text-sm">
               © 2026 jiwonjae-svg. Built with Next.js & Framer Motion.
             </p>
           </div>

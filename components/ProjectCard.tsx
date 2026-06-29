@@ -6,12 +6,12 @@ import { Project } from '@/data/projects';
 import { useState, useEffect, useRef, MouseEvent, KeyboardEvent } from 'react';
 
 const categoryColors: Record<string, string> = {
-  language: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-  framework: 'bg-violet-500/15 text-violet-400 border-violet-500/30',
+  language: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
+  framework: 'bg-primary/10 text-primary border-primary/25',
   library: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-  tool: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-  api: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-  infrastructure: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
+  tool: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+  api: 'bg-secondary/10 text-secondary border-secondary/25',
+  infrastructure: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
 };
 
 interface ProjectCardProps {
@@ -76,23 +76,13 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
     }
   };
 
-  // Color accents per project
-  const accentColors = [
-    'from-rose-500/20 to-orange-500/20',
-    'from-violet-500/20 to-indigo-500/20',
-    'from-cyan-500/20 to-blue-500/20',
-    'from-emerald-500/20 to-teal-500/20',
-    'from-amber-500/20 to-yellow-500/20',
-    'from-pink-500/20 to-purple-500/20',
-  ];
-
   const borderAccents = [
-    'hover:border-rose-500/50',
-    'hover:border-violet-500/50',
-    'hover:border-cyan-500/50',
-    'hover:border-emerald-500/50',
-    'hover:border-amber-500/50',
-    'hover:border-pink-500/50',
+    'hover:border-primary/50',
+    'hover:border-secondary/40',
+    'hover:border-sky-400/50',
+    'hover:border-amber-300/40',
+    'hover:border-emerald-300/40',
+    'hover:border-cyan-300/40',
   ];
 
   return (
@@ -101,7 +91,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -113,25 +103,17 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: 'transform 0.1s ease-out',
       }}
-      className={`group relative bg-gradient-to-br from-white to-zinc-50 dark:from-zinc-900 dark:to-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700/50 ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col`}
+      className={`group relative console-panel rounded-lg ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col`}
       onClick={() => onOpenModal(project)}
     >
-      {/* Background Gradient Effect */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${accentColors[index % accentColors.length]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-      {/* Animated border glow */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{
-          background: 'conic-gradient(from 0deg, transparent, rgba(99,102,241,0.15), transparent, rgba(139,92,246,0.15), transparent)',
-          animation: 'spin 6s linear infinite',
-        }}
-      />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent opacity-70" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.12),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       {/* Thumbnail Preview — embedded at top of card */}
       {hasThumbnails && (
         <div
-          className={`relative w-full overflow-hidden bg-zinc-100 dark:bg-zinc-950 transition-[height] duration-500 ease-in-out ${
-            isHovered ? 'h-48' : 'h-32'
+          className={`relative w-full overflow-hidden border-b border-[#163042]/80 bg-[#03070d] transition-[height] duration-500 ease-in-out ${
+            isHovered ? 'h-48' : 'h-36'
           }`}
         >
           {/* Stack all images; only the active one is fully opaque */}
@@ -149,7 +131,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
             />
           ))}
           {/* Gradient fade to card body */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-zinc-900 to-transparent z-[1]" />
+          <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-card to-transparent z-[1]" />
           {/* Dot indicators */}
           {project.thumbnails!.length > 1 && (
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
@@ -165,8 +147,8 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
                   }}
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                     i === currentThumbIndex
-                      ? 'bg-white w-4'
-                      : 'bg-white/40 hover:bg-white/60'
+                      ? 'bg-primary w-4'
+                      : 'bg-white/30 hover:bg-white/60'
                   }`}
                 />
               ))}
@@ -175,35 +157,42 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
         </div>
       )}
 
-      <div className="relative z-10 p-6 flex flex-col flex-1">
+      <div className="relative z-10 p-5 flex flex-col flex-1">
         {/* Project Number */}
-        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-600 group-hover:text-primary/60 transition-colors">
-          #{String(project.id).padStart(2, '0')}
-        </span>
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500 group-hover:text-primary/70 transition-colors">
+            exp-{String(index + 1).padStart(2, '0')} / #{String(project.id).padStart(2, '0')}
+          </span>
+          {project.status && (
+            <span className="rounded-md border border-secondary/25 bg-secondary/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-secondary">
+              {project.status}
+            </span>
+          )}
+        </div>
 
         {/* Project Title */}
-        <h3 className="text-2xl font-bold text-foreground mb-3 mt-1 group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
           {project.title}
         </h3>
 
         {/* Project Summary (truncated) */}
-        <p className="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed line-clamp-2">
+        <p className="text-sm text-slate-400 mb-4 leading-6 line-clamp-2">
           {cardSummary ?? project.summary}
         </p>
 
         {/* "Read More" hint */}
-        <span className="text-sm text-primary/70 group-hover:text-primary transition-colors mb-4 inline-block">
-          Click to read more →
+        <span className="font-mono text-xs text-primary/70 group-hover:text-primary transition-colors mb-4 inline-block">
+          open_case_file();
         </span>
 
         {/* Metrics */}
         {project.metrics && (
           <div className="flex flex-wrap gap-2 mb-3 mt-3">
             {project.metrics.slice(0, 3).map((metric, i) => (
-              <div key={i} className="flex items-center gap-1 px-2 py-1 bg-zinc-100 dark:bg-zinc-800/80 rounded-md border border-zinc-200 dark:border-zinc-700/50">
+              <div key={i} className="flex items-center gap-1 px-2 py-1 bg-[#07111f]/80 rounded-md border border-[#163042]/80">
                 <BarChart3 className="w-3 h-3 text-primary" />
-                <span className="text-[10px] text-zinc-500">{metric.label}:</span>
-                <span className="text-[10px] font-semibold text-zinc-700 dark:text-zinc-300">{metric.value}</span>
+                <span className="text-[10px] text-slate-500">{metric.label}:</span>
+                <span className="text-[10px] font-semibold text-slate-200">{metric.value}</span>
               </div>
             ))}
           </div>
@@ -217,13 +206,13 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 + i * 0.05 }}
-              className={`px-2.5 py-1 text-[11px] border rounded-full transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
+              className={`px-2.5 py-1 text-[11px] border rounded-md transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
             >
               {tech.name}
             </motion.span>
           ))}
           {project.techStack.length > 5 && (
-            <span className="px-2.5 py-1 text-[11px] bg-zinc-100/80 dark:bg-zinc-800/60 text-zinc-500 border border-zinc-300/50 dark:border-zinc-700/50 rounded-full">
+            <span className="px-2.5 py-1 text-[11px] bg-[#07111f]/80 text-slate-500 border border-[#163042]/80 rounded-md">
               +{project.techStack.length - 5} more
             </span>
           )}
@@ -238,7 +227,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               rel="noopener noreferrer"
               aria-label={`Open ${project.title} GitHub repository`}
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-foreground rounded-lg transition-colors group/link"
+              className="flex items-center gap-2 px-4 py-2 bg-[#07111f] hover:bg-[#0e1b2c] text-foreground rounded-md border border-[#163042]/80 transition-colors group/link"
             >
               <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform" />
               <span className="text-sm font-medium">GitHub</span>
@@ -246,12 +235,12 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
           )}
           {project.status === 'testing' ? (
             <div
-              className="relative flex items-center gap-2 px-4 py-2 bg-amber-500/15 text-amber-400 border border-amber-500/30 rounded-lg cursor-default group/testing"
+              className="relative flex items-center gap-2 px-4 py-2 bg-amber-500/15 text-amber-300 border border-amber-500/30 rounded-md cursor-default group/testing"
               title="Currently in testing phase"
             >
               <FlaskConical className="w-4 h-4" />
               <span className="text-sm font-medium">Testing</span>
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-zinc-800 text-xs text-zinc-300 rounded-lg border border-zinc-700 opacity-0 group-hover/testing:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-[#07111f] text-xs text-slate-300 rounded-md border border-border opacity-0 group-hover/testing:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
                 This project is currently in testing
               </div>
             </div>
@@ -266,7 +255,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
                 rel="noopener noreferrer"
                 aria-label={`${label} for ${project.title}`}
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded-lg transition-colors group/link"
+                className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-[#03111c] rounded-md transition-colors group/link"
               >
                 <Icon className="w-4 h-4 group-hover/link:scale-110 transition-transform" />
                 <span className="text-sm font-medium">{label}</span>
@@ -275,9 +264,6 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
           })()}
         </div>
       </div>
-
-      {/* Decorative Corner */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Shine Effect */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
