@@ -9,7 +9,6 @@ import ParticleBackground from '@/components/ParticleBackground';
 import TableOfContents from '@/components/TableOfContents';
 import ProjectTimeline from '@/components/ProjectTimeline';
 import ContactForm from '@/components/ContactForm';
-import ThemeToggle from '@/components/ThemeToggle';
 import CountUp from '@/components/CountUp';
 import { projects, Project } from '@/data/projects';
 import { useState } from 'react';
@@ -301,37 +300,36 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
-      <ThemeToggle />
       <ParticleBackground />
 
       {/* Project Detail Modal */}
       <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={closeModal} />
 
       {/* ==================== Hero Section ==================== */}
-      <section className="relative min-h-screen px-4 py-14 md:py-16 overflow-hidden">
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 lg:grid-cols-[240px_minmax(0,1fr)_360px] lg:items-center">
+      <section className="relative min-h-[calc(100vh-2rem)] px-4 py-10 md:py-12 overflow-hidden">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-5 lg:grid-cols-[232px_minmax(0,1fr)_348px] lg:items-center">
           <motion.aside
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             className="hidden space-y-4 lg:block"
           >
-            <div className="console-panel rounded-lg p-5">
-              <p className="console-label mb-5">System Overview</p>
+            <div className="console-panel rounded-lg p-4">
+              <p className="console-label mb-4">System Overview</p>
               {[
                 ['Primary fit', 'AI workflow systems'],
                 ['Backend', 'PostgreSQL / pgvector'],
                 ['Frontend', 'Next.js / TypeScript'],
                 ['Quality', '29 DocuMind test files'],
               ].map(([label, value]) => (
-                <div key={label} className="border-t border-[#163042]/70 py-3 first:border-t-0 first:pt-0">
+                <div key={label} className="border-t border-[#163042]/70 py-2.5 first:border-t-0 first:pt-0">
                   <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{label}</p>
                   <p className="mt-1 text-sm font-semibold text-slate-200">{value}</p>
                 </div>
               ))}
             </div>
 
-            <div className="console-panel rounded-lg p-5">
+            <div className="console-panel rounded-lg p-4">
               <p className="console-label mb-4">Japan Signal</p>
               <div className="space-y-3 text-sm leading-6 text-slate-400">
                 <p>Working holiday experience in Japan.</p>
@@ -346,7 +344,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="min-w-0"
           >
-            <div className="mb-6 flex flex-wrap items-center gap-3">
+            <div className="mb-5 flex flex-wrap items-center gap-3">
               <span className="console-chip text-secondary">
                 <Activity className="h-3.5 w-3.5" />
                 operational
@@ -356,18 +354,21 @@ export default function Home() {
               <span className="console-chip">WebGL performance</span>
             </div>
 
-            <h1 className="max-w-4xl break-words text-3xl font-black leading-[1.04] tracking-normal text-foreground sm:text-4xl md:text-6xl xl:text-7xl">
-              AI-enabled full-stack engineer for
+            <h1
+              aria-label="AI-enabled full-stack engineer for working systems."
+              className="max-w-4xl break-words text-3xl font-black leading-[1.04] tracking-normal text-foreground sm:text-4xl md:text-5xl xl:text-6xl"
+            >
+              AI-enabled full-stack engineer for{' '}
               <span className="block text-secondary">working systems.</span>
             </h1>
 
-            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-400 md:text-lg">
+            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-400 md:text-lg">
               Korea-based developer targeting Japan IT roles with evidence in RAG knowledge search,
               owner-scoped access control, release-review workflows, Next.js/TypeScript,
               PostgreSQL/pgvector, WebGL performance, and secure local utilities.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#featured-projects"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-bold text-[#03111c] transition-colors hover:bg-primary/80"
@@ -384,10 +385,10 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-7 grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
               {portfolioStats.map((metric) => (
-                <div key={metric.label} className="console-panel rounded-lg p-4">
-                  <div className="mb-3 text-primary">{metric.icon}</div>
+                <div key={metric.label} className="console-panel rounded-lg p-3">
+                  <div className="mb-2 text-primary">{metric.icon}</div>
                   <CountUp target={metric.value} className="text-2xl font-black text-foreground" />
                   <p className="mt-1 text-xs leading-5 text-slate-500">{metric.label}</p>
                 </div>
@@ -408,14 +409,16 @@ export default function Home() {
               </div>
               <span className="font-mono text-[11px] text-secondary">v2026.06</span>
             </div>
-            <div className="space-y-5 p-5">
-              <pre className="overflow-x-auto rounded-md border border-[#163042]/80 bg-[#03070d] p-4 text-xs leading-6 text-slate-300">
+            <div className="space-y-4 p-4">
+              <pre className="whitespace-pre-wrap break-words rounded-md border border-[#163042]/80 bg-[#03070d] p-4 text-[11px] leading-5 text-slate-300">
                 <code>{`const candidate = {
   role: 'AI-enabled full-stack',
   systems: ['DocuMind', 'OpsFlow'],
-  stack: ['Next.js', 'PostgreSQL', 'pgvector'],
-  proof: ['citations', 'audit logs', 'tests'],
-  japan: 'working holiday + conversational JA'
+  stack: ['Next.js', 'PostgreSQL'],
+  vector: 'pgvector',
+  proof: ['citations', 'audit logs'],
+  tests: '29 DocuMind files',
+  japan: 'working holiday + JA'
 };`}</code>
               </pre>
 
