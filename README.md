@@ -2,7 +2,7 @@
 
 # 🌐 Portfolio Page
 
-**A Modern Developer Portfolio — Built to Impress**
+**AI-Enabled Full-Stack Portfolio for Japan IT Roles**
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue.svg)](https://www.typescriptlang.org/)
@@ -10,7 +10,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff69b4.svg)](https://www.framer.com/motion/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-*A visually rich, interactive portfolio showcasing projects in web development, 3D graphics, AI integration, desktop applications, and security tools.*
+*A hiring-focused portfolio centered on RAG internal knowledge search, release-review workflows, WebGL performance, browser tooling, secure local utilities, and Japan-ready communication context.*
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Projects](#-featured-projects) • [Getting Started](#-getting-started) • [Architecture](#-architecture) • [Deployment](#-deployment)
 
@@ -20,13 +20,13 @@
 
 ## 🎯 What is This?
 
-This is a **personal developer portfolio** built with cutting-edge web technologies. It features an interactive particle background, animated gradient text, 3D tilt card effects, and a modular project showcase with detail modals — all wrapped in a sleek dark-themed UI.
+This is a **personal software engineering portfolio** built to help recruiters quickly evaluate fit for AI-enabled full-stack, internal tooling, workflow automation, frontend/WebGL, and reliability-oriented roles in Japan.
 
 Designed to be:
-- ✨ **Visually Stunning** — Particle effects, animated gradients, and smooth transitions
-- 🚀 **High Performance** — Next.js App Router with optimized rendering
-- 📱 **Fully Responsive** — Looks great on desktop, tablet, and mobile
-- ♿ **Accessible** — Semantic HTML, keyboard navigation, and proper contrast
+- **Hiring-Focused** — DocuMind and OpsFlow are surfaced first as the strongest role-fit evidence
+- **Evidence-Backed** — Project claims connect to concrete architecture, tests, metrics, and live links
+- **Responsive** — Recruiters can scan the page on desktop, tablet, and mobile
+- **Japan-Ready** — Includes working holiday experience and conversational Japanese context without overstating language level
 
 ## ✨ Features
 
@@ -50,11 +50,11 @@ Designed to be:
 - **Interactive Items**: Hover-to-slide animations with color transitions
 - **Category Icons**: Visual identifiers with spring-animated emoji headers
 
-### 📊 Proof of Performance
-- **Quantitative Metrics**: Completed projects, total lines of code, shipped apps, live services
-- **Security Verification Checklist**: AES-128 encryption, XSS/CSRF prevention, Firestore rules, etc.
-- **Performance Optimization Checklist**: GPU shaders, algorithm complexity reduction, adaptive polling, etc.
-- **Unit Test CTA**: Upcoming test coverage integration notice
+### 📊 Proof of Quality
+- **Testing Evidence**: DocuMind Vitest coverage, OpsFlow Playwright E2E, lint/build/audit checks
+- **Security Signals**: Owner-scoped retrieval, audit logs, encrypted local storage, XSS/CSRF-oriented validation
+- **Performance Signals**: GPU shaders, Canvas processing, algorithmic complexity reduction, adaptive polling
+- **Deployment Evidence**: Live Vercel services and production verification where applicable
 
 ### 📝 Experience & Retrospective
 - **Timeline Layout**: Chronological retrospectives with color-coded borders
@@ -69,12 +69,12 @@ Designed to be:
 
 | # | Project | Description |
 |---|---------|-------------|
-| 01 | **Color Palette Generator** | AI-powered color palette creation using Gemini API with Delta E and K-Means clustering |
-| 02 | **Croquis** | Artist practice companion with GitHub-style heatmap and AES-128 encrypted local storage |
-| 03 | **ParticleVerse** | Real-time hand tracking meets GPU-accelerated particle physics in a touchless 3D experience |
-| 04 | **SVG Converter** | Privacy-first browser-based image-to-SVG conversion with 2-Pass grid sampling |
-| 05 | **Paste Guardian** | System clipboard security utility with AES-128 encryption and Win32 API integration |
-| 06 | **Word Cube** | 3D word search game with Firebase leaderboards and seed-based puzzle generation |
+| 01 | **DocuMind** | RAG-based internal knowledge search with Auth.js, PostgreSQL/pgvector, owner-scoped retrieval, source-cited answers, audit logs, and agent-ready APIs |
+| 02 | **OpsFlow Command Center** | Local-first release review workspace with deployment gates, operational metrics, JSON audit packets, and Playwright-verified review flow |
+| 03 | **ParticleVerse** | Real-time hand tracking meets GPU-accelerated particle physics in a touchless WebGL experience |
+| 04 | **SVG Converter** | Privacy-first browser image-to-SVG conversion with Canvas API, 2-pass grid sampling, and client-side validation |
+| 05 | **Paste Guardian** | Clipboard security utility with encrypted local storage, singleton control, adaptive polling, and Win32 API integration |
+| 06 | **DailyGlow** | React Native product in testing with Firebase, multilingual quote data, offline/online data flow, and mobile learning modes |
 
 ## 🔧 Tech Stack
 

@@ -82,12 +82,12 @@ const techCategories = [
   },
 ];
 
-const featuredProjectIds = [9, 8, 7, 3];
-const moreProjectIds = [4, 5, 2, 1, 6];
+const featuredProjectIds = [8, 9, 3, 4];
+const moreProjectIds = [5, 7, 2, 1, 6];
 
 const featuredProjectCardCopy: Record<number, string> = {
-  9: 'Release safety console for AI-enabled workflow systems with decision policies, review packets, SLO checks, remediation runbooks, audit trails, and owner-scoped policy tests.',
-  8: 'Full-stack RAG MVP for Japanese and Korean teams using Next.js, Auth.js, PostgreSQL, pgvector, OpenAI embeddings, citations, and scoped tool APIs.',
+  8: 'RAG-based internal knowledge search with Auth.js, PostgreSQL, pgvector, owner-scoped retrieval, source-cited answers, audit logs, and agent-ready API routes.',
+  9: 'Local-first release review workspace for AI-enabled workflow systems with deployment gates, operational metrics, JSON audit packets, and production verification.',
   7: 'Mobile product in testing built with React Native, Firebase, i18n, offline/online quote data, and Japanese language support.',
   3: 'Interactive WebGL experience using Three.js, custom GLSL shaders, and real-time hand tracking with performance-focused GPU rendering.',
   4: 'Privacy-first browser utility that converts images client-side with Canvas API, 2-pass sampling, and SVG output optimization.',
@@ -96,6 +96,7 @@ const featuredProjectCardCopy: Record<number, string> = {
 
 const moreProjectCardCopy: Record<number, string> = {
   5: 'Local clipboard security utility with Win32 APIs, encrypted storage, singleton control, and adaptive polling.',
+  7: 'React Native product in testing with Firebase, multilingual quote data, offline/online data flow, and mobile learning modes.',
   2: 'PyQt6 drawing-practice timer with encrypted local history, heatmap tracking, and Windows installer packaging.',
   1: 'Python desktop color tool using Gemini API, K-Means extraction, Delta E color comparison, and encrypted presets.',
   6: 'Three.js word puzzle with Firebase auth, real-time leaderboard, Trie search, and mobile touch support.',
@@ -103,21 +104,21 @@ const moreProjectCardCopy: Record<number, string> = {
 
 const portfolioStats = [
   { value: 9, label: 'Portfolio Projects', icon: <Code2 className="w-6 h-6" /> },
-  { value: 3, label: 'Shipped Desktop Apps', icon: <Package className="w-6 h-6" /> },
+  { value: 2, label: 'AI Workflow Systems', icon: <Sparkles className="w-6 h-6" /> },
   { value: 5, label: 'Live Web Services', icon: <Globe className="w-6 h-6" /> },
-  { value: 1, label: 'Mobile App in Testing', icon: <Smartphone className="w-6 h-6" /> },
+  { value: 29, label: 'DocuMind Test Files', icon: <ShieldCheck className="w-6 h-6" /> },
 ];
 
 const recruiterSnapshot = [
   {
     label: 'Primary fit',
-    title: 'AI-enabled full-stack / workflow systems',
-    detail: 'DocuMind and OpsFlow show authenticated RAG workflows, owner-scoped retrieval, release gates, audit trails, and review packets.',
+    title: 'AI-enabled full-stack / internal tools',
+    detail: 'DocuMind and OpsFlow show RAG knowledge search, owner-scoped retrieval, release review workflows, audit logs, and agent-ready API design.',
   },
   {
     label: 'Frontend proof',
     title: 'Interactive UI plus performance work',
-    detail: 'ParticleVerse, SVG Converter, Word Cube, and DailyGlow cover WebGL, Canvas processing, mobile UX, and responsive product surfaces.',
+    detail: 'ParticleVerse and SVG Converter show WebGL, Canvas processing, GPU rendering, browser performance work, and responsive product surfaces.',
   },
   {
     label: 'Japan signal',
@@ -128,28 +129,46 @@ const recruiterSnapshot = [
 
 const targetRoles = [
   {
-    title: 'Full-Stack Web',
-    evidence: 'Next.js/Vite frontends with authenticated APIs, Prisma/PostgreSQL, Firebase, and deployed live services.',
-    projects: 'DocuMind, DailyGlow, Word Cube, SVG Converter',
+    title: 'AI-Enabled Full-Stack',
+    evidence: 'RAG search, source-cited answers, owner-scoped access, audit logs, and TypeScript/Next.js product surfaces.',
+    projects: 'DocuMind, OpsFlow Command Center',
     icon: <Layers className="w-6 h-6" />,
   },
   {
-    title: 'Workflow / QA Reliability',
-    evidence: 'Release gates, decision policies, SLO budgets, audit trails, remediation runbooks, owner-scoped tests, and API/data validation.',
+    title: 'Internal Tools / Workflow',
+    evidence: 'Release gates, deployment decision policies, JSON review packets, operational metrics, and workflow-focused UI state.',
     projects: 'OpsFlow Command Center, DocuMind',
     icon: <ShieldCheck className="w-6 h-6" />,
   },
   {
-    title: 'AI-Enabled Tools',
-    evidence: 'OpenAI embeddings, grounded answers with citations, citation coverage checks, Gemini parsing fallbacks, and curated data pipelines.',
-    projects: 'DocuMind, OpsFlow Command Center, Color Palette Generator, DailyGlow',
-    icon: <Sparkles className="w-6 h-6" />,
-  },
-  {
-    title: 'Frontend Performance',
+    title: 'Frontend / WebGL',
     evidence: 'GPU shader rendering, Canvas image processing, adaptive mobile rendering, and real-time interaction optimization.',
     projects: 'ParticleVerse, SVG Converter, Word Cube',
     icon: <TrendingUp className="w-6 h-6" />,
+  },
+  {
+    title: 'Security / Reliability',
+    evidence: 'Validation, request-origin checks, rate limits, encrypted local storage, audit formatting, and deployment hygiene.',
+    projects: 'DocuMind, Paste Guardian, SVG Converter',
+    icon: <Sparkles className="w-6 h-6" />,
+  },
+];
+
+const testingEvidence = [
+  {
+    title: 'DocuMind core logic tests',
+    project: 'DocuMind',
+    detail: '29 Vitest files cover document chunking, document validation, ownership checks, search validation, audit formatting, bounded JSON bodies, rate limits, request-origin checks, embedding retries, and deployment hygiene.',
+  },
+  {
+    title: 'OpsFlow release review QA',
+    project: 'OpsFlow Command Center',
+    detail: 'Playwright E2E verifies the main release-review flow, localStorage persistence, generated review decisions, mobile overflow, and console health before the Vercel production link is used.',
+  },
+  {
+    title: 'Browser tooling reliability',
+    project: 'SVG Converter / Paste Guardian',
+    detail: 'Client-side validation, XSS/CSRF-oriented checks, local-only processing, encrypted clipboard history, singleton control, and adaptive polling are documented in project challenge notes.',
   },
 ];
 
@@ -314,7 +333,7 @@ export default function Home() {
             className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
           >
             <AnimatedGradientText>
-              Full-Stack / Mobile Developer building AI-enabled tools, interactive web apps, and mobile products.
+              AI-enabled full-stack engineer building internal tools, workflow automation, and reliable web systems.
             </AnimatedGradientText>
           </motion.h1>
 
@@ -324,7 +343,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 mb-12 leading-relaxed max-w-3xl mx-auto"
           >
-            Korea-based developer targeting Japan IT roles with project evidence across React Native, Next.js, Firebase, Python desktop tools, AI APIs, and frontend performance work.
+            Korea-based developer targeting Japan IT roles with evidence in RAG knowledge search, owner-scoped access control, release-review workflows, Next.js/TypeScript, PostgreSQL/pgvector, WebGL performance, and secure local utilities.
           </motion.p>
 
           <motion.div
@@ -337,7 +356,7 @@ export default function Home() {
               href="#featured-projects"
               className="px-8 py-4 bg-primary hover:bg-primary/80 text-white rounded-full font-medium transition-all hover:scale-105 flex items-center gap-2"
             >
-              View Projects
+              View Hiring Evidence
               <ArrowDown className="w-4 h-4" />
             </a>
             <a
@@ -403,10 +422,10 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.22em] text-primary font-semibold mb-3">Recruiter snapshot</p>
             <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <h2 className="text-3xl md:text-5xl font-bold leading-tight text-foreground">
-                Fast evidence path for Japan IT roles.
+                Fast evidence path for AI-enabled full-stack roles in Japan.
               </h2>
               <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Start with the role-fit cards, then open the featured project details. The strongest signals are full-stack AI workflow systems, frontend/product implementation, and Japan readiness.
+                Start with DocuMind and OpsFlow, then review WebGL, browser tooling, security, and Japan readiness evidence. The page is ordered for hiring review rather than project chronology.
               </p>
             </div>
           </motion.div>
@@ -530,13 +549,13 @@ export default function Home() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">English</p>
                 <p className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                  Korea-based developer open to Japan opportunities. Japanese conversational communication through working holiday experience.
+                  Open to engineering roles in Japan. Working holiday experience in Japan, conversational Japanese, and continued technical communication practice.
                 </p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Japanese</p>
                 <p lang="ja" className="text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                  韓国を拠点とし、日本での機会に関心があります。ワーキングホリデー経験を通じて、日常会話レベルの日本語コミュニケーションが可能です。
+                  日本でのワーキングホリデー経験と日常会話レベルの日本語力を活かし、日本の開発チームで成長しながら貢献したいと考えています。
                 </p>
               </div>
             </div>
@@ -559,7 +578,7 @@ export default function Home() {
               <ScrambleText text="Featured Projects" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              <SectionTypewriter text="Four projects selected for full-stack AI, mobile product, WebGL performance, and browser tooling evidence" speed={20} />
+              <SectionTypewriter text="DocuMind and OpsFlow first, followed by WebGL performance and browser tooling evidence" speed={20} />
             </p>
           </motion.div>
 
@@ -603,7 +622,7 @@ export default function Home() {
               <ScrambleText text="More Projects" tag="span" speed={40} />
             </h2>
             <p className="text-zinc-400 text-lg">
-              <SectionTypewriter text="Additional evidence kept compact so the main positioning stays clear" speed={20} />
+              <SectionTypewriter text="Supporting security, mobile, desktop, AI utility, and game projects kept below the main hiring evidence" speed={20} />
             </p>
           </motion.div>
 
@@ -682,6 +701,47 @@ export default function Home() {
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== Testing Evidence Section ==================== */}
+      <section id="testing-evidence" className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+              <ShieldCheck className="w-10 h-10 text-primary" />
+              <ScrambleText text="Testing Evidence" tag="span" speed={40} />
+            </h2>
+            <p className="text-zinc-400 text-lg">
+              <SectionTypewriter text="Concrete quality signals for companies that care about maintainability, automation, and release safety" speed={20} />
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {testingEvidence.map((item, index) => (
+              <motion.article
+                key={item.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800"
+              >
+                <div className="flex items-center gap-2 mb-4 text-primary">
+                  <CheckCircle2 className="w-5 h-5" />
+                  <p className="text-xs uppercase tracking-wider font-semibold">{item.project}</p>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.detail}</p>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>

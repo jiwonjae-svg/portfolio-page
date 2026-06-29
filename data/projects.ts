@@ -497,6 +497,7 @@ export const projects: Project[] = [
     metrics: [
       { label: "Document Types", value: "TXT/MD/PDF" },
       { label: "Search", value: "pgvector" },
+      { label: "Tests", value: "29 Vitest Files" },
       { label: "Auth", value: "Owner-Scoped" },
       { label: "Agent APIs", value: "3 Tools" },
     ],
@@ -507,8 +508,8 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "OpsFlow Command Center",
-    summary: "Standalone release safety console for AI-enabled workflow systems. Models SLO checks, explicit release thresholds, resettable scenario-scoped review state, review packets, security inspection, remediation runbooks, owner-scoped policy tests, rollback readiness, audit trails, and citation coverage so hiring teams can evaluate platform and QA judgment beyond feature UI work.",
-    description: "OpsFlow Command Center is an interactive standalone implementation designed to show senior-leaning engineering judgment without claiming production company scale. The console simulates operational scenarios for AI-enabled workflow systems: steady releases, retrieval latency, and owner-scope policy regressions. It visualizes service health, release gate decisions, decision-policy thresholds, resettable scenario-scoped review state, review packets, security inspection, SLO budgets, queue pressure, citation coverage, remediation runbooks, rollback readiness, and audit events in one operator-facing view. The project connects directly to roles that value workflow systems, QA automation, backend reliability, and AI product integration.",
+    summary: "Local-first release review workspace for deciding whether AI-enabled internal tools and workflow systems are safe to deploy. Reviewers can enter release metadata, operational metrics, blocking gates, evidence notes, and exportable JSON audit packets before making a release decision.",
+    description: "OpsFlow Command Center is a deployed local-first release review tool built to show practical engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, npm audit, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "Next.js App Router", category: "framework" },
@@ -519,57 +520,59 @@ export const projects: Project[] = [
       { name: "SLO / Error Budget Modeling", category: "tool" },
       { name: "Release Gate Design", category: "tool" },
       { name: "Decision Policy Modeling", category: "tool" },
-      { name: "Scenario-Scoped UI State", category: "tool" },
+      { name: "localStorage Persistence", category: "api" },
+      { name: "JSON Import / Export", category: "api" },
       { name: "Security Inspection", category: "tool" },
       { name: "Remediation Runbooks", category: "tool" },
       { name: "Audit Trail Data Model", category: "tool" },
       { name: "Owner-Scoped Policy Checks", category: "tool" },
+      { name: "Playwright E2E", category: "tool" },
       { name: "Vercel", category: "infrastructure" },
     ],
     technicalChallenge: {
-      problem: "Senior-leaning roles evaluate whether a candidate can reason about release safety, operational reliability, access boundaries, and measurable quality gates. Showing those signals clearly required a focused, standalone interface rather than burying the evidence inside the main portfolio flow.",
-      solution: "Built a deterministic operations console as an independent page. It exposes three release scenarios, maps each scenario to service health, SLO budget, queue pressure, citation coverage, release gates, explicit policy thresholds, resettable scenario-scoped review state, security inspection, review packets, remediation runbooks, and audit events, and keeps the data framed as demo scenarios rather than production metrics.",
+      problem: "A release decision for an AI-enabled internal tool can fail for reasons that are not visible in a normal feature demo: missing evidence, weak access boundaries, poor rollback readiness, bad operational metrics, or unrecorded reviewer judgment.",
+      solution: "Built a local-first review workspace that turns those release criteria into editable fields, blocking gates, deterministic decision output, copyable review packets, JSON import/export, local persistence, and a Playwright-tested core flow. The tool makes the deployment decision explicit instead of leaving it as an informal checklist.",
     },
-    architecture: `[Operator]
+    architecture: `[Reviewer]
     |
 [OpsFlow Command Center]
-    |-- Scenario selector
-    |-- Release decision summary
-    |-- SLO and queue pressure dashboard
-    |-- Decision policy matrix
-    |-- Scenario review ledger
+    |-- Release metadata form
+    |-- Operational metrics editor
+    |-- Blocking release gate table
+    |-- Pass / Warn / Fail decision model
+    |-- Evidence note capture
     |-- Review packet generator
-    |-- Service health map
-    |-- Release gate checklist
-    |-- Remediation runbook
-    |-- Security inspection ledger
-    |-- Audit trail table
+    |-- JSON import / export
+    |-- Local reset workflow
     |
-[Deterministic Scenario Model]
-    |-- Steady release
-    |-- Retrieval latency
-    |-- Owner-scope policy regression
+[Local-First State]
+    |-- localStorage persistence
+    |-- workspace-loaded guard
+    |-- audit event log
     |
 [Quality Signals]
-    |-- API contract state
+    |-- p95 latency
+    |-- error budget
+    |-- queue depth
+    |-- citation coverage
+    |-- test pass rate
+    |-- availability
     |-- Owner-scoped access checks
-    |-- Citation coverage
     |-- Rollback readiness
-    |-- Error budget and p95 latency
     |
-[Hiring Evidence]
-    |-- QA automation mindset
-    |-- Platform reliability thinking
-    |-- AI workflow safety
-    |-- Auditability and access boundaries`,
+[Reviewer Output]
+    |-- Ready for release
+    |-- Manual review required
+    |-- Release blocked
+    |-- Copyable / exportable audit packet`,
     liveUrl: "https://opsflow-sable.vercel.app",
     thumbnails: ["/images/OpsFlowCommandCenter.jpg"],
     metrics: [
-      { label: "Scenarios", value: "3" },
-      { label: "Policy Checks", value: "4 / scenario" },
-      { label: "Runbook Tracks", value: "3 / scenario" },
+      { label: "Decision States", value: "3" },
+      { label: "Storage", value: "localStorage + JSON" },
+      { label: "QA", value: "Playwright E2E" },
       { label: "Signals", value: "SLO/Audit/RBAC" },
-      { label: "Scope", value: "Standalone Demo" },
+      { label: "Scope", value: "Local-First Tool" },
     ],
     status: 'released',
     category: 'web',

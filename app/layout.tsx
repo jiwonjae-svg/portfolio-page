@@ -5,29 +5,30 @@ import MagneticCursor from '@/components/MagneticCursor'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Jiwonjae | Full-Stack & Mobile Developer',
+  title: 'Jiwonjae | AI-Enabled Full-Stack Engineer',
   description:
-    'Portfolio of Jiwonjae — building AI-enabled workflow tools, release-safety dashboards with decision policies and runbooks, GPU shader experiences, encrypted desktop utilities, and cross-platform mobile apps with React Native, Next.js, TypeScript, Python, and Firebase.',
+    'Portfolio of Jiwonjae — AI-enabled full-stack engineer building internal tools, RAG knowledge search, release-review workflows, agent-ready APIs, WebGL performance projects, and secure local utilities for Japan IT roles.',
   keywords: [
     'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
-    'Python', 'React Native', 'Expo', 'Firebase', 'mobile', 'full-stack',
-    'GLSL', 'shader', 'encryption', 'security', 'QA', 'SLO', 'audit logs', 'runbooks',
+    'Python', 'React Native', 'Expo', 'Firebase', 'full-stack', 'RAG',
+    'pgvector', 'internal tools', 'workflow automation', 'GLSL', 'shader',
+    'encryption', 'security', 'QA', 'SLO', 'audit logs', 'runbooks',
   ],
   authors: [{ name: 'Jiwonjae-svg' }],
   metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
-    title: 'Jiwonjae | Full-Stack & Mobile Developer',
+    title: 'Jiwonjae | AI-Enabled Full-Stack Engineer',
     description:
-      'Projects spanning AI-enabled workflow systems, release safety, decision policies, 3D graphics, system security, and cross-platform mobile.',
+      'Projects spanning RAG internal knowledge search, release safety, workflow automation, WebGL performance, browser tooling, and secure local utilities.',
     type: 'website',
     locale: 'en_US',
     url: 'https://jiwonjae-portfolio.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jiwonjae | Full-Stack & Mobile Developer',
+    title: 'Jiwonjae | AI-Enabled Full-Stack Engineer',
     description:
-      'Projects spanning AI-enabled workflow systems, release safety, decision policies, 3D graphics, system security, and mobile.',
+      'Projects spanning RAG internal knowledge search, release safety, workflow automation, WebGL performance, browser tooling, and secure local utilities.',
   },
 }
 
@@ -37,8 +38,8 @@ const jsonLd = {
   name: 'Jiwonjae',
   url: 'https://jiwonjae-portfolio.vercel.app',
   sameAs: ['https://github.com/jiwonjae-svg'],
-  jobTitle: 'Full-Stack & Mobile Developer',
-  knowsAbout: ['React Native', 'Next.js', 'Three.js', 'Firebase', 'Python', 'TypeScript', 'QA automation', 'AI workflow systems', 'release runbooks'],
+  jobTitle: 'AI-Enabled Full-Stack Engineer',
+  knowsAbout: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'pgvector', 'RAG', 'AI workflow systems', 'release runbooks', 'Three.js', 'Python', 'Firebase'],
 }
 
 export default function RootLayout({
