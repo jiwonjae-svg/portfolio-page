@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3, FlaskConical } from 'lucide-react';
+import Image from 'next/image';
 import { Project } from '@/data/projects';
 import { useState, useEffect, useRef, MouseEvent, KeyboardEvent } from 'react';
 
@@ -118,10 +119,12 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
         >
           {/* Stack all images; only the active one is fully opaque */}
           {project.thumbnails!.map((thumb, i) => (
-            <img
+            <Image
               key={thumb}
               src={thumb}
               alt={`${project.title} preview ${i + 1}`}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
                 isHovered ? 'object-contain' : 'object-cover'
               } ${

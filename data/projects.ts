@@ -11,6 +11,11 @@ export interface Project {
   summary: string;
   description: string;
   techStack: TechDetail[];
+  evidence?: {
+    implemented: string[];
+    verified: string[];
+    future: string[];
+  };
   technicalChallenge: {
     problem: string;
     solution: string;
@@ -448,6 +453,26 @@ export const projects: Project[] = [
     title: "DocuMind",
     summary: "Secure internal knowledge search MVP for Japanese and Korean teams. Authenticated users can upload documents, generate OpenAI embeddings, search owner-scoped chunks with pgvector, and ask grounded questions with source citations.",
     description: "DocuMind is a full-stack retrieval-augmented knowledge product built around authenticated document ingestion, PostgreSQL/Prisma data modeling, pgvector semantic search, OpenAI-powered grounded answers, source citations, audit logging, Docker-backed local infrastructure, CI, and agent-ready scoped API endpoints. The product focus is practical: help internal teams find trusted answers from their own documents while keeping API keys server-side and enforcing ownership rules for search, deletion, and question answering.",
+    evidence: {
+      implemented: [
+        "Auth.js session flow with server-side protected routes",
+        "Document upload, text extraction, chunking, and metadata persistence",
+        "PostgreSQL/Prisma schema with pgvector-backed semantic search",
+        "Owner-scoped retrieval, deletion, grounded ask flow, citations, and audit logs",
+        "Scoped /api/tools endpoints for future agent/MCP wrapper integration",
+      ],
+      verified: [
+        "29 Vitest files covering chunking, validation, ownership, citation formatting, API validation, and security boundaries",
+        "Docker-backed local PostgreSQL/pgvector infrastructure",
+        "GitHub Actions CI, lint, build, and deployment hygiene checks",
+      ],
+      future: [
+        "Team RBAC beyond single-owner scope",
+        "S3-compatible document storage for larger production files",
+        "Evaluation dataset for retrieval quality and answer grounding",
+        "MCP wrapper around the existing scoped tools API",
+      ],
+    },
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "Next.js App Router", category: "framework" },
@@ -509,7 +534,27 @@ export const projects: Project[] = [
     id: 9,
     title: "OpsFlow Command Center",
     summary: "Local-first release review workspace for deciding whether AI-enabled internal tools and workflow systems are safe to deploy. Reviewers can enter release metadata, operational metrics, blocking gates, evidence notes, and exportable JSON audit packets before making a release decision.",
-    description: "OpsFlow Command Center is a deployed local-first release review tool built to show practical engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, npm audit, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
+    description: "OpsFlow Command Center is a deployed local-first release review tool built to show practical engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
+    evidence: {
+      implemented: [
+        "Editable release metadata, operational metrics, blocking gates, and evidence notes",
+        "Deterministic release decision model for ready, manual review, and blocked states",
+        "Copyable and exportable JSON review packets",
+        "localStorage persistence with import, export, and reset workflows",
+        "Standalone deployed workflow console separated from the portfolio route",
+      ],
+      verified: [
+        "Playwright E2E coverage for the core release-review flow",
+        "lint, build, Vercel deployment inspection, and production HTTP checks",
+        "Mobile overflow, localStorage persistence, and console-health checks",
+      ],
+      future: [
+        "Authenticated team workspaces",
+        "Server-side audit packet storage",
+        "Integration with CI/CD deployment events",
+        "Role-based review ownership and approval history",
+      ],
+    },
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "Next.js App Router", category: "framework" },

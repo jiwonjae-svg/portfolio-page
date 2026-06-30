@@ -152,6 +152,61 @@ const targetRoles = [
   },
 ];
 
+const reviewPaths = [
+  {
+    key: 'ai-fullstack',
+    label: 'AI Full-stack',
+    fit: 'DocuMind -> OpsFlow -> SVG Converter',
+    headline: 'Start with AI-enabled workflow systems, then inspect browser tooling.',
+    detail:
+      'Best for roles asking for TypeScript, Next.js, internal tools, RAG, citations, audit logs, and practical AI workflow integration.',
+    evidence: [
+      'DocuMind: owner-scoped RAG search, citations, pgvector, and audit logs',
+      'OpsFlow: release gates, review packets, SLO signals, and operational judgment',
+      'SVG Converter: privacy-first browser processing and validation',
+    ],
+  },
+  {
+    key: 'frontend-webgl',
+    label: 'Frontend / WebGL',
+    fit: 'ParticleVerse -> SVG Converter -> Word Cube',
+    headline: 'Lead with interactive rendering, performance, and browser-heavy UI work.',
+    detail:
+      'Best for roles that value frontend performance, WebGL/Three.js, Canvas processing, responsive UI, and complex browser state.',
+    evidence: [
+      'ParticleVerse: GPU shader particle transforms and MediaPipe hand tracking',
+      'SVG Converter: Canvas image processing and client-side SVG generation',
+      'Word Cube: Three.js puzzle interaction with Firebase-backed leaderboard',
+    ],
+  },
+  {
+    key: 'workflow-reliability',
+    label: 'Workflow / Reliability',
+    fit: 'OpsFlow -> DocuMind -> Paste Guardian',
+    headline: 'Show release safety, security boundaries, and maintainable operations.',
+    detail:
+      'Best for internal tooling, QA-minded, platform-adjacent, or reliability-oriented product engineering roles.',
+    evidence: [
+      'OpsFlow: deterministic deploy decision states and JSON audit packets',
+      'DocuMind: owner-scoped APIs, validation, and test-backed AI retrieval flow',
+      'Paste Guardian: local encrypted storage and Windows clipboard safety',
+    ],
+  },
+  {
+    key: 'japan-product',
+    label: 'Japan Product Fit',
+    fit: 'DocuMind -> DailyGlow -> Croquis',
+    headline: 'Connect engineering evidence with Japan readiness and multilingual product context.',
+    detail:
+      'Best for Japan-based teams that need practical communication context, international product awareness, and steady full-stack growth potential.',
+    evidence: [
+      'Japan readiness: working holiday experience and conversational Japanese',
+      'DocuMind: internal knowledge search positioned for Japanese and Korean teams',
+      'DailyGlow / Croquis: Japanese language support and multilingual product structure',
+    ],
+  },
+] as const;
+
 const testingEvidence = [
   {
     title: 'DocuMind core logic tests',
@@ -280,6 +335,7 @@ const caseStudies = [
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeReviewPath, setActiveReviewPath] = useState<(typeof reviewPaths)[number]['key']>('ai-fullstack');
 
   const featuredProjects = featuredProjectIds
     .map((id) => projects.find((project) => project.id === id))
@@ -287,6 +343,7 @@ export default function Home() {
   const moreProjects = moreProjectIds
     .map((id) => projects.find((project) => project.id === id))
     .filter((project): project is Project => Boolean(project));
+  const selectedReviewPath = reviewPaths.find((path) => path.key === activeReviewPath) ?? reviewPaths[0];
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
@@ -535,6 +592,73 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="console-panel rounded-lg p-5 mb-8"
+          >
+            <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
+              <div>
+                <p className="console-label mb-3">Review path</p>
+                <h3 className="text-2xl font-bold text-foreground">Choose the lens before reading projects.</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">
+                  The strongest project order changes by role. These paths make the portfolio faster to scan for different hiring contexts.
+                </p>
+              </div>
+
+              <div>
+                <div
+                  role="tablist"
+                  aria-label="Portfolio review paths"
+                  className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4"
+                >
+                  {reviewPaths.map((path) => (
+                    <button
+                      key={path.key}
+                      id={`review-path-tab-${path.key}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeReviewPath === path.key}
+                      aria-controls="review-path-panel"
+                      onClick={() => setActiveReviewPath(path.key)}
+                      className={`rounded-md border px-3 py-2.5 text-left transition-colors ${
+                        activeReviewPath === path.key
+                          ? 'border-primary bg-primary text-[#03111c]'
+                          : 'border-[#163042]/80 bg-[#07111f]/80 text-slate-400 hover:border-primary/50 hover:text-slate-200'
+                      }`}
+                    >
+                      <span className="block text-xs font-bold">{path.label}</span>
+                      <span className="mt-1 block text-[11px] opacity-80">{path.fit}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div
+                  id="review-path-panel"
+                  role="tabpanel"
+                  aria-labelledby={`review-path-tab-${selectedReviewPath.key}`}
+                  className="mt-4 rounded-md border border-[#163042]/80 bg-[#03070d]/70 p-4"
+                >
+                  <p className="text-lg font-bold text-foreground">{selectedReviewPath.headline}</p>
+                  <p className="mt-2 font-mono text-xs uppercase tracking-[0.16em] text-secondary">
+                    Recommended order: {selectedReviewPath.fit}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{selectedReviewPath.detail}</p>
+                  <ul className="mt-4 grid gap-2 text-sm text-slate-300 md:grid-cols-3">
+                    {selectedReviewPath.evidence.map((item) => (
+                      <li key={item} className="flex gap-2 rounded-md border border-[#163042]/70 bg-[#07111f]/70 p-3">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {targetRoles.map((role, i) => (

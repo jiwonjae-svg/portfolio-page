@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical, ChevronLeft, ChevronRight, CheckCircle2, Clock } from 'lucide-react';
+import Image from 'next/image';
 import { Project } from '@/data/projects';
 import { useEffect, useState } from 'react';
 
@@ -70,6 +71,29 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     { key: 'challenge' as const, label: 'Technical Challenge' },
     { key: 'architecture' as const, label: 'System Architecture' },
   ];
+
+  const evidenceSections = project.evidence
+    ? [
+        {
+          label: 'Implemented',
+          icon: <CheckCircle2 className="h-4 w-4" />,
+          items: project.evidence.implemented,
+          className: 'border-emerald-500/25 bg-emerald-500/5 text-emerald-300',
+        },
+        {
+          label: 'Verified',
+          icon: <BarChart3 className="h-4 w-4" />,
+          items: project.evidence.verified,
+          className: 'border-primary/25 bg-primary/5 text-primary',
+        },
+        {
+          label: 'Future',
+          icon: <Clock className="h-4 w-4" />,
+          items: project.evidence.future,
+          className: 'border-amber-500/25 bg-amber-500/5 text-amber-300',
+        },
+      ]
+    : [];
 
   return (
     <AnimatePresence>
@@ -192,9 +216,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       <div className="mb-8">
                         {/* Main image */}
                         <div className="relative rounded-md overflow-hidden bg-[#03070d] border border-[#163042]/80 mb-3 group">
-                          <img
+                          <Image
                             src={project.thumbnails[galleryIndex]}
                             alt={`${project.title} screenshot ${galleryIndex + 1}`}
+                            width={1200}
+                            height={720}
+                            sizes="(min-width: 768px) 768px, calc(100vw - 4rem)"
                             className="w-full max-h-72 object-contain"
                           />
                           {project.thumbnails.length > 1 && (
@@ -240,7 +267,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                     : 'border-transparent opacity-60 hover:opacity-90'
                                 }`}
                               >
-                                <img src={thumb} alt={`Thumb ${i + 1}`} className="w-full h-full object-cover" />
+                                <Image
+                                  src={thumb}
+                                  alt={`${project.title} thumbnail ${i + 1}`}
+                                  width={96}
+                                  height={66}
+                                  sizes="64px"
+                                  className="w-full h-full object-cover"
+                                />
                               </button>
                             ))}
                           </div>
@@ -252,6 +286,32 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     <p className="text-slate-300 text-base leading-relaxed mb-8">
                       {project.description}
                     </p>
+
+                    {evidenceSections.length > 0 && (
+                      <div className="mb-8 grid gap-4 md:grid-cols-3">
+                        {evidenceSections.map((section) => (
+                          <div
+                            key={section.label}
+                            className={`rounded-md border p-4 ${section.className}`}
+                          >
+                            <div className="mb-3 flex items-center gap-2">
+                              {section.icon}
+                              <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em]">
+                                {section.label}
+                              </h3>
+                            </div>
+                            <ul className="space-y-2 text-xs leading-5 text-slate-300">
+                              {section.items.map((item) => (
+                                <li key={item} className="flex gap-2">
+                                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-current opacity-80" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Grouped Tech Stack */}
                     <div className="space-y-4 mb-8">
