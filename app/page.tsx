@@ -306,32 +306,32 @@ export default function Home() {
       <ProjectModal project={selectedProject} isOpen={isModalOpen} onClose={closeModal} />
 
       {/* ==================== Hero Section ==================== */}
-      <section className="relative min-h-[calc(100vh-2rem)] px-4 py-10 md:py-12 overflow-hidden">
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-5 lg:grid-cols-[232px_minmax(0,1fr)_348px] lg:items-center">
+      <section className="relative flex min-h-screen items-center overflow-hidden px-4 py-8 md:py-10 xl:px-8 2xl:px-12">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1880px] gap-5 lg:min-h-[min(860px,calc(100vh-3rem))] lg:grid-cols-[232px_minmax(0,1fr)_348px] lg:items-center xl:grid-cols-[260px_minmax(0,1fr)_400px] xl:gap-6 2xl:grid-cols-[300px_minmax(0,1fr)_460px] 2xl:gap-8">
           <motion.aside
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="hidden space-y-4 lg:block"
+            className="hidden space-y-4 lg:flex lg:h-full lg:flex-col"
           >
-            <div className="console-panel rounded-lg p-4">
-              <p className="console-label mb-4">System Overview</p>
+            <div className="console-panel rounded-lg p-4 2xl:p-5">
+              <p className="console-label mb-4 2xl:mb-5">System Overview</p>
               {[
                 ['Primary fit', 'AI workflow systems'],
                 ['Backend', 'PostgreSQL / pgvector'],
                 ['Frontend', 'Next.js / TypeScript'],
                 ['Quality', '29 DocuMind test files'],
               ].map(([label, value]) => (
-                <div key={label} className="border-t border-[#163042]/70 py-2.5 first:border-t-0 first:pt-0">
+                <div key={label} className="border-t border-[#163042]/70 py-2.5 first:border-t-0 first:pt-0 2xl:py-3.5">
                   <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">{label}</p>
-                  <p className="mt-1 text-sm font-semibold text-slate-200">{value}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-200 2xl:text-base">{value}</p>
                 </div>
               ))}
             </div>
 
-            <div className="console-panel rounded-lg p-4">
+            <div className="console-panel flex-1 rounded-lg p-4 2xl:p-5">
               <p className="console-label mb-4">Japan Signal</p>
-              <div className="space-y-3 text-sm leading-6 text-slate-400">
+              <div className="space-y-3 text-sm leading-6 text-slate-400 2xl:text-base 2xl:leading-7">
                 <p>Working holiday experience in Japan.</p>
                 <p>Conversational Japanese and active technical communication practice.</p>
               </div>
@@ -356,41 +356,41 @@ export default function Home() {
 
             <h1
               aria-label="AI-enabled full-stack engineer for working systems."
-              className="max-w-4xl break-words text-3xl font-black leading-[1.04] tracking-normal text-foreground sm:text-4xl md:text-5xl xl:text-6xl"
+              className="max-w-5xl break-words text-3xl font-black leading-[1.04] tracking-normal text-foreground sm:text-4xl md:text-5xl 2xl:text-6xl min-[1800px]:text-7xl"
             >
               AI-enabled full-stack engineer for{' '}
               <span className="block text-secondary">working systems.</span>
             </h1>
 
-            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-400 md:text-lg">
+            <p className="mt-5 max-w-4xl text-base leading-7 text-slate-400 md:text-lg 2xl:text-xl 2xl:leading-8">
               Korea-based developer targeting Japan IT roles with evidence in RAG knowledge search,
               owner-scoped access control, release-review workflows, Next.js/TypeScript,
               PostgreSQL/pgvector, WebGL performance, and secure local utilities.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row 2xl:mt-8">
               <a
                 href="#featured-projects"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-bold text-[#03111c] transition-colors hover:bg-primary/80"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-bold text-[#03111c] transition-colors hover:bg-primary/80 2xl:px-7 2xl:py-3.5"
               >
                 View Hiring Evidence
                 <ArrowDown className="w-4 h-4" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary/10"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-3 text-sm font-bold text-primary transition-colors hover:bg-primary/10 2xl:px-7 2xl:py-3.5"
               >
                 Get in Touch
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4 2xl:mt-8 2xl:gap-4">
               {portfolioStats.map((metric) => (
-                <div key={metric.label} className="console-panel rounded-lg p-3">
-                  <div className="mb-2 text-primary">{metric.icon}</div>
-                  <CountUp target={metric.value} className="text-2xl font-black text-foreground" />
-                  <p className="mt-1 text-xs leading-5 text-slate-500">{metric.label}</p>
+                <div key={metric.label} className="console-panel rounded-lg p-3 2xl:p-5">
+                  <div className="mb-2 text-primary 2xl:mb-3">{metric.icon}</div>
+                  <CountUp target={metric.value} className="text-2xl font-black text-foreground 2xl:text-3xl" />
+                  <p className="mt-1 text-xs leading-5 text-slate-500 2xl:text-sm">{metric.label}</p>
                 </div>
               ))}
             </div>
@@ -400,17 +400,17 @@ export default function Home() {
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="console-panel-strong rounded-lg"
+            className="console-panel-strong rounded-lg lg:self-stretch"
           >
-            <div className="flex items-center justify-between border-b border-[#163042]/80 px-5 py-4">
+            <div className="flex items-center justify-between border-b border-[#163042]/80 px-5 py-4 2xl:px-6 2xl:py-5">
               <div className="flex items-center gap-2">
                 <Terminal className="h-4 w-4 text-primary" />
                 <p className="console-label">Candidate Console</p>
               </div>
               <span className="font-mono text-[11px] text-secondary">v2026.06</span>
             </div>
-            <div className="space-y-4 p-4">
-              <pre className="whitespace-pre-wrap break-words rounded-md border border-[#163042]/80 bg-[#03070d] p-4 text-[11px] leading-5 text-slate-300">
+            <div className="space-y-4 p-4 2xl:space-y-5 2xl:p-5">
+              <pre className="whitespace-pre-wrap break-words rounded-md border border-[#163042]/80 bg-[#03070d] p-4 text-[11px] leading-5 text-slate-300 2xl:p-5 2xl:text-xs 2xl:leading-6">
                 <code>{`const candidate = {
   role: 'AI-enabled full-stack',
   systems: ['DocuMind', 'OpsFlow'],
@@ -422,16 +422,16 @@ export default function Home() {
 };`}</code>
               </pre>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 2xl:gap-4">
                 {[
                   ['DocuMind', 'RAG + citations'],
                   ['OpsFlow', 'release review'],
                   ['ParticleVerse', 'WebGL / GLSL'],
                   ['SVG Converter', 'client-side tool'],
                 ].map(([label, value]) => (
-                  <div key={label} className="rounded-md border border-[#163042]/80 bg-[#07111f]/80 p-3">
+                  <div key={label} className="rounded-md border border-[#163042]/80 bg-[#07111f]/80 p-3 2xl:p-4">
                     <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">{label}</p>
-                    <p className="mt-1 text-xs text-slate-400">{value}</p>
+                    <p className="mt-1 text-xs text-slate-400 2xl:text-sm">{value}</p>
                   </div>
                 ))}
               </div>
