@@ -40,3 +40,6 @@ repomix-output.xml
 
 # docs
 /docs
+
+# internal reference material
+/reference/
