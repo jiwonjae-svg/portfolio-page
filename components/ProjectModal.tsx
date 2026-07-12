@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Github, Download, Globe, AlertTriangle, Lightbulb, Network, BarChart3, FlaskConical, ChevronLeft, ChevronRight, CheckCircle2, Clock } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/data/projects';
-import { useEffect, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 
 const categoryColors: Record<string, string> = {
   language: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
@@ -28,11 +28,19 @@ interface ProjectModalProps {
   project: Project | null;
   isOpen: boolean;
   onClose: () => void;
+  returnFocusRef?: RefObject<HTMLElement>;
 }
 
-export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+export default function ProjectModal({
+  project,
+  isOpen,
+  onClose,
+  returnFocusRef,
+}: ProjectModalProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'challenge' | 'architecture'>('overview');
   const [galleryIndex, setGalleryIndex] = useState(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -48,14 +56,53 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     };
   }, [isOpen]);
 
-  // Close on Escape key
   useEffect(() => {
+    if (!isOpen || !project) return;
+
+    const returnTarget = returnFocusRef?.current;
+    const focusFrame = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute('hidden'));
+
+      if (focusable.length === 0) {
+        e.preventDefault();
+        dialogRef.current.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (e.shiftKey && activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener('keydown', handleKeyDown);
+      window.requestAnimationFrame(() => returnTarget?.focus());
+    };
+  }, [isOpen, onClose, project, returnFocusRef]);
 
   if (!project) return null;
 
@@ -116,9 +163,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
           {/* Modal Content */}
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
+            aria-describedby="project-modal-description"
+            tabIndex={-1}
             className="relative w-full max-w-3xl max-h-[90vh] console-panel-strong rounded-lg overflow-hidden flex flex-col"
             initial={{ scale: 0.85, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -132,6 +182,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             <div className="overflow-y-auto flex-1 p-8">
               {/* Close Button */}
               <button
+                ref={closeButtonRef}
                 type="button"
                 aria-label={`Close ${project.title} details`}
                 onClick={onClose}
@@ -150,6 +201,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               >
                 {project.title}
               </motion.h2>
+              <p id="project-modal-description" className="sr-only">
+                {project.summary}
+              </p>
 
               {/* Metrics Bar */}
               {project.metrics && (
@@ -162,11 +216,39 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   {project.metrics.map((metric, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-[#07111f]/80 rounded-md border border-[#163042]/80">
                       <BarChart3 className="w-3.5 h-3.5 text-primary" />
-                      <span className="text-xs text-slate-500">{metric.label}:</span>
+                      <span className="text-xs text-slate-400">{metric.label}:</span>
                       <span className="text-xs font-semibold text-foreground">{metric.value}</span>
                     </div>
                   ))}
                 </motion.div>
+              )}
+
+              {project.deliveryContext && (
+                <section className="mb-6" aria-labelledby="project-delivery-context">
+                  <h3
+                    id="project-delivery-context"
+                    className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary"
+                  >
+                    Delivery context
+                  </h3>
+                  <dl className="grid gap-px overflow-hidden rounded-md border border-[#163042]/80 bg-[#163042]/80 sm:grid-cols-2">
+                    {[
+                      ['Project type', project.deliveryContext.type],
+                      ['Period', project.period],
+                      ['My role', project.deliveryContext.role],
+                      ['Users / testing', project.deliveryContext.environment],
+                      ['Deployment / operations', project.deliveryContext.deployment],
+                      ['Measured outcome', project.deliveryContext.outcome],
+                    ].map(([label, value]) => (
+                      <div key={label} className="bg-[#07111f] p-3.5">
+                        <dt className="font-mono text-[9px] uppercase tracking-[0.14em] text-primary">
+                          {label}
+                        </dt>
+                        <dd className="mt-1.5 text-xs leading-5 text-slate-200">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
               )}
 
               {/* Tab Navigation */}
@@ -190,7 +272,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-300 ${
                       activeTab === tab.key
                         ? 'bg-primary text-[#03111c] shadow-lg shadow-primary/20'
-                        : 'text-slate-500 hover:text-slate-200 hover:bg-primary/5'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-primary/5'
                     }`}
                   >
                     {tab.label}
@@ -315,14 +397,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                     {/* Grouped Tech Stack */}
                     <div className="space-y-4 mb-8">
-                      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                         <span className="w-8 h-px bg-border" />
                         Tech Stack
                         <span className="flex-1 h-px bg-border" />
                       </h3>
                       {Object.entries(groupedTech).map(([category, techs]) => (
                         <div key={category} className="space-y-2">
-                          <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
                             {categoryLabels[category] || category}
                           </span>
                           <div className="flex flex-wrap gap-2">

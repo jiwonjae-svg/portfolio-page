@@ -63,8 +63,13 @@ export default function ScrambleText({
   }, [isInView, text, speed, step, reducedMotion]);
 
   return (
-    <Tag ref={ref as React.RefObject<HTMLElement & HTMLHeadingElement & HTMLParagraphElement>} className={`font-mono ${className}`}>
-      {displayed || '\u00A0'}
+    <Tag
+      ref={ref as React.RefObject<HTMLElement & HTMLHeadingElement & HTMLParagraphElement>}
+      aria-label={text}
+      className={`font-mono ${className}`}
+    >
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">{displayed || '\u00A0'}</span>
     </Tag>
   );
 }

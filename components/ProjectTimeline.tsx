@@ -59,10 +59,10 @@ export default function ProjectTimeline({ projects }: ProjectTimelineProps) {
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-md border ${colors.badge} ${colors.text}`}>
                       {categoryLabels[project.category]}
                     </span>
-                    <span className="text-xs text-slate-500 ml-auto">{project.period}</span>
+                    <span className="text-xs text-slate-400 ml-auto">{project.period}</span>
                   </div>
                   <h4 className="text-base font-bold text-foreground mb-1">{project.title}</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
                     {project.summary.slice(0, 120)}...
                   </p>
                 </div>

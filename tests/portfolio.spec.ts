@@ -14,18 +14,16 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto('/');
 
-    await expect(page).toHaveTitle('Jiwonjae | AI-Enabled Full-Stack Engineer');
-    await expect(page.getByRole('heading', { name: 'AI-enabled full-stack engineer for working systems.' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'View Hiring Evidence' })).toBeVisible();
+    await expect(page).toHaveTitle('WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer');
+    await expect(page.getByRole('heading', { name: 'TypeScript full-stack systems with proof.' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View hiring evidence' })).toBeVisible();
 
-    const firstStat = page
-      .locator('section')
-      .first()
-      .locator('.console-panel')
-      .filter({ hasText: 'Portfolio Projects' });
-    await expect(firstStat).toBeVisible();
+    const candidateFacts = page.getByTestId('candidate-facts');
+    await expect(candidateFacts).toBeVisible();
+    await expect(candidateFacts).toContainText('Work visa sponsorship required');
+    await expect(candidateFacts).toContainText('4+ years professional engineering experience');
 
-    const box = await firstStat.boundingBox();
+    const box = await candidateFacts.boundingBox();
     expect(box).not.toBeNull();
     expect(box!.y + box!.height).toBeLessThanOrEqual(720);
 
@@ -36,12 +34,7 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 2048, height: 1080 });
     await page.goto('/');
 
-    const heroGrid = page.locator('section:first-of-type > div').first();
-    const gridBox = await heroGrid.boundingBox();
-
-    expect(gridBox).not.toBeNull();
-    expect(gridBox!.width).toBeGreaterThan(1800);
-    expect(gridBox!.x).toBeLessThan(120);
+    await expect(page.getByTestId('candidate-facts')).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 
@@ -49,8 +42,9 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    await expect(page.getByRole('heading', { name: 'AI-enabled full-stack engineer for working systems.' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'View Hiring Evidence' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'TypeScript full-stack systems with proof.' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View hiring evidence' })).toBeVisible();
+    await expect(page.getByTestId('candidate-facts')).toContainText('Korea-based');
     await expectNoHorizontalOverflow(page);
   });
 
@@ -59,7 +53,7 @@ test.describe('portfolio recruiter path', () => {
     await page.goto('/#target-roles');
 
     await page.getByRole('tab', { name: /Workflow \/ Reliability/ }).click();
-    await expect(page.getByRole('tabpanel', { name: 'Workflow / Reliability' })).toContainText(
+    await expect(page.getByRole('tabpanel', { name: /Workflow \/ Reliability/ })).toContainText(
       'OpsFlow -> DocuMind -> Paste Guardian',
     );
     await expect(page.getByText('deterministic deploy decision states')).toBeVisible();
@@ -69,13 +63,41 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/#featured-projects');
 
-    await page.getByRole('button', { name: 'Open DocuMind project details' }).click();
+    const trigger = page.getByRole('button', { name: 'Open DocuMind project details' });
+    await trigger.focus();
+    await trigger.click();
 
     const dialog = page.getByRole('dialog', { name: 'DocuMind' });
     await expect(dialog).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Close DocuMind details' })).toBeFocused();
+    await expect(dialog.getByText('Personal portfolio project')).toBeVisible();
+    await expect(dialog.getByText('no company production users or team deployment claimed')).toBeVisible();
     await expect(dialog.getByText('Implemented')).toBeVisible();
     await expect(dialog.getByText('Verified')).toBeVisible();
     await expect(dialog.getByRole('heading', { name: 'Future' })).toBeVisible();
     await expect(dialog.getByText('Owner-scoped retrieval')).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+
+  test('keeps project actions semantically separate and headings named', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/#featured-projects');
+
+    const docuMindCard = page.getByTestId('project-card-8');
+    await expect(docuMindCard.getByRole('button', { name: 'Open DocuMind project details' })).toBeVisible();
+    await expect(docuMindCard.getByRole('link', { name: 'Open DocuMind GitHub repository' })).toBeVisible();
+    expect(await docuMindCard.locator('[role="button"] a, [role="button"] button').count()).toBe(0);
+
+    for (const headingName of ['Target Roles', 'Japan Readiness', 'Featured Projects']) {
+      await expect(page.getByRole('heading', { name: headingName })).toHaveCount(1);
+    }
+
+    const unnamedHeadings = await page.locator('h1, h2, h3, h4').evaluateAll((headings) =>
+      headings.filter((heading) => !(heading.textContent || '').trim()).length,
+    );
+    expect(unnamedHeadings).toBe(0);
   });
 });

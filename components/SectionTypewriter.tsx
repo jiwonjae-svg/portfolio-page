@@ -47,16 +47,19 @@ export default function SectionTypewriter({
 
   return (
     <span ref={containerRef} className={className}>
-      {displayedText}
-      {!done && isInView && (
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
-          className="inline-block ml-0.5"
-        >
-          |
-        </motion.span>
-      )}
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {displayedText}
+        {!done && isInView && (
+          <motion.span
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+            className="inline-block ml-0.5"
+          >
+            |
+          </motion.span>
+        )}
+      </span>
     </span>
   );
 }

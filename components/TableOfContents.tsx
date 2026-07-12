@@ -92,7 +92,7 @@ export default function TableOfContents() {
                     className={`flex items-center gap-3 px-2 py-2 rounded-xl transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-primary bg-primary/10'
-                        : 'text-slate-500 hover:text-primary hover:bg-primary/5'
+                        : 'text-slate-400 hover:text-primary hover:bg-primary/5'
                     }`}
                   >
                     <span className="shrink-0">{item.icon}</span>
@@ -119,7 +119,7 @@ export default function TableOfContents() {
           >
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-full flex items-center justify-between p-4 font-mono text-xs font-semibold text-slate-500 uppercase tracking-[0.18em]"
+              className="w-full flex items-center justify-between p-4 font-mono text-xs font-semibold text-slate-400 uppercase tracking-[0.18em]"
             >
               <span>Table of Contents</span>
               <motion.span
@@ -147,7 +147,7 @@ export default function TableOfContents() {
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 rounded-md text-slate-400 hover:text-primary hover:bg-primary/5 transition-all group"
                       >
-                        <span className="text-slate-500 group-hover:text-primary transition-colors">{item.icon}</span>
+                        <span className="text-slate-400 group-hover:text-primary transition-colors">{item.icon}</span>
                         <span className="text-sm font-medium">{item.label}</span>
                         <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>

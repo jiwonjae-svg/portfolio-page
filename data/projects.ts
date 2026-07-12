@@ -16,6 +16,13 @@ export interface Project {
     verified: string[];
     future: string[];
   };
+  deliveryContext?: {
+    type: string;
+    role: string;
+    environment: string;
+    deployment: string;
+    outcome: string;
+  };
   technicalChallenge: {
     problem: string;
     solution: string;
@@ -149,6 +156,13 @@ export const projects: Project[] = [
     title: "ParticleVerse",
     summary: "Combines MediaPipe real-time hand gesture recognition with Three.js GPU-accelerated GLSL shaders, creating an interactive 3D visualization where tens of thousands of particles physically respond to user hand movements. Achieves extreme graphic performance and touchless UX in the browser.",
     description: "Implements a multi-source input system that converts images, text, and 3D models (GLTF/GLB) into particles. Custom GLSL Vertex/Fragment shaders compute particle position, size, and color directly on the GPU, rendering 50,000+ particles at 60fps without CPU bottlenecks. Applies Bloom and Vignette post-processing effects via @react-three/postprocessing, and extracts 21 real-time hand landmarks through MediaPipe Hands for physics-based particle interaction. Supports smooth transitions between 11 particle effects (Wave, Spiral, Explosion, Vortex, Galaxy, DNA, etc.) and 5 color modes. Built-in WebM video recording is also included.",
+    deliveryContext: {
+      type: "Personal project",
+      role: "Solo product design and frontend/WebGL implementation",
+      environment: "Browser and device testing with image, text, 3D model, webcam, and touch inputs",
+      deployment: "Public Vercel demo; not operated as a company production service",
+      outcome: "50,000+ particles, 11 effects, 5 color modes, and a 60fps target documented in the project",
+    },
     techStack: [
       { name: "TypeScript 5", category: "language" },
       { name: "GLSL (Custom Vertex/Fragment)", category: "language" },
@@ -210,6 +224,13 @@ export const projects: Project[] = [
     title: "SVG Converter",
     summary: "Browser-only app that converts images to high-quality SVG via a 2-Pass Grid Sampling algorithm. Optimizes conversion speed with Canvas API and Luminance filtering while protecting privacy with zero server transmission.",
     description: "A fully client-side image-to-SVG conversion app processing entirely within the browser. The 2-Pass Grid Sampling algorithm divides the image into a low-resolution grid in Pass 1 to analyze regional color distribution, then reinforces detail with a fine grid in Pass 2. Extracts pixel data via Canvas API and removes unnecessary backgrounds through Luminance filtering. SVG output is generated as combinations of basic shapes (<rect>, <circle>, etc.) with vector compression optimization to minimize file size. Manages conversion state with Zustand and supports 4 languages (KO/EN/JA/ZH). Includes built-in web security validation utilities for XSS, CSRF, and clickjacking prevention.",
+    deliveryContext: {
+      type: "Personal project",
+      role: "Solo algorithm, browser UI, and implementation work",
+      environment: "Browser testing with large image inputs and multilingual interface states",
+      deployment: "Public Vercel demo with fully client-side processing; no uploaded files are sent to a server",
+      outcome: "2-pass sampling and region merging reduced generated SVG output size by approximately 60% in project tests",
+    },
     techStack: [
       { name: "TypeScript", category: "language" },
       { name: "React 18", category: "framework" },
@@ -451,8 +472,15 @@ export const projects: Project[] = [
   {
     id: 8,
     title: "DocuMind",
-    summary: "Secure internal knowledge search MVP for Japanese and Korean teams. Authenticated users can upload documents, generate OpenAI embeddings, search owner-scoped chunks with pgvector, and ask grounded questions with source citations.",
-    description: "DocuMind is a full-stack retrieval-augmented knowledge product built around authenticated document ingestion, PostgreSQL/Prisma data modeling, pgvector semantic search, OpenAI-powered grounded answers, source citations, audit logging, Docker-backed local infrastructure, CI, and agent-ready scoped API endpoints. The product focus is practical: help internal teams find trusted answers from their own documents while keeping API keys server-side and enforcing ownership rules for search, deletion, and question answering.",
+    summary: "TypeScript full-stack internal knowledge workflow system for Japanese and Korean teams. Authenticated users can upload documents, generate OpenAI embeddings, search owner-scoped chunks with pgvector, and ask grounded questions with source citations.",
+    description: "DocuMind is a personal TypeScript full-stack AI workflow project built around authenticated document ingestion, PostgreSQL/Prisma data modeling, pgvector semantic search, OpenAI-powered grounded answers, source citations, audit logging, Docker-backed local infrastructure, CI, QA release-gate checks, and agent-ready scoped API endpoints. It is a portfolio prototype rather than a company production system. The product focus is practical: help internal teams find trusted answers from their own documents while keeping API keys server-side and enforcing ownership rules for search, deletion, and question answering.",
+    deliveryContext: {
+      type: "Personal portfolio project",
+      role: "Solo product design, architecture, full-stack implementation, and testing",
+      environment: "Authenticated test accounts, seeded documents, local Docker PostgreSQL/pgvector, and automated tests",
+      deployment: "Public Vercel demo plus local Docker infrastructure; no company production users or team deployment claimed",
+      outcome: "55 Vitest files and 339 tests covering retrieval, ownership, validation, citations, release gates, and security boundaries",
+    },
     evidence: {
       implemented: [
         "Auth.js session flow with server-side protected routes",
@@ -460,11 +488,12 @@ export const projects: Project[] = [
         "PostgreSQL/Prisma schema with pgvector-backed semantic search",
         "Owner-scoped retrieval, deletion, grounded ask flow, citations, and audit logs",
         "Scoped /api/tools endpoints for future agent/MCP wrapper integration",
+        "Release-gate evaluation utility for lint/test/build/readiness deployment decisions",
       ],
       verified: [
-        "29 Vitest files covering chunking, validation, ownership, citation formatting, API validation, and security boundaries",
+        "55 Vitest files / 339 tests covering chunking, validation, ownership, citation formatting, API validation, QA release gates, and security boundaries",
         "Docker-backed local PostgreSQL/pgvector infrastructure",
-        "GitHub Actions CI, lint, build, and deployment hygiene checks",
+        "GitHub Actions CI, lint, build, qa:release, and deployment hygiene checks",
       ],
       future: [
         "Team RBAC beyond single-owner scope",
@@ -490,7 +519,7 @@ export const projects: Project[] = [
     ],
     technicalChallenge: {
       problem: "An internal knowledge search product needs AI retrieval without becoming a privileged bypass around document ownership, API key handling, or auditability.",
-      solution: "Built authenticated document upload, server-side text extraction and chunking, owner-scoped Prisma queries, pgvector semantic search, grounded question answering with citations, audit logs, and scoped /api/tools endpoints prepared for future agent or MCP wrappers.",
+      solution: "Built authenticated document upload, server-side text extraction and chunking, owner-scoped Prisma queries, pgvector semantic search, grounded question answering with citations, audit logs, QA release-gate checks, and scoped /api/tools endpoints prepared for future agent or MCP wrappers.",
     },
     architecture: `[Authenticated User]
     |
@@ -522,7 +551,7 @@ export const projects: Project[] = [
     metrics: [
       { label: "Document Types", value: "TXT/MD/PDF" },
       { label: "Search", value: "pgvector" },
-      { label: "Tests", value: "29 Vitest Files" },
+      { label: "Tests", value: "55 Files / 339 Tests" },
       { label: "Auth", value: "Owner-Scoped" },
       { label: "Agent APIs", value: "3 Tools" },
     ],
@@ -534,7 +563,14 @@ export const projects: Project[] = [
     id: 9,
     title: "OpsFlow Command Center",
     summary: "Local-first release review workspace for deciding whether AI-enabled internal tools and workflow systems are safe to deploy. Reviewers can enter release metadata, operational metrics, blocking gates, evidence notes, and exportable JSON audit packets before making a release decision.",
-    description: "OpsFlow Command Center is a deployed local-first release review tool built to show practical engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
+    description: "OpsFlow Command Center is a personal, deployed local-first release review prototype built to show production-minded engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
+    deliveryContext: {
+      type: "Personal portfolio project",
+      role: "Solo workflow design, frontend implementation, decision modeling, and QA",
+      environment: "Three deterministic review scenarios, localStorage persistence, JSON packets, and Playwright E2E",
+      deployment: "Public Vercel demo; local-first prototype without authenticated team or server-side audit storage",
+      outcome: "Three explicit release states with tested persistence, mobile overflow, console health, and review-packet workflows",
+    },
     evidence: {
       implemented: [
         "Editable release metadata, operational metrics, blocking gates, and evidence notes",

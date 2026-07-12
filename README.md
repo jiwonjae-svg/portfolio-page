@@ -2,7 +2,7 @@
 
 # 🌐 Portfolio Page
 
-**AI-Enabled Full-Stack Portfolio for Japan IT Roles**
+**TypeScript Full-Stack + AI Workflow Portfolio for Japan IT Roles**
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue.svg)](https://www.typescriptlang.org/)
@@ -10,7 +10,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff69b4.svg)](https://www.framer.com/motion/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-*A hiring-focused portfolio centered on RAG internal knowledge search, release-review workflows, WebGL performance, browser tooling, secure local utilities, and Japan-ready communication context.*
+*A hiring-focused portfolio centered on TypeScript full-stack delivery, RAG internal knowledge search, QA automation, release-review workflows, WebGL performance, browser tooling, secure local utilities, and Japan-ready communication context.*
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Projects](#-featured-projects) • [Getting Started](#-getting-started) • [Architecture](#-architecture) • [Deployment](#-deployment)
 
@@ -20,7 +20,7 @@
 
 ## 🎯 What is This?
 
-This is a **personal software engineering portfolio** built to help recruiters quickly evaluate fit for AI-enabled full-stack, internal tooling, workflow automation, frontend/WebGL, and reliability-oriented roles in Japan.
+This is a **personal software engineering portfolio** built to help recruiters quickly evaluate fit for TypeScript full-stack, AI workflow, QA automation, internal tooling, frontend/WebGL, and reliability-oriented roles in Japan.
 
 Designed to be:
 - **Hiring-Focused** — DocuMind and OpsFlow are surfaced first as the strongest role-fit evidence

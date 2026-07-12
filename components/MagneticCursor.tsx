@@ -13,9 +13,9 @@ export default function MagneticCursor() {
   const reducedMotion = useReducedMotion();
   const [isTouch, setIsTouch] = useState(false);
 
-  const mouse = useRef({ x: -200, y: -200 });
-  const dot = useRef({ x: -200, y: -200 });
-  const ring = useRef({ x: -200, y: -200 });
+  const mouse = useRef({ x: 0, y: 0 });
+  const dot = useRef({ x: 0, y: 0 });
+  const ring = useRef({ x: 0, y: 0 });
   const ringScale = useRef(1); // lerped in rAF — no CSS scale property
 
   // Use refs for interaction state — avoids re-renders racing with the rAF loop
@@ -123,7 +123,7 @@ export default function MagneticCursor() {
           backgroundColor: 'var(--color-primary, #6366f1)',
           opacity: 0,
           willChange: 'transform',
-          transform: 'translate(-200px, -200px)',
+          transform: 'translate(0, 0)',
           transition: 'opacity 0.3s ease',
         }}
       />
@@ -139,7 +139,7 @@ export default function MagneticCursor() {
           backgroundColor: 'transparent',
           opacity: 0,
           willChange: 'transform',
-          transform: 'translate(-200px, -200px) scale(1)',
+          transform: 'translate(0, 0) scale(1)',
           transition: 'border-color 0.2s ease, background-color 0.2s ease, opacity 0.3s ease',
         }}
       />
