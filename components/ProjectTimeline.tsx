@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import type { Project, ProjectCategory } from '@/data/projects';
 
 const categoryColors: Record<ProjectCategory, { dot: string; badge: string; text: string }> = {
@@ -35,12 +34,8 @@ export default function ProjectTimeline({ projects }: ProjectTimelineProps) {
           const isLeft = i % 2 === 0;
 
           return (
-            <motion.div
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              viewport={{ once: true, margin: '-50px' }}
               className="relative"
             >
               {/* Dot on the line */}
@@ -67,7 +62,7 @@ export default function ProjectTimeline({ projects }: ProjectTimelineProps) {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>

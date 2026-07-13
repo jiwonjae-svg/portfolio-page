@@ -1,10 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Github, ExternalLink, Download, Globe, BarChart3, FlaskConical } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/data/projects';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 const categoryColors: Record<string, string> = {
   language: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
@@ -23,32 +22,9 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index, onOpenModal, cardSummary }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
   const [currentThumbIndex, setCurrentThumbIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const hasThumbnails = project.thumbnails && project.thumbnails.length > 0;
-
-  // Cycle through thumbnails every 5 seconds while hovered
-  useEffect(() => {
-    if (isHovered && project.thumbnails && project.thumbnails.length > 1) {
-      intervalRef.current = setInterval(() => {
-        setCurrentThumbIndex((prev) => (prev + 1) % project.thumbnails!.length);
-      }, 5000);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isHovered, project.thumbnails]);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCurrentThumbIndex(0);
-  };
 
   const borderAccents = [
     'hover:border-primary/50',
@@ -60,18 +36,11 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
   ];
 
   return (
-    <motion.article
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <article
       data-testid={`project-card-${project.id}`}
-      className={`group relative console-panel rounded-lg ${borderAccents[index % borderAccents.length]} transition-all duration-300 overflow-hidden h-full flex flex-col`}
+      className={`group relative console-panel rounded-lg ${borderAccents[index % borderAccents.length]} transition-colors duration-200 overflow-hidden h-full flex flex-col`}
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent opacity-70" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.12),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       {/* Thumbnail Preview — embedded at top of card */}
       {hasThumbnails && (
@@ -86,9 +55,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               alt={`${project.title} preview ${i + 1}`}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-                isHovered ? 'object-contain' : 'object-cover'
-              } ${
+              className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out ${
                 i === currentThumbIndex ? 'opacity-100' : 'opacity-0'
               }`}
               draggable={false}
@@ -184,15 +151,12 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-1.5 mb-5">
           {project.techStack.slice(0, 5).map((tech, i) => (
-            <motion.span
+            <span
               key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 + i * 0.05 }}
               className={`px-2.5 py-1 text-[11px] border rounded-md transition-colors hover:brightness-125 ${categoryColors[tech.category] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}
             >
               {tech.name}
-            </motion.span>
+            </span>
           ))}
           {project.techStack.length > 5 && (
             <span className="px-2.5 py-1 text-[11px] bg-[#07111f]/80 text-slate-400 border border-[#163042]/80 rounded-md">
@@ -246,8 +210,6 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
         </div>
       </div>
 
-      {/* Shine Effect */}
-      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
-    </motion.article>
+    </article>
   );
 }

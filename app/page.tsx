@@ -401,13 +401,9 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            {recruiterSnapshot.map((item, index) => (
-              <motion.article
+            {recruiterSnapshot.map((item) => (
+              <article
                 key={item.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                viewport={{ once: true }}
                 className="console-panel rounded-lg p-6"
               >
                 <div className="flex items-center gap-2 mb-4 text-primary">
@@ -416,7 +412,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{item.detail}</p>
-              </motion.article>
+              </article>
             ))}
           </div>
         </div>
@@ -443,14 +439,10 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            {portfolioStats.map((metric, i) => (
-              <motion.div
+            {portfolioStats.map((metric) => (
+              <div
                 key={metric.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1, type: 'spring', stiffness: 200 }}
-                viewport={{ once: true }}
-                className="console-panel rounded-lg p-6 text-center transition-all hover:border-primary/40 group"
+                className="console-panel rounded-lg p-6 text-center transition-colors hover:border-primary/40 group"
               >
                 <div className="w-12 h-12 mx-auto mb-3 rounded-md bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   {metric.icon}
@@ -460,7 +452,7 @@ export default function Home() {
                   className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors"
                 />
                 <p className="text-sm text-slate-400 mt-1">{metric.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -533,14 +525,10 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {targetRoles.map((role, i) => (
-              <motion.div
+            {targetRoles.map((role) => (
+              <article
                 key={role.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                viewport={{ once: true }}
-                className="console-panel rounded-lg p-6 transition-all hover:border-primary/40"
+                className="console-panel rounded-lg p-6 transition-colors hover:border-primary/40"
               >
                 <div className="w-12 h-12 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-4">
                   {role.icon}
@@ -555,7 +543,7 @@ export default function Home() {
                 <p className="text-xs font-medium text-primary">
                   Evidence: {role.projects}
                 </p>
-              </motion.div>
+              </article>
             ))}
           </div>
         </div>
@@ -685,19 +673,15 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {moreProjects.map((project, index) => {
+            {moreProjects.map((project) => {
               const isRelease = project.liveUrl?.includes('/releases');
               const LiveIcon = isRelease ? Download : Globe;
               const liveLabel = isRelease ? 'Download' : 'Live Demo';
 
               return (
-                <motion.div
+                <article
                   key={project.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className="console-panel rounded-lg p-5 transition-all hover:border-primary/40"
+                  className="console-panel rounded-lg p-5 transition-colors hover:border-primary/40"
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div>
@@ -756,7 +740,7 @@ export default function Home() {
                       </a>
                     )}
                   </div>
-                </motion.div>
+                </article>
               );
             })}
           </div>
@@ -784,13 +768,9 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {testingEvidence.map((item, index) => (
-              <motion.article
+            {testingEvidence.map((item) => (
+              <article
                 key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                viewport={{ once: true }}
                 className="console-panel rounded-lg p-6"
               >
                 <div className="flex items-center gap-2 mb-4 text-primary">
@@ -799,7 +779,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
                 <p className="text-sm text-slate-400 leading-relaxed">{item.detail}</p>
-              </motion.article>
+              </article>
             ))}
           </div>
         </div>
@@ -825,32 +805,20 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {techCategories.map((category, catIndex) => (
-              <motion.div
+            {techCategories.map((category) => (
+              <article
                 key={category.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-                viewport={{ once: true }}
                 className="group relative"
               >
-                <div className="relative console-panel rounded-lg p-6 hover:border-primary/40 transition-all duration-500 overflow-hidden h-full">
-                  {/* Hover gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Animated top border */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+                <div className="relative console-panel rounded-lg p-6 hover:border-primary/40 transition-colors duration-200 overflow-hidden h-full">
                   <div className="relative z-10">
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-5">
-                      <motion.div
+                      <div
                         className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center"
-                        whileHover={{ scale: 1.3, rotate: 15 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
                       >
                         {category.icon}
-                      </motion.div>
+                      </div>
                       <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                         {category.title}
                       </h3>
@@ -858,17 +826,13 @@ export default function Home() {
 
                     {/* Tech Items */}
                     <div className="flex flex-wrap gap-2 mb-5">
-                      {category.technologies.map((tech, techIndex) => (
-                        <motion.div
+                      {category.technologies.map((tech) => (
+                        <span
                           key={tech}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: catIndex * 0.1 + techIndex * 0.04 + 0.2 }}
-                          viewport={{ once: true }}
                           className="px-3 py-1.5 bg-[#07111f]/80 text-slate-300 border border-[#163042]/80 rounded-md text-xs font-medium"
                         >
                           {tech}
-                        </motion.div>
+                        </span>
                       ))}
                     </div>
 
@@ -880,10 +844,8 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Shine sweep effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
                 </div>
-              </motion.div>
+              </article>
             ))}
           </div>
         </div>
@@ -910,13 +872,9 @@ export default function Home() {
           </motion.div>
 
           <div className="space-y-8">
-            {caseStudies.map((study, index) => (
-              <motion.div
+            {caseStudies.map((study) => (
+              <article
                 key={study.title}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
-                viewport={{ once: true }}
                 className={`relative pl-8 border-l-2 ${study.accent.border}`}
               >
                 <div className={`absolute -left-[9px] top-0 w-4 h-4 ${study.accent.dot} rounded-full`} />
@@ -943,7 +901,7 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </article>
             ))}
           </div>
         </div>

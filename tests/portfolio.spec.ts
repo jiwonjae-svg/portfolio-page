@@ -100,4 +100,31 @@ test.describe('portfolio recruiter path', () => {
     );
     expect(unnamedHeadings).toBe(0);
   });
+
+  test('keeps card surfaces stable while scrolling', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+
+    const previewShell = page.getByTestId('hiring-evidence-preview-shell');
+    await expect(previewShell).toHaveCSS('background-color', 'rgba(5, 7, 11, 0.72)');
+
+    const docuMindCard = page.getByTestId('project-card-8');
+    await docuMindCard.scrollIntoViewIfNeeded();
+    await page.mouse.move(640, 450);
+
+    for (const delta of [180, -120, 160, -80]) {
+      await page.mouse.wheel(0, delta);
+      await page.waitForTimeout(80);
+      await expect(docuMindCard).toHaveCSS('opacity', '1');
+    }
+
+    await expect(
+      docuMindCard.getByRole('button', { name: 'Show DocuMind preview 1' }),
+    ).toHaveAttribute('aria-pressed', 'true');
+
+    const objectFits = await docuMindCard.locator('img').evaluateAll((images) =>
+      images.map((image) => getComputedStyle(image).objectFit),
+    );
+    expect(new Set(objectFits)).toEqual(new Set(['cover']));
+  });
 });

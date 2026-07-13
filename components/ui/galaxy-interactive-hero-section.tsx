@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import {
   ArrowDown,
@@ -149,7 +149,7 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-30 border-b border-white/10 bg-[#05070b]/40 backdrop-blur-xl">
+    <nav className="fixed left-0 right-0 top-0 z-30 border-b border-white/10 bg-[#05070b]/95">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
         <a href="#" className="group flex items-center gap-3" aria-label="Back to top">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-300/30 bg-white/5 text-cyan-200 transition-colors group-hover:border-cyan-200">
@@ -203,7 +203,7 @@ function Navbar() {
       </div>
 
       <div
-        className={`lg:hidden overflow-hidden border-t border-white/10 bg-[#05070b]/85 backdrop-blur-xl transition-all duration-300 ${
+        className={`lg:hidden overflow-hidden border-t border-white/10 bg-[#05070b]/98 transition-all duration-300 ${
           isMobileMenuOpen ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -351,11 +351,10 @@ function CandidatePreviewPanel() {
   );
 }
 
-function EvidenceScreenshot({ screenshotRef }: { screenshotRef: React.RefObject<HTMLDivElement> }) {
+function EvidenceScreenshot() {
   return (
     <section className="relative z-10 mx-auto -mt-8 max-w-6xl px-4 md:-mt-12 md:px-6">
       <div
-        ref={screenshotRef}
         className="overflow-hidden rounded-xl border border-white/10 bg-[#07111f]/95 shadow-2xl shadow-black/50"
       >
         <div className="flex items-center gap-2 border-b border-white/10 bg-black/35 px-4 py-3">
@@ -400,34 +399,8 @@ function EvidenceScreenshot({ screenshotRef }: { screenshotRef: React.RefObject<
 }
 
 export function GalaxyInteractiveHeroSection() {
-  const screenshotRef = useRef<HTMLDivElement>(null);
-  const heroContentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (media.matches) return;
-
-    const handleScroll = () => {
-      requestAnimationFrame(() => {
-        const scrollPosition = window.scrollY;
-
-        if (screenshotRef.current) {
-          screenshotRef.current.style.transform = `translateY(-${Math.min(scrollPosition * 0.18, 96)}px)`;
-        }
-
-        if (heroContentRef.current) {
-          const opacity = 1 - Math.min(scrollPosition / 520, 0.82);
-          heroContentRef.current.style.opacity = opacity.toString();
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <div className="relative bg-black">
+    <div className="relative bg-background">
       <Navbar />
 
       <div className="relative min-h-screen">
@@ -435,10 +408,7 @@ export function GalaxyInteractiveHeroSection() {
           <HeroBackground />
         </div>
 
-        <div
-          ref={heroContentRef}
-          className="pointer-events-none absolute inset-0 z-10 flex items-center"
-        >
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center">
           <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px]">
             <div className="pointer-events-auto">
               <HeroContent />
@@ -450,8 +420,11 @@ export function GalaxyInteractiveHeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 bg-black pb-16">
-        <EvidenceScreenshot screenshotRef={screenshotRef} />
+      <div
+        data-testid="hiring-evidence-preview-shell"
+        className="section-surface relative z-10 pb-16"
+      >
+        <EvidenceScreenshot />
       </div>
     </div>
   );
