@@ -88,7 +88,13 @@ test.describe('portfolio recruiter path', () => {
 
     const docuMindCard = page.getByTestId('project-card-8');
     await expect(docuMindCard.getByRole('button', { name: 'Open DocuMind project details' })).toBeVisible();
-    await expect(docuMindCard.getByRole('link', { name: 'Open DocuMind GitHub repository' })).toBeVisible();
+    await expect(docuMindCard.getByRole('link', { name: 'Open DocuMind source on GitHub' })).toBeVisible();
+    await expect(
+      page.getByTestId('project-card-9').getByRole('link', { name: 'Open OpsFlow Command Center source on GitHub' }),
+    ).toHaveAttribute(
+      'href',
+      'https://github.com/jiwonjae-svg/portfolio-page/blob/main/components/OpsFlowCommandCenter.tsx',
+    );
     expect(await docuMindCard.locator('[role="button"] a, [role="button"] button').count()).toBe(0);
 
     for (const headingName of ['Target Roles', 'Japan Readiness', 'Featured Projects']) {
@@ -99,6 +105,19 @@ test.describe('portfolio recruiter path', () => {
       headings.filter((heading) => !(heading.textContent || '').trim()).length,
     );
     expect(unnamedHeadings).toBe(0);
+  });
+
+  test('exposes accessible contact fields and a resume request path', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/#contact');
+
+    await expect(page.getByLabel('Name')).toBeVisible();
+    await expect(page.getByLabel('Email')).toBeVisible();
+    await expect(page.getByLabel('Message', { exact: true })).toHaveAttribute('aria-describedby', 'contact-message-count');
+    await expect(page.getByRole('link', { name: 'Request résumé / 職務経歴書' })).toHaveAttribute(
+      'href',
+      /subject=Resume%20request/,
+    );
   });
 
   test('keeps card surfaces stable while scrolling', async ({ page }) => {

@@ -1,12 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Mail, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, Clock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Github, Mail, Code2, Sparkles, Layers, Package, Download, Globe, TrendingUp, BookOpen, Target, Smartphone, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import TableOfContents from '@/components/TableOfContents';
-import ProjectTimeline from '@/components/ProjectTimeline';
 import ContactForm from '@/components/ContactForm';
 import CountUp from '@/components/CountUp';
 import { GalaxyInteractiveHeroSection } from '@/components/ui/galaxy-interactive-hero-section';
@@ -581,7 +580,7 @@ export default function Home() {
                 ['Location / visa', 'Korea-based · work visa sponsorship required'],
                 ['Relocation timing', 'After visa process · remote start possible if supported'],
                 ['Japanese', 'Conversational / basic workplace communication · JLPT not acquired'],
-                ['Interview', 'English preferred · basic Japanese introduction and Q&A available'],
+                ['Interview', 'Japanese self-introduction and basic Q&A · English can support detailed technical discussion'],
               ].map(([label, value]) => (
                 <div key={label} className="bg-[#07111f] p-4">
                   <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
@@ -596,13 +595,13 @@ export default function Home() {
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">English</p>
                 <p className="text-base text-slate-200 leading-7">
-                  During a working holiday in Japan, I handled daily life and basic workplace communication in Japanese. I do not yet hold JLPT certification. English is preferred for technical interviews; I can handle self-introductions, basic Q&amp;A, and everyday communication in Japanese while continuing to study technical and business terms.
+                  During a working holiday in Japan, I handled daily life and basic workplace communication in Japanese. I do not yet hold JLPT certification, but I can manage a Japanese self-introduction, basic interview Q&amp;A, and everyday communication. For detailed technical discussion, I can use English alongside Japanese while continuing to study technical and business terms.
                 </p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">Japanese</p>
                 <p lang="ja" className="text-base text-slate-200 leading-7">
-                  日本でのワーキングホリデー中、日本語で日常生活および基本的な業務コミュニケーションを経験しました。JLPTは未取得です。技術面接は英語を希望しますが、日本語での自己紹介・基本的な質疑応答・日常的なコミュニケーションに対応できます。就労ビザのサポートが必要で、ビザ手続き後の日本移住を希望しています。
+                  日本でのワーキングホリデー中、日本語で日常生活および基本的な業務コミュニケーションを経験しました。JLPTは未取得ですが、日本語での自己紹介・基本的な面接質問・日常的なコミュニケーションに対応できます。技術的な詳細については、必要に応じて英語を併用できればと考えています。就労ビザのサポートが必要で、手続き後の日本移住を希望しています。
                 </p>
               </div>
             </div>
@@ -907,30 +906,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==================== Project Timeline Section ==================== */}
-      <section id="timeline" className="section-band">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12"
-          >
-            <p className="section-kicker">Build Sequence</p>
-            <h2 className="section-title flex items-center gap-3">
-              <Clock className="w-10 h-10 text-primary" />
-              <ScrambleText text="Project Timeline" tag="span" speed={40} />
-            </h2>
-            <p className="section-copy">
-              <SectionTypewriter text="A chronological journey through each project's evolution" speed={20} />
-            </p>
-          </motion.div>
-
-          <ProjectTimeline projects={projects} />
-        </div>
-      </section>
-
       {/* ==================== Contact Section ==================== */}
       <section id="contact" className="section-band">
         <div className="max-w-2xl mx-auto">
@@ -960,7 +935,18 @@ export default function Home() {
             <ContactForm />
           </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-start mb-12">
+          <p className="mb-4 text-sm leading-6 text-slate-400">
+            A résumé and detailed work history can be provided on request.
+          </p>
+
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 items-start mb-12">
+            <a
+              href="mailto:onehouse0460@outlook.com?subject=Resume%20request%20%2F%20%E8%81%B7%E5%8B%99%E7%B5%8C%E6%AD%B4%E6%9B%B8%E3%81%AE%E3%81%94%E4%BE%9D%E9%A0%BC"
+              className="group flex items-center gap-3 px-6 py-3 border border-primary/50 hover:border-primary text-primary rounded-md text-sm font-medium transition-all hover:scale-[1.02]"
+            >
+              <BookOpen className="w-4 h-4 group-hover:rotate-6 transition-transform" />
+              Request résumé / 職務経歴書
+            </a>
             <a
               href="mailto:onehouse0460@outlook.com"
               className="group flex items-center gap-3 px-6 py-3 border border-border hover:border-primary text-slate-400 hover:text-primary rounded-md text-sm font-medium transition-all hover:scale-[1.02]"

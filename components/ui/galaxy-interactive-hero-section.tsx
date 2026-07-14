@@ -114,7 +114,7 @@ const candidateFacts = [
   { label: 'Visa', value: 'Work visa sponsorship required' },
   {
     label: 'Interview language',
-    value: 'English preferred · basic Japanese introduction and Q&A available',
+    value: 'Japanese self-introduction and basic Q&A · English supports detailed technical discussion',
   },
 ] as const;
 

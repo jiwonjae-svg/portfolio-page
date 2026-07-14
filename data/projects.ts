@@ -646,6 +646,7 @@ export const projects: Project[] = [
     |-- Manual review required
     |-- Release blocked
     |-- Copyable / exportable audit packet`,
+    githubUrl: "https://github.com/jiwonjae-svg/portfolio-page/blob/main/components/OpsFlowCommandCenter.tsx",
     liveUrl: "https://opsflow-sable.vercel.app",
     thumbnails: ["/images/OpsFlowCommandCenter.jpg"],
     metrics: [
