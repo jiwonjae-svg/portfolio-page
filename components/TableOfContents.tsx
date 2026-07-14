@@ -45,7 +45,7 @@ export default function TableOfContents() {
       ([entry]) => setPastHero(!entry.isIntersecting),
       { threshold: 0.1 }
     );
-    const heroEl = document.querySelector('section');
+    const heroEl = document.querySelector('[data-testid="portfolio-hero"]');
     if (heroEl) heroObserver.observe(heroEl);
 
     return () => {
