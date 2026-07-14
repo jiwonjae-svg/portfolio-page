@@ -227,7 +227,7 @@ function Navbar() {
 function HeroContent() {
   return (
     <motion.div
-      className="max-w-4xl px-4 pt-14 text-left text-white md:px-6 lg:pt-10"
+      className="max-w-4xl px-4 text-left text-white md:px-6"
       initial="hidden"
       animate="visible"
       variants={revealContainer}
@@ -245,7 +245,7 @@ function HeroContent() {
       </motion.div>
 
       <motion.h1
-        className="max-w-4xl py-1 text-4xl font-black leading-[1.08] tracking-normal text-white sm:text-6xl md:text-6xl xl:text-7xl 2xl:text-8xl"
+        className="max-w-4xl py-1 text-4xl font-black leading-[1.08] tracking-normal text-white sm:text-6xl md:text-6xl xl:text-6xl 2xl:text-8xl"
         aria-label="TypeScript full-stack systems with proof."
         variants={revealContainer}
       >
@@ -353,7 +353,7 @@ function CandidatePreviewPanel() {
 
 function EvidenceScreenshot() {
   return (
-    <section className="relative z-10 mx-auto -mt-8 max-w-6xl px-4 md:-mt-12 md:px-6">
+    <section className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
       <div
         className="overflow-hidden rounded-xl border border-white/10 bg-[#07111f]/95 shadow-2xl shadow-black/50"
       >
@@ -403,12 +403,12 @@ export function GalaxyInteractiveHeroSection() {
     <div className="relative bg-background">
       <Navbar />
 
-      <div className="relative min-h-screen">
+      <div data-testid="portfolio-hero" className="relative min-h-screen">
         <div className="absolute inset-0 z-0">
           <HeroBackground />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center">
+        <div className="pointer-events-none relative z-10 flex min-h-screen items-center pb-12 pt-20 lg:pb-16 lg:pt-24">
           <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px]">
             <div className="pointer-events-auto">
               <HeroContent />
@@ -422,7 +422,7 @@ export function GalaxyInteractiveHeroSection() {
 
       <div
         data-testid="hiring-evidence-preview-shell"
-        className="section-surface relative z-10 pb-16"
+        className="section-surface relative z-10 pb-16 pt-8 md:pt-12"
       >
         <EvidenceScreenshot />
       </div>

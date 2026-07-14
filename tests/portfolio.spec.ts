@@ -16,7 +16,8 @@ test.describe('portfolio recruiter path', () => {
 
     await expect(page).toHaveTitle('WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer');
     await expect(page.getByRole('heading', { name: 'TypeScript full-stack systems with proof.' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'View hiring evidence' })).toBeVisible();
+    const hiringEvidenceLink = page.getByRole('link', { name: 'View hiring evidence' });
+    await expect(hiringEvidenceLink).toBeVisible();
 
     const candidateFacts = page.getByTestId('candidate-facts');
     await expect(candidateFacts).toBeVisible();
@@ -27,7 +28,47 @@ test.describe('portfolio recruiter path', () => {
     expect(box).not.toBeNull();
     expect(box!.y + box!.height).toBeLessThanOrEqual(720);
 
+    const linkBox = await hiringEvidenceLink.boundingBox();
+    const previewBox = await page.getByTestId('hiring-evidence-preview-shell').boundingBox();
+    expect(linkBox).not.toBeNull();
+    expect(previewBox).not.toBeNull();
+    expect(linkBox!.y + linkBox!.height).toBeLessThanOrEqual(720);
+    expect(linkBox!.y + linkBox!.height).toBeLessThanOrEqual(previewBox!.y);
+    await expect(page.getByRole('navigation', { name: 'Portfolio sections' })).toBeHidden();
+
+    await hiringEvidenceLink.click();
+    await expect(page).toHaveURL(/#featured-projects$/);
+    await expect
+      .poll(async () => {
+        const header = await page.locator('nav.fixed.top-0').boundingBox();
+        const target = await page.locator('#featured-projects').boundingBox();
+        return header && target ? target.y - (header.y + header.height) : -1;
+      })
+      .toBeGreaterThanOrEqual(0);
+
     await expectNoHorizontalOverflow(page);
+  });
+
+  test('keeps fixed navigation clear of anchor targets', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto('/');
+
+    for (const { targetId } of [
+      { targetId: 'recruiter-snapshot' },
+      { targetId: 'featured-projects' },
+      { targetId: 'japan-readiness' },
+      { targetId: 'contact' },
+    ]) {
+      await page.locator('nav.fixed.top-0').locator(`a[href="#${targetId}"]`).first().click();
+      await expect(page).toHaveURL(new RegExp(`#${targetId}$`));
+      await expect
+        .poll(async () => {
+          const header = await page.locator('nav.fixed.top-0').boundingBox();
+          const target = await page.locator(`#${targetId}`).boundingBox();
+          return header && target ? target.y - (header.y + header.height) : -1;
+        })
+        .toBeGreaterThanOrEqual(0);
+    }
   });
 
   test('fills a wide first viewport without horizontal overflow', async ({ page }) => {
