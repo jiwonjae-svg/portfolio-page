@@ -500,7 +500,7 @@ export default function ProjectModal({
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Open ${project.title} GitHub repository`}
+                    aria-label={`Open ${project.title} source on GitHub`}
                     className="flex items-center gap-2 px-6 py-3 bg-[#07111f] hover:bg-[#0e1b2c] text-foreground rounded-md border border-[#163042]/80 transition-all hover:scale-[1.02] group"
                   >
                     <Github className="w-5 h-5 group-hover:rotate-12 transition-transform" />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Globe, Layers, Package, BookOpen, Mail, ChevronRight, Menu, X, Clock, Target, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Code2, Globe, Layers, Package, BookOpen, Mail, ChevronRight, Menu, X, Target, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 const tocItems = [
   { href: '#recruiter-snapshot', label: 'Snapshot', icon: <CheckCircle2 className="w-4 h-4" /> },
@@ -13,7 +13,6 @@ const tocItems = [
   { href: '#testing-evidence', label: 'Testing Evidence', icon: <ShieldCheck className="w-4 h-4" /> },
   { href: '#technical-strengths', label: 'Technical Strengths', icon: <Layers className="w-4 h-4" /> },
   { href: '#case-studies', label: 'Case Studies', icon: <BookOpen className="w-4 h-4" /> },
-  { href: '#timeline', label: 'Timeline', icon: <Clock className="w-4 h-4" /> },
   { href: '#contact', label: "Let's Work Together", icon: <Mail className="w-4 h-4" /> },
 ];
 
@@ -66,6 +65,7 @@ export default function TableOfContents() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
             className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col gap-1 group/sidebar"
+            aria-label="Portfolio sections"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -116,9 +116,13 @@ export default function TableOfContents() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             className="console-panel rounded-lg overflow-hidden"
+            aria-label="Mobile portfolio sections"
           >
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
+              aria-expanded={isOpen}
+              aria-controls="mobile-table-of-contents"
               className="w-full flex items-center justify-between p-4 font-mono text-xs font-semibold text-slate-400 uppercase tracking-[0.18em]"
             >
               <span>Table of Contents</span>
@@ -133,6 +137,7 @@ export default function TableOfContents() {
             <AnimatePresence>
               {isOpen && (
                 <motion.div
+                  id="mobile-table-of-contents"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
@@ -140,7 +145,7 @@ export default function TableOfContents() {
                   className="overflow-hidden"
                 >
                   <div className="px-4 pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {tocItems.map((item, i) => (
+                    {tocItems.map((item) => (
                       <a
                         key={item.href}
                         href={item.href}

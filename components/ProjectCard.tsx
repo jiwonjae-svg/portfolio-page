@@ -172,7 +172,7 @@ export default function ProjectCard({ project, index, onOpenModal, cardSummary }
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${project.title} GitHub repository`}
+              aria-label={`Open ${project.title} source on GitHub`}
               className="flex items-center gap-2 px-4 py-2 bg-[#07111f] hover:bg-[#0e1b2c] text-foreground rounded-md border border-[#163042]/80 transition-colors group/link"
             >
               <Github className="w-4 h-4 group-hover/link:rotate-12 transition-transform" />

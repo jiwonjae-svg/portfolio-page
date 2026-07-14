@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -13,6 +13,10 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +60,9 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">Name</label>
+          <label htmlFor="contact-name" className="block text-xs font-medium text-slate-400 mb-1.5">Name</label>
           <input
+            id="contact-name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -69,8 +74,9 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">Email</label>
+          <label htmlFor="contact-email" className="block text-xs font-medium text-slate-400 mb-1.5">Email</label>
           <input
+            id="contact-email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -84,11 +90,13 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-slate-400 mb-1.5">
-          Message
-          <span className="ml-auto float-right text-slate-600">{message.length}/2000</span>
-        </label>
+        <div className="mb-1.5 flex items-center justify-between text-xs font-medium">
+          <label htmlFor="contact-message" className="text-slate-400">Message</label>
+          <span id="contact-message-count" className="text-slate-600">{message.length}/2000</span>
+        </div>
         <textarea
+          id="contact-message"
+          aria-describedby="contact-message-count"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell me about your project or idea..."
@@ -104,6 +112,7 @@ export default function ContactForm() {
         {status === 'error' && (
           <motion.div
             key="error"
+            role="alert"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -117,6 +126,8 @@ export default function ContactForm() {
         {status === 'success' && (
           <motion.div
             key="success"
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
