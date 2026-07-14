@@ -129,6 +129,8 @@ test.describe('portfolio recruiter path', () => {
 
     const docuMindCard = page.getByTestId('project-card-8');
     await expect(docuMindCard.getByRole('button', { name: 'Open DocuMind project details' })).toBeVisible();
+    const particleVerseCard = page.getByTestId('project-card-3');
+    await expect(particleVerseCard.getByText('released', { exact: true })).toBeVisible();
     await expect(docuMindCard.getByRole('link', { name: 'Open DocuMind source on GitHub' })).toBeVisible();
     await expect(
       page.getByTestId('project-card-9').getByRole('link', { name: 'Open OpsFlow Command Center source on GitHub' }),
