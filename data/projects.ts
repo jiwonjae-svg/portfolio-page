@@ -218,6 +218,7 @@ export const projects: Project[] = [
     ],
     category: 'web',
     period: '2024.09 – 2024.12',
+    status: 'released',
   },
   {
     id: 4,
