@@ -671,7 +671,7 @@ export const projects: Project[] = [
       role: "Solo domain modeling, product design, full-stack implementation, database design, testing, and deployment",
       environment: "Five demo roles, two synthetic vessel projects, 30 drawings, 50 seeded revisions, and controlled CSV metadata imports",
       deployment: "Public Vercel application with managed Neon PostgreSQL; no employer data or production CAD files",
-      outcome: "End-to-end Draft to Closed workflow with project isolation, database-enforced audit immutability, 12 unit tests, 4 browser scenarios, and production desktop/mobile verification",
+      outcome: "End-to-end Draft to Closed workflow with project isolation, database-enforced audit immutability, 20 unit/integration tests, 4 browser scenarios, and verified production outbox delivery (6 sent, 0 failed)",
     },
     evidence: {
       implemented: [
@@ -683,10 +683,11 @@ export const projects: Project[] = [
         "Typed REST PDM adapter contract and durable webhook notification outbox",
       ],
       verified: [
-        "12 Vitest checks across workflow rules, CSV validation, export safety, and PDM payload validation",
+        "20 Vitest unit/integration checks across workflow rules, CSV validation, export safety, PDM payload validation, authorization, and durable notification delivery",
         "4 Playwright scenarios covering multi-role completion, project isolation, CSV import, and mobile usability",
         "Database mutation check confirms audit UPDATE and DELETE operations are rejected",
         "Production Vercel and Neon deployment verified on desktop and mobile with zero console errors",
+        "Production webhook outbox verified with 6 sent deliveries and 0 failures",
       ],
       future: [
         "Organization-managed SSO credentials and identity lifecycle provisioning",
@@ -751,7 +752,8 @@ export const projects: Project[] = [
       { label: "Demo Data", value: "30 Drawings / 50 Revisions" },
       { label: "Authorization", value: "Project-Scoped RBAC" },
       { label: "Audit", value: "DB Append-Only" },
-      { label: "QA", value: "12 Unit / 4 E2E" },
+      { label: "QA", value: "20 Unit/Integration / 4 E2E" },
+      { label: "Outbox", value: "6 Sent / 0 Failed" },
     ],
     status: 'released',
     category: 'web',

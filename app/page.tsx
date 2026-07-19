@@ -172,7 +172,7 @@ const targetRoles = [
     tier: 'Supporting capability',
     title: 'QA Automation / Reliability',
     evidence: 'Automated tests, validation, ownership checks, deterministic release decisions, regression coverage, and deployment hygiene.',
-    proof: 'DrawingFlow 12 unit / 4 E2E + 339 DocuMind tests',
+    proof: 'DrawingFlow 20 unit/integration / 4 E2E + 339 DocuMind tests',
     icon: <ShieldCheck className="w-6 h-6" />,
   },
 ];
@@ -254,7 +254,7 @@ const testingEvidence = [
   {
     title: 'DrawingFlow workflow and access verification',
     project: 'DrawingFlow',
-    detail: '12 Vitest checks cover workflow, CSV, export, and PDM rules; 4 Playwright scenarios cover multi-role completion, project isolation, import, and mobile usability; a database check confirms append-only audit enforcement.',
+    detail: '20 Vitest unit/integration checks cover workflow, CSV, export, PDM, authorization, and notification rules; 4 Playwright scenarios cover multi-role completion, project isolation, import, and mobile usability; a database check confirms append-only audit enforcement; the production outbox records 6 sent deliveries and 0 failures.',
   },
   {
     title: 'DocuMind core logic tests',

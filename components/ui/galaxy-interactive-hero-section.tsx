@@ -385,7 +385,7 @@ function EvidenceScreenshot() {
               ['Professional base', '4+ years in ship design and engineering delivery'],
               ['Schedule recovery', 'Reprioritized remaining work and completed without delivery delay'],
               ['Independent DX', 'Drawing revision control, document retrieval, audit evidence, release review'],
-              ['Quality evidence', 'DrawingFlow 12 unit / 4 E2E; DocuMind 339 tests'],
+              ['Quality evidence', 'DrawingFlow 20 unit/integration / 4 E2E; DocuMind 339 tests'],
             ].map(([label, value]) => (
               <div key={label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-lime-200">{label}</p>

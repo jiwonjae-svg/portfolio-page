@@ -123,7 +123,8 @@ test.describe('portfolio recruiter path', () => {
     const dialog = page.getByRole('dialog', { name: 'DrawingFlow' });
     await expect(dialog).toContainText('database-enforced audit immutability');
     await expect(dialog).toContainText('Project-scoped memberships');
-    await expect(dialog).toContainText('12 Vitest checks');
+    await expect(dialog).toContainText('20 Vitest unit/integration checks');
+    await expect(dialog).toContainText('6 sent deliveries and 0 failures');
   });
 
   test('shows implemented, verified, and future scope inside DocuMind details', async ({ page }) => {
