@@ -14,15 +14,19 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto('/');
 
-    await expect(page).toHaveTitle('WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer');
-    await expect(page.getByRole('heading', { name: 'TypeScript full-stack systems with proof.' })).toBeVisible();
-    const hiringEvidenceLink = page.getByRole('link', { name: 'View hiring evidence' });
+    await expect(page).toHaveTitle('WONJIP CHOI | Ship Design & Manufacturing DX Engineer');
+    await expect(page.getByRole('heading', { name: 'Ship design engineering for manufacturing DX.' })).toBeVisible();
+    const hiringEvidenceLink = page.getByRole('link', { name: 'Review DX evidence' });
     await expect(hiringEvidenceLink).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Download CV' })).toHaveAttribute(
+      'href',
+      '/resume/WONJIP_CHOI_Ship_Design_Manufacturing_DX_CV.pdf',
+    );
 
     const candidateFacts = page.getByTestId('candidate-facts');
     await expect(candidateFacts).toBeVisible();
     await expect(candidateFacts).toContainText('Work visa sponsorship required');
-    await expect(candidateFacts).toContainText('4+ years professional engineering experience');
+    await expect(candidateFacts).toContainText('4+ years in ship design and engineering delivery');
 
     const box = await candidateFacts.boundingBox();
     expect(box).not.toBeNull();
@@ -83,8 +87,8 @@ test.describe('portfolio recruiter path', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    await expect(page.getByRole('heading', { name: 'TypeScript full-stack systems with proof.' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'View hiring evidence' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ship design engineering for manufacturing DX.' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Review DX evidence' })).toBeVisible();
     await expect(page.getByTestId('candidate-facts')).toContainText('Korea-based');
     await expectNoHorizontalOverflow(page);
   });
@@ -95,9 +99,31 @@ test.describe('portfolio recruiter path', () => {
 
     await page.getByRole('tab', { name: /Workflow \/ Reliability/ }).click();
     await expect(page.getByRole('tabpanel', { name: /Workflow \/ Reliability/ })).toContainText(
-      'OpsFlow -> DocuMind -> Paste Guardian',
+      'DrawingFlow -> OpsFlow -> Professional delivery',
     );
     await expect(page.getByText('deterministic deploy decision states')).toBeVisible();
+  });
+
+  test('leads DX evidence with the deployed DrawingFlow case study', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/#featured-projects');
+
+    const card = page.getByTestId('project-card-10');
+    await expect(card.getByRole('heading', { name: 'DrawingFlow' })).toBeVisible();
+    await expect(card.getByRole('link', { name: 'Open DrawingFlow source on GitHub' })).toHaveAttribute(
+      'href',
+      'https://github.com/jiwonjae-svg/drawing-revision-impact-tracker',
+    );
+    await expect(card.getByRole('link', { name: 'Live Demo for DrawingFlow' })).toHaveAttribute(
+      'href',
+      'https://drawing-revision-impact-tracker.vercel.app',
+    );
+
+    await card.getByRole('button', { name: 'Open DrawingFlow project details' }).click();
+    const dialog = page.getByRole('dialog', { name: 'DrawingFlow' });
+    await expect(dialog).toContainText('database-enforced audit immutability');
+    await expect(dialog).toContainText('Project-scoped memberships');
+    await expect(dialog).toContainText('12 Vitest checks');
   });
 
   test('shows implemented, verified, and future scope inside DocuMind details', async ({ page }) => {
@@ -111,8 +137,8 @@ test.describe('portfolio recruiter path', () => {
     const dialog = page.getByRole('dialog', { name: 'DocuMind' });
     await expect(dialog).toBeVisible();
     await expect(page.getByRole('button', { name: 'Close DocuMind details' })).toBeFocused();
-    await expect(dialog.getByText('Personal portfolio project')).toBeVisible();
-    await expect(dialog.getByText('no company production users or team deployment claimed')).toBeVisible();
+    await expect(dialog.getByText('Personal portfolio project / independent DX case study')).toBeVisible();
+    await expect(dialog.getByText('not deployed at Manmul Joseon')).toBeVisible();
     await expect(dialog.getByText('Implemented')).toBeVisible();
     await expect(dialog.getByText('Verified')).toBeVisible();
     await expect(dialog.getByRole('heading', { name: 'Future' })).toBeVisible();
@@ -140,8 +166,12 @@ test.describe('portfolio recruiter path', () => {
     );
     expect(await docuMindCard.locator('[role="button"] a, [role="button"] button').count()).toBe(0);
 
-    for (const headingName of ['Target Roles', 'Japan Readiness', 'Featured Projects']) {
+    for (const headingName of ['Target Roles', 'Japan Readiness', 'DX Case Studies']) {
       await expect(page.getByRole('heading', { name: headingName })).toHaveCount(1);
+    }
+
+    for (const documentName of ['English DX CV', 'Japanese Career History', 'Manufacturing DX Project Sheet']) {
+      await expect(page.getByRole('link', { name: new RegExp(documentName) })).toBeVisible();
     }
 
     const unnamedHeadings = await page.locator('h1, h2, h3, h4').evaluateAll((headings) =>

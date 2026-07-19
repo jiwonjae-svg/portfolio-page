@@ -1,30 +1,37 @@
-# WONJIP CHOI — Software Engineering Portfolio
+# WONJIP CHOI - Ship Design & Manufacturing DX Portfolio
 
-A hiring-focused portfolio for TypeScript / Next.js full-stack, AI workflow, internal tooling, QA automation, and reliability-oriented roles in Japan.
+A hiring-focused portfolio connecting 4+ years of professional ship-design delivery with independent manufacturing DX, engineering-systems, full-stack, and QA evidence for roles in Japan.
 
 [Live portfolio](https://jiwonjae-portfolio.vercel.app) · [GitHub profile](https://github.com/jiwonjae-svg)
 
 ## What recruiters can review
 
-- A recruiter snapshot and role-specific review paths
+- A domain-first recruiter snapshot and role-specific review paths
 - Japan relocation, visa, and practical communication context
-- Four featured projects: DocuMind, OpsFlow Command Center, ParticleVerse, and SVG Converter
-- Five supporting projects across desktop, mobile, security, AI utilities, and browser tooling
+- Four featured case studies: DrawingFlow, DocuMind, OpsFlow Command Center, and ParticleVerse
+- Six supporting projects across browser tooling, desktop, mobile, security, AI utilities, and games
 - Evidence separated into implemented, verified, and future scope
-- Project screenshots, metrics, architecture notes, source links, and live demos where available
+- Project screenshots, metrics, architecture notes, source links, and live demos
 - Keyboard-accessible project dialogs, responsive navigation, and reduced-motion support
-- A contact form backed by a Next.js route and Resend
+- Downloadable English and Japanese DX application documents
 
 ## Main technical evidence
 
 | Project | Evidence shown in this portfolio |
 | --- | --- |
-| [DocuMind](https://github.com/jiwonjae-svg/DocuMind) | TypeScript full-stack RAG workflow, Auth.js, PostgreSQL/pgvector, owner-scoped retrieval, citations, audit logs, agent-ready APIs, and automated tests |
+| [DrawingFlow](https://github.com/jiwonjae-svg/drawing-revision-impact-tracker) | Ship-design revision control, downstream impact evidence, independent review, project-scoped RBAC, PostgreSQL audit immutability, CSV/PDM boundaries, notification outbox, and browser verification |
+| [DocuMind](https://github.com/jiwonjae-svg/DocuMind) | TypeScript full-stack RAG workflow, Auth.js, PostgreSQL/pgvector, owner-scoped retrieval, citations, audit logs, agent-ready APIs, and 339 tests |
 | [OpsFlow Command Center](https://opsflow-sable.vercel.app) | Local-first release review workspace, deterministic release gates, SLO signals, evidence notes, JSON audit packets, persistence, and Playwright E2E |
 | [ParticleVerse](https://github.com/jiwonjae-svg/particle-verse) | Three.js, React Three Fiber, GLSL shaders, MediaPipe hand tracking, and GPU-oriented interaction work |
-| [SVG Converter](https://github.com/jiwonjae-svg/svg-converter) | Privacy-first browser conversion with the Canvas API, client-side validation, two-pass grid sampling, and SVG output optimization |
 
-All nine project records and their claims live in [`data/projects.ts`](data/projects.ts). OpsFlow is implemented in this repository; its main component is [`components/OpsFlowCommandCenter.tsx`](components/OpsFlowCommandCenter.tsx).
+All ten project records and their claims live in [`data/projects.ts`](data/projects.ts). OpsFlow is implemented in this repository; DrawingFlow and the other featured systems link to their own source and deployments.
+
+## Positioning
+
+- **Domain-first:** ship-design experience, drawing analysis, construction coordination, schedule recovery, and delivery responsibility
+- **DX-oriented:** drawing-change control, technical-document retrieval, workflow traceability, quality gates, and operational review
+- **Evidence-backed:** architecture, tests, metrics, source, and live links distinguish implemented, verified, and future scope
+- **Scope-explicit:** independent projects contain no employer drawings, customer information, or production data
 
 ## Stack
 
@@ -67,22 +74,14 @@ The GitHub Actions workflow runs lint, a production build, and Chromium E2E test
 ## Repository structure
 
 ```text
-app/
-  api/contact/route.ts       Contact API route
-  page.tsx                   Hiring-focused portfolio page
-components/
-  ContactForm.tsx            Accessible contact form
-  ProjectCard.tsx            Featured project summary
-  ProjectModal.tsx           Detailed project evidence dialog
-  OpsFlowCommandCenter.tsx   OpsFlow prototype source
-data/projects.ts             Typed project records and evidence
-tests/portfolio.spec.ts      Recruiter-path and accessibility E2E checks
+app/                         Next.js routes, metadata, and portfolio sections
+components/                  Recruiter UI, project cards/dialogs, and OpsFlow
+data/projects.ts             Typed evidence and architecture for all projects
+public/images/               Project screenshots
+public/resume/               Downloadable DX application documents
+tests/portfolio.spec.ts      Recruiter-path, accessibility, and layout checks
 ```
 
-## Scope and accuracy
+## Scope note
 
-This is a personal portfolio. Project descriptions distinguish personal implementation and verification from production team deployment, and they avoid claiming unverified performance or Lighthouse scores.
-
-## License
-
-[MIT](LICENSE)
+Portfolio case studies are independent implementations. They were not deployed at an employer and contain no employer drawings, customer information, vessel records, or production data.

@@ -12,30 +12,30 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer',
+  title: 'WONJIP CHOI | Ship Design & Manufacturing DX Engineer',
   description:
-    'Portfolio of WONJIP CHOI — Korea-based TypeScript and Next.js full-stack candidate focused on internal tools and AI workflow systems, with project evidence in PostgreSQL, testing, access control, and release review.',
+    'Portfolio of WONJIP CHOI, a ship design engineer with 4+ years of professional experience combining shipbuilding-domain knowledge with manufacturing DX, technical-document retrieval, workflow automation, and software quality.',
   keywords: [
-    'developer', 'portfolio', 'Next.js', 'React', 'TypeScript', 'Three.js',
-    'Python', 'React Native', 'Expo', 'Firebase', 'full-stack', 'RAG',
-    'pgvector', 'internal tools', 'workflow automation', 'GLSL', 'shader',
-    'encryption', 'security', 'QA', 'SLO', 'audit logs', 'runbooks',
+    'ship design', 'shipbuilding', 'manufacturing DX', 'engineering systems',
+    'CAD PLM support', 'technical operations', 'workflow automation', 'Next.js',
+    'TypeScript', 'PostgreSQL', 'RAG', 'pgvector', 'internal tools', 'QA automation',
+    'audit logs', 'technical document retrieval', 'process improvement',
   ],
   authors: [{ name: 'WONJIP CHOI' }],
   metadataBase: new URL('https://jiwonjae-portfolio.vercel.app'),
   openGraph: {
-    title: 'WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer',
+    title: 'WONJIP CHOI | Ship Design & Manufacturing DX Engineer',
     description:
-      'TypeScript and Next.js full-stack portfolio focused on internal tools, AI workflow systems, PostgreSQL, testing, access control, and production-minded project scope.',
+      '4+ years of ship design experience combined with independent manufacturing DX case studies in technical-document retrieval, workflow traceability, testing, and release review.',
     type: 'website',
     locale: 'en_US',
     url: 'https://jiwonjae-portfolio.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WONJIP CHOI | TypeScript Full-Stack + AI Workflow Engineer',
+    title: 'WONJIP CHOI | Ship Design & Manufacturing DX Engineer',
     description:
-      'TypeScript and Next.js full-stack portfolio focused on internal tools, AI workflow systems, PostgreSQL, testing, access control, and production-minded project scope.',
+      'Ship design experience and independent manufacturing DX evidence across engineering workflows, technical documents, testing, and traceability.',
   },
 }
 
@@ -45,8 +45,8 @@ const jsonLd = {
   name: 'WONJIP CHOI',
   url: 'https://jiwonjae-portfolio.vercel.app',
   sameAs: ['https://github.com/jiwonjae-svg'],
-  jobTitle: 'TypeScript Full-Stack + AI Workflow Engineer',
-  knowsAbout: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'pgvector', 'RAG', 'AI workflow systems', 'QA automation', 'release runbooks', 'Three.js', 'Python', 'Firebase'],
+  jobTitle: 'Ship Design & Manufacturing DX Engineer',
+  knowsAbout: ['Ship design', 'Shipbuilding', 'Basic design', 'Detailed design', 'Construction workflow coordination', 'Manufacturing DX', 'Engineering systems', 'Next.js', 'TypeScript', 'PostgreSQL', 'RAG', 'QA automation', 'Audit logs'],
 }
 
 export default function RootLayout({

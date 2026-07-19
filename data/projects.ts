@@ -473,13 +473,13 @@ export const projects: Project[] = [
   {
     id: 8,
     title: "DocuMind",
-    summary: "TypeScript full-stack internal knowledge workflow system for Japanese and Korean teams. Authenticated users can upload documents, generate OpenAI embeddings, search owner-scoped chunks with pgvector, and ask grounded questions with source citations.",
-    description: "DocuMind is a personal TypeScript full-stack AI workflow project built around authenticated document ingestion, PostgreSQL/Prisma data modeling, pgvector semantic search, OpenAI-powered grounded answers, source citations, audit logging, Docker-backed local infrastructure, CI, QA release-gate checks, and agent-ready scoped API endpoints. It is a portfolio prototype rather than a company production system. The product focus is practical: help internal teams find trusted answers from their own documents while keeping API keys server-side and enforcing ownership rules for search, deletion, and question answering.",
+    summary: "Independent engineering knowledge and traceability case study exploring controlled retrieval of technical specifications and project documents. Authenticated users can search owner-scoped content and review grounded answers with visible source evidence.",
+    description: "DocuMind is an independent engineering knowledge and traceability case study built with TypeScript, Next.js, PostgreSQL/Prisma, pgvector, and OpenAI APIs. It demonstrates authenticated document ingestion, controlled semantic retrieval, source-cited answers, access boundaries, audit logging, CI, QA release gates, and scoped API endpoints. In a manufacturing or shipbuilding context, the same patterns could support technical specifications and project-document review. It is a personal portfolio prototype, not a system deployed at Manmul Joseon, and it contains no employer documents or production data.",
     deliveryContext: {
-      type: "Personal portfolio project",
+      type: "Personal portfolio project / independent DX case study",
       role: "Solo product design, architecture, full-stack implementation, and testing",
       environment: "Authenticated test accounts, seeded documents, local Docker PostgreSQL/pgvector, and automated tests",
-      deployment: "Public Vercel demo plus local Docker infrastructure; no company production users or team deployment claimed",
+      deployment: "Public Vercel demo plus local Docker infrastructure; not deployed at Manmul Joseon and no company production users claimed",
       outcome: "55 Vitest files and 339 tests covering retrieval, ownership, validation, citations, release gates, and security boundaries",
     },
     evidence: {
@@ -519,8 +519,8 @@ export const projects: Project[] = [
       { name: "Vercel", category: "infrastructure" },
     ],
     technicalChallenge: {
-      problem: "An internal knowledge search product needs AI retrieval without becoming a privileged bypass around document ownership, API key handling, or auditability.",
-      solution: "Built authenticated document upload, server-side text extraction and chunking, owner-scoped Prisma queries, pgvector semantic search, grounded question answering with citations, audit logs, QA release-gate checks, and scoped /api/tools endpoints prepared for future agent or MCP wrappers.",
+      problem: "Engineering teams need fast access to trusted technical information, but retrieval must preserve document ownership, source evidence, API-key boundaries, and reviewable usage history.",
+      solution: "Built authenticated document upload, server-side text extraction and chunking, owner-scoped Prisma queries, pgvector semantic search, grounded question answering with citations, audit logs, QA release-gate checks, and scoped /api/tools endpoints. The implementation is an independent case study using portfolio data rather than employer documents.",
     },
     architecture: `[Authenticated User]
     |
@@ -563,13 +563,13 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "OpsFlow Command Center",
-    summary: "Local-first release review workspace for deciding whether AI-enabled internal tools and workflow systems are safe to deploy. Reviewers can enter release metadata, operational metrics, blocking gates, evidence notes, and exportable JSON audit packets before making a release decision.",
-    description: "OpsFlow Command Center is a personal, deployed local-first release review prototype built to show production-minded engineering judgment around AI and internal workflow systems. Instead of presenting a static dashboard, it lets reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes. The app computes Ready for release, Manual review required, or Release blocked, then generates copyable and exportable review packets. It persists reviewer work in localStorage, supports JSON import/export, and was verified with lint, build, Playwright E2E, Vercel deployment inspection, and production HTTP checks.",
+    summary: "Independent workflow review and release-control case study for making readiness decisions explicit. Reviewers enter evidence, operational metrics, blocking gates, ownership notes, and rollback information before exporting an audit packet.",
+    description: "OpsFlow Command Center is an independent, deployed local-first workflow review prototype. It models how engineering or manufacturing systems can make release criteria, ownership, evidence, rollback readiness, and final decisions visible instead of relying on an informal checklist. Reviewers edit release metadata, operational metrics, pass/warn/fail gates, blocking checks, and evidence notes; the app then computes Ready for release, Manual review required, or Release blocked. It persists work in localStorage, supports JSON import/export, and was verified with lint, build, Playwright E2E, Vercel deployment inspection, and production HTTP checks. It is not an employer deployment or record of an actual shipyard release process.",
     deliveryContext: {
-      type: "Personal portfolio project",
+      type: "Personal portfolio project / independent DX case study",
       role: "Solo workflow design, frontend implementation, decision modeling, and QA",
       environment: "Three deterministic review scenarios, localStorage persistence, JSON packets, and Playwright E2E",
-      deployment: "Public Vercel demo; local-first prototype without authenticated team or server-side audit storage",
+      deployment: "Public Vercel demo; independent local-first prototype without employer use, authenticated teams, or server-side audit storage",
       outcome: "Three explicit release states with tested persistence, mobile overflow, console health, and review-packet workflows",
     },
     evidence: {
@@ -612,8 +612,8 @@ export const projects: Project[] = [
       { name: "Vercel", category: "infrastructure" },
     ],
     technicalChallenge: {
-      problem: "A release decision for an AI-enabled internal tool can fail for reasons that are not visible in a normal feature demo: missing evidence, weak access boundaries, poor rollback readiness, bad operational metrics, or unrecorded reviewer judgment.",
-      solution: "Built a local-first review workspace that turns those release criteria into editable fields, blocking gates, deterministic decision output, copyable review packets, JSON import/export, local persistence, and a Playwright-tested core flow. The tool makes the deployment decision explicit instead of leaving it as an informal checklist.",
+      problem: "A release or operational handoff can fail when evidence, ownership, blocking conditions, rollback readiness, and reviewer judgment remain implicit or scattered across documents.",
+      solution: "Built a local-first review workspace that turns those criteria into editable fields, blocking gates, deterministic decision output, copyable review packets, JSON import/export, local persistence, and a Playwright-tested core flow. The tool is an independent workflow model, not a representation of Manmul Joseon's internal process.",
     },
     architecture: `[Reviewer]
     |
@@ -660,5 +660,101 @@ export const projects: Project[] = [
     status: 'released',
     category: 'web',
     period: '2026.06 - Present',
+  },
+  {
+    id: 10,
+    title: "DrawingFlow",
+    summary: "Drawing revision impact control for ship-design and manufacturing DX workflows, connecting independent review, downstream impact evidence, controlled issue, production acknowledgement, and closure.",
+    description: "DrawingFlow is an independent ship-design DX case study that turns drawing revisions into a traceable operational workflow. Designers register change reasons, risk, mitigation, and downstream impacts; reviewers independently approve and issue revisions; production users acknowledge the controlled issue before closure. Project-scoped authorization protects every read and mutation, PostgreSQL enforces an append-only audit trail, CSV register imports are validated in batches, and workflow notifications use a durable outbox. The public deployment uses Neon PostgreSQL and synthetic vessel, drawing, person, and event data only. It is not an employer system and contains no customer or production information.",
+    deliveryContext: {
+      type: "Personal portfolio project / independent ship-design DX case study",
+      role: "Solo domain modeling, product design, full-stack implementation, database design, testing, and deployment",
+      environment: "Five demo roles, two synthetic vessel projects, 30 drawings, 50 seeded revisions, and controlled CSV metadata imports",
+      deployment: "Public Vercel application with managed Neon PostgreSQL; no employer data or production CAD files",
+      outcome: "End-to-end Draft to Closed workflow with project isolation, database-enforced audit immutability, 12 unit tests, 4 browser scenarios, and production desktop/mobile verification",
+    },
+    evidence: {
+      implemented: [
+        "Draft, independent review, approval, controlled issue, production acknowledgement, and closure gates",
+        "Project-scoped memberships and role authorization for every protected query and server mutation",
+        "Drawing-to-process, work-package, material, schedule, quality, and safety impact records",
+        "PostgreSQL append-only audit trigger plus transactional audit and notification events",
+        "Validated CSV drawing-register import with batch status, row errors, and synthetic-data boundary",
+        "Typed REST PDM adapter contract and durable webhook notification outbox",
+      ],
+      verified: [
+        "12 Vitest checks across workflow rules, CSV validation, export safety, and PDM payload validation",
+        "4 Playwright scenarios covering multi-role completion, project isolation, CSV import, and mobile usability",
+        "Database mutation check confirms audit UPDATE and DELETE operations are rejected",
+        "Production Vercel and Neon deployment verified on desktop and mobile with zero console errors",
+      ],
+      future: [
+        "Organization-managed SSO credentials and identity lifecycle provisioning",
+        "Live CAD/PDM connector configured against an approved non-production integration environment",
+        "ERP work-package synchronization and organization-specific notification destinations",
+        "CAD preview and visual revision comparison without storing proprietary binaries in the portfolio demo",
+      ],
+    },
+    techStack: [
+      { name: "TypeScript", category: "language" },
+      { name: "Next.js 16 App Router", category: "framework" },
+      { name: "React 19", category: "framework" },
+      { name: "Tailwind CSS 4", category: "library" },
+      { name: "Auth.js", category: "library" },
+      { name: "PostgreSQL / Neon", category: "infrastructure" },
+      { name: "Prisma 7", category: "tool" },
+      { name: "Zod / csv-parse", category: "library" },
+      { name: "Project-Scoped RBAC", category: "tool" },
+      { name: "Transactional Outbox", category: "tool" },
+      { name: "Vitest", category: "tool" },
+      { name: "Playwright", category: "tool" },
+      { name: "Docker Compose", category: "infrastructure" },
+      { name: "Vercel", category: "infrastructure" },
+    ],
+    technicalChallenge: {
+      problem: "A drawing revision can affect fabrication sequence, downstream work packages, materials, inspection, schedule, and field execution. A useful system must make those impacts reviewable while preventing users from bypassing project boundaries, release gates, or audit evidence.",
+      solution: "Modeled explicit revision states and transition policies, stored impact links as structured records, checked project memberships in both reads and mutations, committed business changes with audit and notification events in one transaction, and added a PostgreSQL trigger that rejects audit updates or deletes. Bounded CSV and typed PDM interfaces isolate external metadata from the core workflow.",
+    },
+    architecture: `[Designer / Reviewer / Production / Admin / Viewer]
+    |
+[Auth.js Session + Project Membership]
+    |
+[Next.js App Router]
+    |-- Command dashboard and drawing register
+    |-- Revision impact form and review queue
+    |-- Controlled issue and production acknowledgement
+    |-- Audit, integration, and security views
+    |
+[Server Actions + Data Access Layer]
+    |-- Project-scoped authorization
+    |-- Zod workflow validation
+    |-- State-transition policy engine
+    |
+[Prisma Transactions]
+    |-- Revision and impact records
+    |-- Review / acknowledgement evidence
+    |-- Audit event + notification outbox
+    |
+[PostgreSQL / Neon]
+    |-- Append-only audit trigger
+    |-- Project membership constraints
+    |
+[Controlled Interfaces]
+    |-- Validated CSV import batches
+    |-- Typed REST PDM adapter
+    |-- Webhook notification delivery` ,
+    githubUrl: "https://github.com/jiwonjae-svg/drawing-revision-impact-tracker",
+    liveUrl: "https://drawing-revision-impact-tracker.vercel.app",
+    thumbnails: ["/images/DrawingFlowDashboard.png"],
+    metrics: [
+      { label: "Workflow", value: "5 Controlled States" },
+      { label: "Demo Data", value: "30 Drawings / 50 Revisions" },
+      { label: "Authorization", value: "Project-Scoped RBAC" },
+      { label: "Audit", value: "DB Append-Only" },
+      { label: "QA", value: "12 Unit / 4 E2E" },
+    ],
+    status: 'released',
+    category: 'web',
+    period: '2026.07 - Present',
   },
 ];

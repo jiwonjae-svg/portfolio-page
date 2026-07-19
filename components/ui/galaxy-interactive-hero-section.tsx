@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import {
   ArrowDown,
-  ArrowRight,
   Code2,
   Database,
+  Download,
   Github,
   Globe2,
   Mail,
@@ -18,15 +18,15 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { label: 'Evidence', href: '#recruiter-snapshot' },
-  { label: 'Projects', href: '#featured-projects' },
+  { label: 'Experience', href: '#recruiter-snapshot' },
+  { label: 'DX Cases', href: '#featured-projects' },
   { label: 'Japan', href: '#japan-readiness' },
   { label: 'Contact', href: '#contact' },
 ];
 
 const heroWords = [
-  ['TypeScript', 'full-stack'],
-  ['systems', 'with', 'proof.'],
+  ['Ship', 'design', 'engineering'],
+  ['for', 'manufacturing', 'DX.'],
 ];
 
 const revealContainer: Variants = {
@@ -103,14 +103,14 @@ function HeroBackground() {
 const candidateFacts = [
   {
     label: 'Target role',
-    value: 'TypeScript / Next.js full-stack · internal tools & AI workflow',
+    value: 'Ship design · manufacturing DX · engineering systems',
   },
   {
-    label: 'Career stage',
-    value: 'Software career transition · 4+ years professional engineering experience',
+    label: 'Professional base',
+    value: '4+ years in ship design and engineering delivery',
   },
-  { label: 'Current location', value: 'Korea-based' },
-  { label: 'Relocation', value: 'Japan after visa process · remote start possible' },
+  { label: 'Design scope', value: 'Basic design · detailed design · construction workflow' },
+  { label: 'Current location', value: 'Korea-based · Japan relocation intended' },
   { label: 'Visa', value: 'Work visa sponsorship required' },
   {
     label: 'Interview language',
@@ -233,7 +233,7 @@ function HeroContent() {
       variants={revealContainer}
     >
       <motion.div className="mb-4 hidden flex-wrap items-center gap-2 sm:flex" variants={revealContainer}>
-        {['TypeScript', 'Next.js', 'Internal tools', 'AI workflow'].map((tag) => (
+        {['Ship design', 'Manufacturing DX', 'Workflow automation', 'Quality'].map((tag) => (
           <motion.span
             key={tag}
             className="rounded-full border border-white/10 bg-black/35 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-300 backdrop-blur-md"
@@ -246,7 +246,7 @@ function HeroContent() {
 
       <motion.h1
         className="max-w-4xl py-1 text-4xl font-black leading-[1.08] tracking-normal text-white sm:text-6xl md:text-6xl xl:text-6xl 2xl:text-8xl"
-        aria-label="TypeScript full-stack systems with proof."
+        aria-label="Ship design engineering for manufacturing DX."
         variants={revealContainer}
       >
         {heroWords.map((line, lineIndex) => (
@@ -271,9 +271,9 @@ function HeroContent() {
         className="mt-4 max-w-2xl text-base leading-6 text-slate-300 md:leading-7"
         variants={fadeInUp}
       >
-        Korea-based candidate focused on TypeScript and Next.js full-stack development for internal
-        tools and AI-enabled workflows. The strongest evidence is project-based implementation with
-        PostgreSQL, access control, automated testing, release gates, and documented operational scope.
+        Ship design engineer with 4+ years of professional experience in structural drawing analysis,
+        construction workflow coordination, and schedule recovery. I build independent digital tools
+        for technical-document retrieval, traceable workflows, validation, and process improvement.
       </motion.p>
 
       <motion.div variants={fadeInUp}>
@@ -287,17 +287,18 @@ function HeroContent() {
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
         >
-          View hiring evidence
+          Review DX evidence
           <ArrowDown className="h-4 w-4" />
         </motion.a>
         <motion.a
-          href="#recruiter-snapshot"
+          href="/resume/WONJIP_CHOI_Ship_Design_Manufacturing_DX_CV.pdf"
+          download
           className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-black/45 px-6 py-3 text-sm font-semibold text-slate-200 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
         >
-          Start review path
-          <ArrowRight className="h-4 w-4" />
+          Download CV
+          <Download className="h-4 w-4" />
         </motion.a>
       </motion.div>
     </motion.div>
@@ -306,9 +307,9 @@ function HeroContent() {
 
 function CandidatePreviewPanel() {
   const proofItems = [
-    { label: 'DocuMind', value: 'RAG + citations', icon: Database },
-    { label: 'OpsFlow', value: 'release gates', icon: ShieldCheck },
-    { label: 'Career context', value: '4+ yrs engineering', icon: Code2 },
+    { label: 'Professional base', value: '4+ yrs ship design', icon: Code2 },
+    { label: 'Delivery result', value: 'critical schedule recovered', icon: ShieldCheck },
+    { label: 'DrawingFlow', value: 'revision impact control', icon: Database },
     { label: 'Japan signal', value: 'visa support required', icon: Globe2 },
   ];
 
@@ -326,11 +327,11 @@ function CandidatePreviewPanel() {
 
       <pre className="overflow-hidden rounded-lg border border-white/10 bg-black/60 p-4 text-[11px] leading-5 text-slate-300">
         <code>{`const candidate = {
-  role: 'TS / Next.js full-stack',
-  focus: ['internal tools', 'AI workflow'],
-  stack: ['Next.js', 'PostgreSQL'],
-  proof: ['tests', 'audit logs', 'release gates'],
-  career: 'transitioning from 4+ yrs engineering',
+  role: 'ship design + manufacturing DX',
+  domain: ['drawings', 'workflow', 'delivery'],
+  digital: ['Next.js', 'PostgreSQL', 'workflow DX'],
+  proof: ['4+ yrs', 'DB audit control', 'tested delivery'],
+  scope: 'independent DX case studies',
   japan: 'relocation + visa sponsorship required'
 };`}</code>
       </pre>
@@ -362,7 +363,7 @@ function EvidenceScreenshot() {
           <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
           <span className="h-2.5 w-2.5 rounded-full bg-lime-300" />
           <span className="ml-3 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">
-            Hiring evidence preview
+            Engineering and DX evidence preview
           </span>
         </div>
 
@@ -370,21 +371,21 @@ function EvidenceScreenshot() {
           <div className="border-b border-white/10 p-6 lg:border-b-0 lg:border-r">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-cyan-200">Review path</p>
             <h2 className="mt-3 text-3xl font-bold leading-tight text-white md:text-4xl">
-              Start with DocuMind and OpsFlow, then inspect browser performance work.
+              Start with professional ship-design delivery, then review the independent DX systems.
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-400">
-              The portfolio keeps the strongest hiring evidence above the fold: TypeScript/Next.js
-              workflow systems, PostgreSQL, tests, release gates, and Japan readiness. WebGL remains
-              supporting evidence.
+              Professional experience and portfolio work are deliberately separated. Shipbuilding-domain
+              judgment is the foundation; DrawingFlow, DocuMind, and OpsFlow demonstrate how I translate drawing,
+              document, review, traceability, and quality needs into working software.
             </p>
           </div>
 
           <div className="grid gap-3 p-6 sm:grid-cols-2">
             {[
-              ['AI workflow', 'RAG search, citations, audit logs'],
-              ['QA automation', '55 DocuMind test files / 339 tests'],
-              ['Career context', '4+ years professional ship-design engineering'],
-              ['Japan signal', 'Working holiday, conversational Japanese, visa support required'],
+              ['Professional base', '4+ years in ship design and engineering delivery'],
+              ['Schedule recovery', 'Reprioritized remaining work and completed without delivery delay'],
+              ['Independent DX', 'Drawing revision control, document retrieval, audit evidence, release review'],
+              ['Quality evidence', 'DrawingFlow 12 unit / 4 E2E; DocuMind 339 tests'],
             ].map(([label, value]) => (
               <div key={label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-lime-200">{label}</p>
